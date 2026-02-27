@@ -175,7 +175,7 @@
   width: 100%;
 }
 
-/* 标签和其他元素的隐藏 */
+/* 标签和其他元素的处理 */
 .index.posts-card .post-tags {
   display: none;
 }
@@ -191,4 +191,27 @@
 /* 首页描述的隐藏 */
 .index.posts-card .post-description {
   display: none;
+}
+
+/* 首页标签样式 - 新增的post-meta-tags */
+.index.posts-card .post-meta-tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.index.posts-card .post-tag-link {
+  background: #f0f2f5;
+  color: #0084ff;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.index.posts-card .post-tag-link:hover {
+  background: #e4e6eb;
+  color: #005a93;
 }
