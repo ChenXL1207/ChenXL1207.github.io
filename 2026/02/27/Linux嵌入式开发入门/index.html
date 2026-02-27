@@ -20,25 +20,29 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"chenxl1207.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="记录思想，分享知识，思考人生">
-<meta property="og:type" content="website">
-<meta property="og:title" content="ChenXuanliang Blog">
-<meta property="og:url" content="https://chenxl1207.github.io/tags/%E5%8D%9A%E5%AE%A2/index.html">
+    <meta name="description" content="本文介绍Linux嵌入式开发的基础知识...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux嵌入式开发入门">
+<meta property="og:url" content="https://chenxl1207.github.io/2026/02/27/Linux%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8/index.html">
 <meta property="og:site_name" content="ChenXuanliang Blog">
-<meta property="og:description" content="记录思想，分享知识，思考人生">
+<meta property="og:description" content="本文介绍Linux嵌入式开发的基础知识...">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-02-27T06:00:00.000Z">
+<meta property="article:modified_time" content="2026-02-27T13:58:43.105Z">
 <meta property="article:author" content="Chen Xuanliang">
-<meta property="article:tag" content="博客,技术,生活">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="学习">
+<meta property="article:tag" content="嵌入式">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://chenxl1207.github.io/tags/%E5%8D%9A%E5%AE%A2/">
+<link rel="canonical" href="https://chenxl1207.github.io/2026/02/27/Linux%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"tags/博客/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://chenxl1207.github.io/2026/02/27/Linux%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8/","path":"2026/02/27/Linux嵌入式开发入门/","title":"Linux嵌入式开发入门"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>标签: 博客 | ChenXuanliang Blog</title>
+<title>Linux嵌入式开发入门 | ChenXuanliang Blog</title>
   
 
 
@@ -115,7 +119,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -128,6 +132,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AE%B9%E5%8C%85%E6%8B%AC"><span class="nav-number">1.1.</span> <span class="nav-text">内容包括</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90"><span class="nav-number">2.</span> <span class="nav-text">学习资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -165,50 +170,131 @@
 
     </div>
 
-    <div class="main-inner tag posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
+
+
+<div class="post-block">
   
   
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h1 class="collection-header">博客
-          <small>标签</small>
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/02/27/Linux%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chen Xuanliang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChenXuanliang Blog">
+      <meta itemprop="description" content="记录思想，分享知识，思考人生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Linux嵌入式开发入门 | ChenXuanliang Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux嵌入式开发入门
         </h1>
-      </div>
 
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2026</span>
+
+      <time title="创建时间：2026-02-27 14:00:00 / 修改时间：21:58:43" itemprop="dateCreated datePublished" datetime="2026-02-27T14:00:00+08:00">2026-02-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Linux%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">Linux嵌入式开发学习</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+          
+            <div class="post-back-button" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee;">
+              <a href="/categories/undefined/" class="back-btn" title="返回分类">
+                <i class="fa fa-arrow-left"></i> 返回分类
+              </a>
+            </div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>这是一篇关于 Linux 嵌入式开发的文章。</p>
+<h3 id="内容包括"><a href="#内容包括" class="headerlink" title="内容包括"></a>内容包括</h3><ul>
+<li>Linux 系统基础</li>
+<li>嵌入式硬件开发</li>
+<li>交叉编译工具</li>
+<li>设备驱动开发</li>
+</ul>
+<h2 id="学习资源"><a href="#学习资源" class="headerlink" title="学习资源"></a>学习资源</h2><p>推荐学习资源和开发工具…</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Linux 嵌入式开发是一个充满挑战的领域，但也充满了机遇。</p>
+<hr>
+<blockquote>
+<p>💡 <strong>提示</strong>：点击上方的”返回分类”按钮可以回到该分类的所有文章列表。</p>
+</blockquote>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2026-02-27T12:00:00+08:00"
-              content="2026-02-27">
-          02-27
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2026/02/27/%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0-%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" itemprop="url">
-            <span itemprop="name">第一篇文章 - 如何写好一篇博客</span>
-          </a>
-      </div>
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag"># 嵌入式</a>
+              <a href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag"># 学习</a>
+          </div>
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/02/27/%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0-%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" rel="prev" title="第一篇文章 - 如何写好一篇博客">
+                  <i class="fa fa-angle-left"></i> 第一篇文章 - 如何写好一篇博客
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+
+    
+      <div class="post-back-button">
+        <a href="/categories/undefined/" class="back-btn" title="返回分类">
+          <i class="fa fa-arrow-left"></i> 返回分类：
+        </a>
+        <a href="/" class="back-btn" title="返回首页">
+          <i class="fa fa-home"></i> 返回首页
+        </a>
+      </div>
   </article>
+</div>
 
-    </div>
-  </div>
-  
-  
-  
+
+
+
+
 
 </div>
   </main>

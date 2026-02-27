@@ -1,0 +1,29 @@
+/* 返回按钮样式 */
+.post-back-button {
+  margin: 15px 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.back-btn {
+  display: inline-block;
+  padding: 6px 12px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  margin-right: 10px;
+}
+
+.back-btn:hover {
+  background-color: #e8e8e8;
+  border-color: #aaa;
+  color: #000;
+}
+
+.back-btn i {
+  margin-right: 5px;
+}
