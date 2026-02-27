@@ -1,0 +1,194 @@
+/* 知乎风格首页卡片布局 */
+
+/* 首页卡片模式 */
+.index.posts-card .post-block {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border-left: 4px solid transparent;
+}
+
+.index.posts-card .post-block:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-left-color: #0084ff;
+  transform: translateY(-2px);
+}
+
+/* 首页文章标题 */
+.index.posts-card .post-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.index.posts-card .post-title-link {
+  color: #262626;
+  text-decoration: none;
+}
+
+.index.posts-card .post-title-link:hover {
+  color: #0084ff;
+}
+
+/* 首页文章元信息 */
+.index.posts-card .post-meta-container {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13px;
+  color: #65676b;
+}
+
+.index.posts-card .post-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.index.posts-card .post-meta-item i {
+  color: #0084ff;
+}
+
+/* 消除首页分类显示的多余样式 */
+.index.posts-card .post-back-button {
+  display: none;
+}
+
+/* 首页摘要文本 */
+.index.posts-card .post-body {
+  color: #495057;
+  line-height: 1.6;
+  font-size: 14px;
+  max-height: 100px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  margin-bottom: 12px;
+}
+
+.index.posts-card .post-body p {
+  margin: 0;
+  padding: 0;
+}
+
+/* 首页分类标签 */
+.index.posts-card .post-categories {
+  display: inline-block;
+  background: #f0f2f5;
+  color: #0084ff;
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 12px;
+  margin-right: 8px;
+  margin-bottom: 12px;
+  transition: all 0.2s ease;
+}
+
+.index.posts-card .post-categories:hover {
+  background: #e4e6eb;
+}
+
+.index.posts-card .post-categories a {
+  color: #0084ff;
+  text-decoration: none;
+}
+
+.index.posts-card .post-categories a:hover {
+  color: #005a93;
+}
+
+/* "阅读更多"按钮样式 */
+.index.posts-card .post-button {
+  margin-top: 12px;
+}
+
+.index.posts-card .post-button .btn {
+  background: #f0f2f5;
+  color: #0084ff;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.index.posts-card .post-button .btn:hover {
+  background: #0084ff;
+  color: #fff;
+  border-color: #0084ff;
+}
+
+/* 隐藏首页的 post-eof 分隔符 */
+.index.posts-card .post-eof {
+  display: none;
+}
+
+/* 首页的文章容器 */
+.index.posts-card {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* 移除首页的 post-expand 样式冲突 */
+.index.posts-card .post-gallery {
+  margin-bottom: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.index.posts-card .post-gallery img {
+  max-height: 200px;
+  object-fit: cover;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .index.posts-card .post-block {
+    padding: 16px;
+  }
+
+  .index.posts-card .post-title {
+    font-size: 16px;
+  }
+
+  .index.posts-card .post-body {
+    font-size: 13px;
+    -webkit-line-clamp: 2;
+  }
+
+  .index.posts-card .post-meta-container {
+    font-size: 12px;
+  }
+}
+
+/* 首页没有侧边栏时的全宽处理 */
+.index.posts-card.main-content-wrap {
+  width: 100%;
+}
+
+/* 标签和其他元素的隐藏 */
+.index.posts-card .post-tags {
+  display: none;
+}
+
+.index.posts-card .post-footer {
+  display: none;
+}
+
+.index.posts-card .post-nav {
+  display: none;
+}
+
+/* 首页描述的隐藏 */
+.index.posts-card .post-description {
+  display: none;
+}
