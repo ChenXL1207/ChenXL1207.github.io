@@ -243,7 +243,7 @@
 </thead>
 <tbody><tr>
 <td>📧 <strong>邮箱</strong></td>
-<td><a href="mailto:&#67;&#104;&#101;&#x6e;&#88;&#76;&#x33;&#53;&#48;&#x38;&#56;&#x40;&#49;&#x36;&#x33;&#x2e;&#99;&#111;&#109;">ChenXL35088@163.com</a></td>
+<td><a href="mailto:&#67;&#x68;&#101;&#110;&#x58;&#x4c;&#51;&#x35;&#48;&#56;&#56;&#x40;&#x31;&#x36;&#51;&#46;&#x63;&#x6f;&#x6d;">ChenXL35088@163.com</a></td>
 </tr>
 <tr>
 <td>📱 <strong>电话</strong></td>
@@ -325,46 +325,31 @@
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
 
-<!-- 看板娘 - L2Dwidget -->
-<script src="https://cdn.jsdelivr.net/gh/L2Dwidget/Bezier@master/dist/Bezier.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/L2Dwidget/L2Dwidget@latest/dist/L2Dwidget.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/L2Dwidget/Sentient@master/dist/Sentient.js"></script>
-
+<!-- 看板娘 -->
+<script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script>
 <script>
+  // 看板娘配置
   L2Dwidget.init({
     "model": {
-      // 看板娘模型 - 这是一个免费的开源模型
-      "jsonPath": "https://cdn.jsdelivr.net/gh/L2Dwidget/Moc@master/moc3/unitychan/unitychan.model.json",
-      "scale": 1
+      jsonPath: "https://cdn.jsdelivr.net/npm/live2d-widget-model-unitychan@1.0.0/assets/unitychan.model.json",
+      scale: 1
     },
     "display": {
-      "position": "right",        // 右下角
-      "width": 200,              // 宽度
-      "height": 350,             // 高度
-      "hOffset": 0,              // 横向偏移
-      "vOffset": 0               // 纵向偏移
+      "position": "right",
+      "width": 200,
+      "height": 300,
+      "hOffset": 0,
+      "vOffset": 0
     },
     "mobile": {
-      "show": false              // 手机设备隐藏（可选）
+      "show": false
     },
     "react": {
-      "opacityDefault": 0.7,     // 默认透明度
-      "opacityOnHover": 0.8      // 悬停透明度
+      "opacityDefault": 0.8,
+      "opacityOnHover": 1
     }
   });
 </script>
-
-<style>
-  /* 看板娘样式优化 */
-  #l2d_widget_container {
-    z-index: 999 !important;
-  }
-  
-  /* 确保在深色模式下也能正常显示 */
-  #l2d_canvas {
-    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.2));
-  }
-</style>
 
 </body>
 </html>
