@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://chenxl1207.github.io/js/live2d-widget/stats</loc>
+    
+    <lastmod>2026-02-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://chenxl1207.github.io/js/live2d-widget/manifest.json</loc>
+    
+    <lastmod>2026-02-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://chenxl1207.github.io/categories/index.html</loc>
     
     <lastmod>2026-02-28</lastmod>
@@ -56,15 +74,6 @@
   </url>
   
   <url>
-    <loc>https://chenxl1207.github.io/2026/02/27/linux-embedded-guide/</loc>
-    
-    <lastmod>2026-02-27</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://chenxl1207.github.io/2026/02/27/cpp-development-practices/</loc>
     
     <lastmod>2026-02-27</lastmod>
@@ -75,6 +84,15 @@
   
   <url>
     <loc>https://chenxl1207.github.io/2026/02/27/research-exchange/</loc>
+    
+    <lastmod>2026-02-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://chenxl1207.github.io/2026/02/27/linux-embedded-guide/</loc>
     
     <lastmod>2026-02-27</lastmod>
     
@@ -161,13 +179,6 @@
   </url>
   
   <url>
-    <loc>https://chenxl1207.github.io/tags/%E7%B3%BB%E7%BB%9F/</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://chenxl1207.github.io/tags/C/</loc>
     <lastmod>2026-02-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -210,6 +221,13 @@
   </url>
   
   <url>
+    <loc>https://chenxl1207.github.io/tags/%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://chenxl1207.github.io/tags/%E6%A0%87%E7%AD%BE1/</loc>
     <lastmod>2026-02-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -231,20 +249,6 @@
   </url>
   
   <url>
-    <loc>https://chenxl1207.github.io/tags/%E6%80%9D%E8%80%83/</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://chenxl1207.github.io/tags/%E4%BA%BA%E7%94%9F/</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://chenxl1207.github.io/tags/%E5%8D%9A%E5%AE%A2/</loc>
     <lastmod>2026-02-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -253,6 +257,20 @@
   
   <url>
     <loc>https://chenxl1207.github.io/tags/%E5%86%99%E4%BD%9C/</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://chenxl1207.github.io/tags/%E6%80%9D%E8%80%83/</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://chenxl1207.github.io/tags/%E4%BA%BA%E7%94%9F/</loc>
     <lastmod>2026-02-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

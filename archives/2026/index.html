@@ -412,38 +412,30 @@
 </noscript>
 
 <!-- Live2D 看板娘 -->
-<script src="https://cdn.jsdelivr.net/gh/L2Dwidget/Bezier@master/dist/Bezier.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/L2Dwidget/L2Dwidget@latest/dist/L2Dwidget.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/L2Dwidget/Sentient@master/dist/Sentient.js"></script>
-
+<script src="/js/live2d-widget/L2Dwidget.min.js"></script>
 <script>
-  // 等待所有库加载完成后初始化
-  window.addEventListener('load', function() {
-    setTimeout(function() {
-      if (typeof L2Dwidget !== 'undefined') {
-        L2Dwidget.init({
-          "model": {
-            "jsonPath": "https://cdn.jsdelivr.net/gh/L2Dwidget/Moc@master/moc3/unitychan/unitychan.model.json",
-            "scale": 1
-          },
-          "display": {
-            "position": "right",
-            "width": 200,
-            "height": 350,
-            "hOffset": 0,
-            "vOffset": 0
-          },
-          "mobile": {
-            "show": false
-          },
-          "react": {
-            "opacityDefault": 0.7,
-            "opacityOnHover": 0.8
-          }
-        });
+  if (window.L2Dwidget) {
+    L2Dwidget.init({
+      "model": {
+        "jsonPath": "https://cdn.jsdelivr.net/gh/L2Dwidget/Moc@master/moc3/unitychan/unitychan.model.json",
+        "scale": 1
+      },
+      "display": {
+        "position": "right",
+        "width": 200,
+        "height": 350,
+        "hOffset": 0,
+        "vOffset": 0
+      },
+      "mobile": {
+        "show": false
+      },
+      "react": {
+        "opacityDefault": 0.7,
+        "opacityOnHover": 0.8
       }
-    }, 500);
-  });
+    });
+  }
 </script>
 
 </body>
