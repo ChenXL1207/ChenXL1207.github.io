@@ -272,182 +272,38 @@
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
 
-<!-- 蓝色AI助手角色 -->
-<div id="assistant-character" class="assistant-container">
-  <div class="assistant-body">
-    <div class="assistant-head">
-      <div class="assistant-eyes">
-        <div class="eye eye-left"></div>
-        <div class="eye eye-right"></div>
-      </div>
-      <div class="assistant-mouth"></div>
-    </div>
-    <div class="assistant-torso"></div>
-  </div>
-  <div class="assistant-speech" id="speech-bubble"></div>
-</div>
-
-<style>
-  .assistant-container {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    z-index: 999;
-    animation: float 3s ease-in-out infinite;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-  }
-
-  .assistant-body {
-    width: 120px;
-    height: 160px;
-    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
-    border-radius: 30px 30px 60px 60px;
-    position: relative;
-    box-shadow: 0 10px 30px rgba(74, 144, 226, 0.3);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .assistant-body:hover {
-    box-shadow: 0 15px 40px rgba(74, 144, 226, 0.5);
-    transform: scale(1.05);
-  }
-
-  .assistant-head {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, #5ca3f0 0%, #357abd 100%);
-    border-radius: 50%;
-    position: relative;
-    margin-bottom: 5px;
-  }
-
-  .assistant-eyes {
-    display: flex;
-    justify-content: space-around;
-    padding-top: 25px;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  .eye {
-    width: 12px;
-    height: 12px;
-    background: white;
-    border-radius: 50%;
-    position: relative;
-  }
-
-  .eye::after {
-    content: '';
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    background: #357abd;
-    border-radius: 50%;
-    top: 3px;
-    left: 3px;
-  }
-
-  .assistant-mouth {
-    width: 30px;
-    height: 8px;
-    background: #f0a8a8;
-    border-radius: 50%;
-    position: absolute;
-    bottom: 12px;
-    left: 25px;
-  }
-
-  .assistant-torso {
-    width: 60px;
-    height: 40px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 100%);
-    border-radius: 20px;
-  }
-
-  .assistant-speech {
-    position: absolute;
-    top: -50px;
-    right: 0;
-    background: white;
-    border: 2px solid #4a90e2;
-    border-radius: 12px;
-    padding: 10px 15px;
-    font-size: 12px;
-    color: #357abd;
-    font-weight: bold;
-    white-space: nowrap;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    box-shadow: 0 5px 15px rgba(74, 144, 226, 0.2);
-  }
-
-  .assistant-speech::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    right: 15px;
-    width: 0;
-    height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-top: 8px solid #4a90e2;
-  }
-
-  .assistant-container:hover .assistant-speech {
-    opacity: 1;
-  }
-
-  @media (max-width: 768px) {
-    .assistant-container {
-      right: 10px;
-      bottom: 10px;
-    }
-
-    .assistant-body {
-      width: 90px;
-      height: 120px;
-    }
-
-    .assistant-head {
-      width: 60px;
-      height: 60px;
-    }
-  }
-</style>
+<!-- Live2D 看板娘 -->
+<script src="https://cdn.jsdelivr.net/gh/L2Dwidget/Bezier@master/dist/Bezier.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/L2Dwidget/L2Dwidget@latest/dist/L2Dwidget.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/L2Dwidget/Sentient@master/dist/Sentient.js"></script>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const speechBubble = document.getElementById('speech-bubble');
-    const messages = [
-      '你好呀！',
-      '欢迎来访~',
-      '我是AI助手',
-      '有问题吗？',
-      '继续加油！'
-    ];
-    let messageIndex = 0;
-
-    function updateMessage() {
-      speechBubble.textContent = messages[messageIndex];
-      messageIndex = (messageIndex + 1) % messages.length;
-    }
-
-    const assistant = document.getElementById('assistant-character');
-    assistant.addEventListener('click', updateMessage);
-    
-    // 每隔5秒自动更换文字
-    setInterval(updateMessage, 5000);
-    updateMessage();
+  // 等待所有库加载完成后初始化
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      if (typeof L2Dwidget !== 'undefined') {
+        L2Dwidget.init({
+          "model": {
+            "jsonPath": "https://cdn.jsdelivr.net/gh/L2Dwidget/Moc@master/moc3/unitychan/unitychan.model.json",
+            "scale": 1
+          },
+          "display": {
+            "position": "right",
+            "width": 200,
+            "height": 350,
+            "hOffset": 0,
+            "vOffset": 0
+          },
+          "mobile": {
+            "show": false
+          },
+          "react": {
+            "opacityDefault": 0.7,
+            "opacityOnHover": 0.8
+          }
+        });
+      }
+    }, 500);
   });
 </script>
 
