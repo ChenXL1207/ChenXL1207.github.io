@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://chenxl1207.github.io/2026/02/28/RAG_study/</loc>
+    <loc>https://chenxl1207.github.io/2026/02/27/RAG_study/</loc>
     
     <lastmod>2026-02-28</lastmod>
     
@@ -146,27 +146,6 @@
 
   
   <url>
-    <loc>https://chenxl1207.github.io/tags/Linux/</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://chenxl1207.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://chenxl1207.github.io/tags/%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://chenxl1207.github.io/tags/C/</loc>
     <lastmod>2026-02-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -188,6 +167,27 @@
   </url>
   
   <url>
+    <loc>https://chenxl1207.github.io/tags/Linux/</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://chenxl1207.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://chenxl1207.github.io/tags/%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://chenxl1207.github.io/tags/AI/</loc>
     <lastmod>2026-02-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -195,14 +195,7 @@
   </url>
   
   <url>
-    <loc>https://chenxl1207.github.io/tags/RAG/</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://chenxl1207.github.io/tags/LangChain/</loc>
+    <loc>https://chenxl1207.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2026-02-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -210,13 +203,6 @@
   
   <url>
     <loc>https://chenxl1207.github.io/tags/Python/</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://chenxl1207.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2026-02-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -251,6 +237,20 @@
   </url>
   
   <url>
+    <loc>https://chenxl1207.github.io/tags/%E6%80%9D%E8%80%83/</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://chenxl1207.github.io/tags/%E4%BA%BA%E7%94%9F/</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://chenxl1207.github.io/tags/%E6%A0%87%E7%AD%BE1/</loc>
     <lastmod>2026-02-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -266,20 +266,6 @@
   
   <url>
     <loc>https://chenxl1207.github.io/tags/%E6%A0%87%E7%AD%BE3/</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://chenxl1207.github.io/tags/%E6%80%9D%E8%80%83/</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://chenxl1207.github.io/tags/%E4%BA%BA%E7%94%9F/</loc>
     <lastmod>2026-02-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -302,14 +288,14 @@
 
   
   <url>
-    <loc>https://chenxl1207.github.io/categories/linux-embedded/</loc>
+    <loc>https://chenxl1207.github.io/categories/cpp-development/</loc>
     <lastmod>2026-02-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://chenxl1207.github.io/categories/cpp-development/</loc>
+    <loc>https://chenxl1207.github.io/categories/linux-embedded/</loc>
     <lastmod>2026-02-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

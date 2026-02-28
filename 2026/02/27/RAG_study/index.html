@@ -20,30 +20,29 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"chenxl1207.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="RAG和LangChain学习设计路线 RAG基本概念 LangChain、OpenAI Embeddings等中间件学习 RAG中的数据处理（文档加载、分割） Embedding（文本嵌入、向量化） 向量数据库（存储与检索） 大模型调用（生成式回答） RAG项目实战（端到端开发）">
+    <meta name="description" content="C++软件开发中的设计模式和最佳实践总结...">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RAG">
-<meta property="og:url" content="https://chenxl1207.github.io/2026/02/28/RAG_study/index.html">
+<meta property="og:title" content="C++软件开发最佳实践">
+<meta property="og:url" content="https://chenxl1207.github.io/2026/02/27/RAG_study/index.html">
 <meta property="og:site_name" content="ChenXuanliang Blog">
-<meta property="og:description" content="RAG和LangChain学习设计路线 RAG基本概念 LangChain、OpenAI Embeddings等中间件学习 RAG中的数据处理（文档加载、分割） Embedding（文本嵌入、向量化） 向量数据库（存储与检索） 大模型调用（生成式回答） RAG项目实战（端到端开发）">
+<meta property="og:description" content="C++软件开发中的设计模式和最佳实践总结...">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-02-28T10:00:00.000Z">
-<meta property="article:modified_time" content="2026-02-28T10:17:38.440Z">
+<meta property="article:published_time" content="2026-02-27T04:00:00.000Z">
+<meta property="article:modified_time" content="2026-02-28T10:21:00.121Z">
 <meta property="article:author" content="Chen Xuanliang">
-<meta property="article:tag" content="AI">
-<meta property="article:tag" content="LangChain">
-<meta property="article:tag" content="Python">
-<meta property="article:tag" content="RAG">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="软件工程">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://chenxl1207.github.io/2026/02/28/RAG_study/">
+<link rel="canonical" href="https://chenxl1207.github.io/2026/02/27/RAG_study/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://chenxl1207.github.io/2026/02/28/RAG_study/","path":"2026/02/28/RAG_study/","title":"RAG"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://chenxl1207.github.io/2026/02/27/RAG_study/","path":"2026/02/27/RAG_study/","title":"C++软件开发最佳实践"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>RAG | ChenXuanliang Blog</title>
+<title>C++软件开发最佳实践 | ChenXuanliang Blog</title>
   
 
 
@@ -137,7 +136,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RAG%E5%92%8CLangChain%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">RAG和LangChain学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E8%B7%AF%E7%BA%BF"><span class="nav-number">1.1.</span> <span class="nav-text">设计路线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RAG%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.</span> <span class="nav-text">RAG基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFRAG%EF%BC%9F"><span class="nav-number">1.2.1.</span> <span class="nav-text">什么是RAG？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RAG%E7%9A%84%E6%A0%B8%E5%BF%83%E4%BC%98%E5%8A%BF"><span class="nav-number">1.2.2.</span> <span class="nav-text">RAG的核心优势</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LangChain%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.3.</span> <span class="nav-text">LangChain介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="nav-number">1.3.1.</span> <span class="nav-text">核心组件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.4.</span> <span class="nav-text">实现步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E6%96%87%E6%A1%A3%E5%8A%A0%E8%BD%BD%E4%B8%8E%E5%88%86%E5%89%B2"><span class="nav-number">1.4.1.</span> <span class="nav-text">第一步：文档加载与分割</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E5%90%91%E9%87%8F%E5%8C%96%E5%A4%84%E7%90%86"><span class="nav-number">1.4.2.</span> <span class="nav-text">第二步：向量化处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E5%AD%98%E5%82%A8%E4%B8%8E%E7%B4%A2%E5%BC%95"><span class="nav-number">1.4.3.</span> <span class="nav-text">第三步：存储与索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%9ALLM%E8%B0%83%E7%94%A8"><span class="nav-number">1.4.4.</span> <span class="nav-text">第四步：LLM调用</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#C-%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.</span> <span class="nav-text">C++ 软件开发最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">核心概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 内存管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 设计模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-STL-%E5%AE%B9%E5%99%A8%E9%80%89%E6%8B%A9"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. STL 容器选择</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83"><span class="nav-number">1.2.</span> <span class="nav-text">代码规范</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -161,7 +160,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -188,7 +187,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/02/28/RAG_study/">
+    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/02/27/RAG_study/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -201,12 +200,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="RAG | ChenXuanliang Blog">
+      <meta itemprop="name" content="C++软件开发最佳实践 | ChenXuanliang Blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          RAG
+          C++软件开发最佳实践
         </h1>
 
         <div class="post-meta-container">
@@ -217,9 +216,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2026-02-28 18:00:00 / 修改时间：18:17:38" itemprop="dateCreated datePublished" datetime="2026-02-28T18:00:00+08:00">2026-02-28</time>
+      <time title="创建时间：2026-02-27 12:00:00" itemprop="dateCreated datePublished" datetime="2026-02-27T12:00:00+08:00">2026-02-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-02-28 18:21:00" itemprop="dateModified" datetime="2026-02-28T18:21:00+08:00">2026-02-28</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -227,7 +232,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/ai-development/" itemprop="url" rel="index"><span itemprop="name">ai-development</span></a>
+          <a href="/categories/cpp-development/" itemprop="url" rel="index"><span itemprop="name">cpp-development</span></a>
         </span>
     </span>
 
@@ -247,35 +252,51 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="RAG和LangChain学习"><a href="#RAG和LangChain学习" class="headerlink" title="RAG和LangChain学习"></a>RAG和LangChain学习</h1><h2 id="设计路线"><a href="#设计路线" class="headerlink" title="设计路线"></a>设计路线</h2><ol>
-<li><strong>RAG基本概念</strong></li>
-<li><strong>LangChain、OpenAI Embeddings等中间件学习</strong></li>
-<li><strong>RAG中的数据处理（文档加载、分割）</strong></li>
-<li><strong>Embedding（文本嵌入、向量化）</strong></li>
-<li><strong>向量数据库（存储与检索）</strong></li>
-<li><strong>大模型调用（生成式回答）</strong></li>
-<li><strong>RAG项目实战（端到端开发）</strong></li>
-</ol>
-<span id="more"></span>
+    <div class="post-body" itemprop="articleBody"><h2 id="C-软件开发最佳实践"><a href="#C-软件开发最佳实践" class="headerlink" title="C++ 软件开发最佳实践"></a>C++ 软件开发最佳实践</h2><h3 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h3><h4 id="1-内存管理"><a href="#1-内存管理" class="headerlink" title="1. 内存管理"></a>1. 内存管理</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 推荐：使用智能指针</span></span><br><span class="line"><span class="function">std::unique_ptr&lt;Object&gt; <span class="title">obj</span><span class="params">(<span class="keyword">new</span> Object())</span></span>;</span><br><span class="line">std::shared_ptr&lt;Resource&gt; res = std::<span class="built_in">make_shared</span>&lt;Resource&gt;();</span><br></pre></td></tr></table></figure>
 
-<h2 id="RAG基本概念"><a href="#RAG基本概念" class="headerlink" title="RAG基本概念"></a>RAG基本概念</h2><h3 id="什么是RAG？"><a href="#什么是RAG？" class="headerlink" title="什么是RAG？"></a>什么是RAG？</h3><p>RAG（Retrieval-Augmented Generation，检索增强生成）是一种融合信息检索和生成式模型的技术方案。</p>
-<h3 id="RAG的核心优势"><a href="#RAG的核心优势" class="headerlink" title="RAG的核心优势"></a>RAG的核心优势</h3><ul>
-<li>实时获取最新信息，不受模型训练时间限制</li>
-<li>降低幻觉（Hallucination）问题</li>
-<li>支持自定义数据库</li>
-<li>提高回答的准确性和可靠性</li>
+<h4 id="2-设计模式"><a href="#2-设计模式" class="headerlink" title="2. 设计模式"></a>2. 设计模式</h4><ul>
+<li>Singleton Pattern （单例）</li>
+<li>Factory Pattern （工厂）</li>
+<li>Observer Pattern （观察者）</li>
+<li>Strategy Pattern （策略）</li>
 </ul>
-<h2 id="LangChain介绍"><a href="#LangChain介绍" class="headerlink" title="LangChain介绍"></a>LangChain介绍</h2><p>LangChain是一个强大的框架，用于开发基于LLM的应用程序。</p>
-<h3 id="核心组件"><a href="#核心组件" class="headerlink" title="核心组件"></a>核心组件</h3><ul>
-<li><strong>LLMs</strong>: 语言模型接口</li>
-<li><strong>Documents</strong>: 文档处理</li>
-<li><strong>Retrievers</strong>: 检索器</li>
-<li><strong>Chains</strong>: 链式调用</li>
+<h4 id="3-STL-容器选择"><a href="#3-STL-容器选择" class="headerlink" title="3. STL 容器选择"></a>3. STL 容器选择</h4><table>
+<thead>
+<tr>
+<th>容器</th>
+<th>用途</th>
+<th>性能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>vector</td>
+<td>动态数组</td>
+<td>O(1) 访问</td>
+</tr>
+<tr>
+<td>list</td>
+<td>链表</td>
+<td>O(n) 访问</td>
+</tr>
+<tr>
+<td>map</td>
+<td>键值对</td>
+<td>O(log n) 查询</td>
+</tr>
+<tr>
+<td>unordered_map</td>
+<td>哈希表</td>
+<td>O(1) 平均</td>
+</tr>
+</tbody></table>
+<h3 id="代码规范"><a href="#代码规范" class="headerlink" title="代码规范"></a>代码规范</h3><ul>
+<li>命名规范（camelCase）</li>
+<li>注释风格</li>
+<li>错误处理</li>
+<li>性能优化</li>
 </ul>
-<h2 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h2><h3 id="第一步：文档加载与分割"><a href="#第一步：文档加载与分割" class="headerlink" title="第一步：文档加载与分割"></a>第一步：文档加载与分割</h3><p>选择合适的分割策略确保语义完整性。</p>
-<h3 id="第二步：向量化处理"><a href="#第二步：向量化处理" class="headerlink" title="第二步：向量化处理"></a>第二步：向量化处理</h3><p>使用Embeddings将文本转换为向量表示。</p>
-<h3 id="第三步：存储与索引"><a href="#第三步：存储与索引" class="headerlink" title="第三步：存储与索引"></a>第三步：存储与索引</h3><p>利用向量数据库快速检索相关文档。</p>
-<h3 id="第四步：LLM调用"><a href="#第四步：LLM调用" class="headerlink" title="第四步：LLM调用"></a>第四步：LLM调用</h3><p>基于检索结果生成最终答案。</p>
+<hr>
+<p>💡 点击左侧菜单的”分类”查看该分类的所有文章。</p>
 
     </div>
 
@@ -285,21 +306,23 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/AI/" rel="tag"># AI</a>
-              <a href="/tags/RAG/" rel="tag"># RAG</a>
-              <a href="/tags/LangChain/" rel="tag"># LangChain</a>
-              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/C/" rel="tag"># C++</a>
+              <a href="/tags/%E7%BC%96%E7%A8%8B/" rel="tag"># 编程</a>
+              <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" rel="tag"># 软件工程</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2026/02/27/Linux%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8/" rel="prev" title="Linux嵌入式开发入门">
-                  <i class="fa fa-angle-left"></i> Linux嵌入式开发入门
+                <a href="/2026/02/27/%E6%96%87%E7%AB%A0%E6%A8%A1%E6%9D%BF/" rel="prev" title="文章标题（请修改）">
+                  <i class="fa fa-angle-left"></i> 文章标题（请修改）
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2026/02/27/cpp-development-practices/" rel="next" title="C++软件开发最佳实践">
+                  C++软件开发最佳实践 <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>
