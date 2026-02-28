@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chenxl1207.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="AI应用开发初步探索，RAG与LangChain学习...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RAG">
+<meta property="og:url" content="https://chenxl1207.github.io/2026/02/28/RAG_study/index.html">
+<meta property="og:site_name" content="ChenXuanliang Blog">
+<meta property="og:description" content="AI应用开发初步探索，RAG与LangChain学习...">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chenxl1207.github.io/images/image-20260228200452703.png">
+<meta property="og:image" content="https://chenxl1207.github.io/images/image-20260228200528405.png">
+<meta property="og:image" content="https://chenxl1207.github.io/images/image-20260228190849482.png">
+<meta property="og:image" content="https://chenxl1207.github.io/images/image-20260228192551138.png">
+<meta property="article:published_time" content="2026-02-28T10:00:00.000Z">
+<meta property="article:modified_time" content="2026-02-28T12:05:30.803Z">
+<meta property="article:author" content="Chen Xuanliang">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="LangChain">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="RAG">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chenxl1207.github.io/images/image-20260228200452703.png">
+
+
+<link rel="canonical" href="https://chenxl1207.github.io/2026/02/28/RAG_study/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://chenxl1207.github.io/2026/02/28/RAG_study/","path":"2026/02/28/RAG_study/","title":"RAG"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>RAG | ChenXuanliang Blog</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<link rel="stylesheet" href="/css/index-card.css">
+<link rel="stylesheet" href="/css/category-tag-style.css">
+<link rel="stylesheet" href="/css/sidebar-stats.css">
+<script src="/js/category-names.js" defer></script>
+<script src="/js/sidebar-stats.js" defer></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">ChenXuanliang Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Xdu teleCom student, software developer, blogger</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-folder-open fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80%EF%BC%88%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">前言（环境搭建）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RAG%E5%92%8CLangChain%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.</span> <span class="nav-text">RAG和LangChain学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E8%AE%BE%E8%AE%A1%E8%B7%AF%E7%BA%BF"><span class="nav-number">2.1.</span> <span class="nav-text">1.  设计路线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-RAG%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.2.</span> <span class="nav-text">2. RAG基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E4%BB%80%E4%B9%88%E6%98%AFRAG%EF%BC%9F"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.1 什么是RAG？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-RAG%E7%9A%84%E6%A0%B8%E5%BF%83%E4%BC%98%E5%8A%BF"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2 RAG的核心优势</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-LangChain%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.3.</span> <span class="nav-text">3. LangChain介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="nav-number">2.3.1.</span> <span class="nav-text">3.1 核心组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97-%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.3.2.</span> <span class="nav-text">3.2 核心模块-模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">3.2.1 语言模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-%E6%96%87%E6%9C%AC%E5%B5%8C%E5%85%A5%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.3.2.2.</span> <span class="nav-text">3.2.2 文本嵌入模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-3-%E4%BB%A3%E7%A0%81"><span class="nav-number">2.3.2.3.</span> <span class="nav-text">3.2.3 代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97-%E6%8F%90%E7%A4%BA%EF%BC%88prompts%EF%BC%89"><span class="nav-number">2.3.3.</span> <span class="nav-text">3.3 核心模块-提示（prompts）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97-%E7%B4%A2%E5%BC%95%EF%BC%88indexs%EF%BC%89"><span class="nav-number">2.3.4.</span> <span class="nav-text">3.4 核心模块-索引（indexs）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97-%E5%86%85%E5%AD%98%EF%BC%88Memory%EF%BC%89"><span class="nav-number">2.3.5.</span> <span class="nav-text">3.5 核心模块-内存（Memory）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97-%E9%93%BE%E8%B7%AF%EF%BC%88Chains-%EF%BC%89"><span class="nav-number">2.3.6.</span> <span class="nav-text">3.6 核心模块-链路（Chains ）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97-%E4%BB%A3%E7%90%86%EF%BC%88Agents-%EF%BC%89"><span class="nav-number">2.3.7.</span> <span class="nav-text">3.7 核心模块-代理（Agents ）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%AE%9E%E7%8E%B0%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.4.</span> <span class="nav-text">4. 实现步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E6%96%87%E6%A1%A3%E5%8A%A0%E8%BD%BD%E4%B8%8E%E5%88%86%E5%89%B2"><span class="nav-number">2.4.1.</span> <span class="nav-text">第一步：文档加载与分割</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E5%90%91%E9%87%8F%E5%8C%96%E5%A4%84%E7%90%86"><span class="nav-number">2.4.2.</span> <span class="nav-text">第二步：向量化处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E5%AD%98%E5%82%A8%E4%B8%8E%E7%B4%A2%E5%BC%95"><span class="nav-number">2.4.3.</span> <span class="nav-text">第三步：存储与索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%9ALLM%E8%B0%83%E7%94%A8"><span class="nav-number">2.4.4.</span> <span class="nav-text">第四步：LLM调用</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chen Xuanliang</p>
+  <div class="site-description" itemprop="description">记录思想，分享知识，思考人生</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/02/28/RAG_study/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chen Xuanliang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChenXuanliang Blog">
+      <meta itemprop="description" content="记录思想，分享知识，思考人生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="RAG | ChenXuanliang Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RAG
+        </h1>
+
+        <div class="post-meta-container">
+            
+            <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-02-28 18:00:00 / 修改时间：20:05:30" itemprop="dateCreated datePublished" datetime="2026-02-28T18:00:00+08:00">2026-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ai-development/" itemprop="url" rel="index"><span itemprop="name">ai-development</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+          
+            <div class="post-back-button" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee;">
+              <a href="/categories/undefined/" class="back-btn" title="返回分类">
+                <i class="fa fa-arrow-left"></i> 返回分类
+              </a>
+            </div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="前言（环境搭建）"><a href="#前言（环境搭建）" class="headerlink" title="前言（环境搭建）"></a>前言（环境搭建）</h1><p>使用在线开发，API调用使用硅基流动<a target="_blank" rel="noopener" href="https://cloud.siliconflow.cn/me/models">https://cloud.siliconflow.cn/me/models</a></p>
+<p>其中API部署方式，为了防止泄露使用本地部署方式，其中部署方法如下：</p>
+<p><img src="/./../images/image-20260228200452703.png" alt="image-20260228200452703"></p>
+<p>其中测试代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> ChatOpenAI</span><br><span class="line"></span><br><span class="line">client = ChatOpenAI(</span><br><span class="line">    api_key=os.getenv(<span class="string">&quot;SILICONFLOW_API_KEY&quot;</span>),</span><br><span class="line">    base_url=<span class="string">&quot;https://api.siliconflow.cn/v1&quot;</span>,</span><br><span class="line">    model=<span class="string">&quot;Pro/zai-org/GLM-4.7&quot;</span>,</span><br><span class="line">    temperature=<span class="number">0</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">stream_response = client.stream([</span><br><span class="line">    &#123;<span class="string">&quot;role&quot;</span>: <span class="string">&quot;system&quot;</span>, <span class="string">&quot;content&quot;</span>: <span class="string">&quot;你是一个有用的助手&quot;</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;role&quot;</span>: <span class="string">&quot;user&quot;</span>, <span class="string">&quot;content&quot;</span>: <span class="string">&quot;你好，请介绍一下你自己&quot;</span>&#125;</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;流式回答：&quot;</span>, end=<span class="string">&quot;&quot;</span>, flush=<span class="literal">True</span>)</span><br><span class="line">full_content = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> chunk <span class="keyword">in</span> stream_response:</span><br><span class="line">    chunk_content = chunk.content</span><br><span class="line">    <span class="keyword">if</span> chunk_content:</span><br><span class="line">        <span class="built_in">print</span>(chunk_content, end=<span class="string">&quot;&quot;</span>, flush=<span class="literal">True</span>)</span><br><span class="line">        full_content += chunk_content</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<p><img src="/./../images/image-20260228200528405.png" alt="image-20260228200528405"></p>
+<h1 id="RAG和LangChain学习"><a href="#RAG和LangChain学习" class="headerlink" title="RAG和LangChain学习"></a>RAG和LangChain学习</h1><h2 id="1-设计路线"><a href="#1-设计路线" class="headerlink" title="1.  设计路线"></a>1.  设计路线</h2><ol>
+<li><strong>RAG基本概念</strong></li>
+<li><strong>LangChain、OpenAI Embeddings等中间件学习</strong></li>
+<li><strong>RAG中的数据处理（文档加载、分割）</strong></li>
+<li><strong>Embedding（文本嵌入、向量化）</strong></li>
+<li><strong>向量数据库（存储与检索）</strong></li>
+<li><strong>大模型调用（生成式回答）</strong></li>
+<li><strong>RAG项目实战（端到端开发）</strong></li>
+</ol>
+<h2 id="2-RAG基本概念"><a href="#2-RAG基本概念" class="headerlink" title="2. RAG基本概念"></a>2. RAG基本概念</h2><h3 id="2-1-什么是RAG？"><a href="#2-1-什么是RAG？" class="headerlink" title="2.1 什么是RAG？"></a>2.1 什么是RAG？</h3><p>RAG（检索增强生成）是一种<strong>先从外部知识库检索相关信息，再把这些信息交给大模型生成回答</strong>的技术，能让大模型<strong>不编造内容、用上最新知识、只回答指定领域内容</strong>，从根本解决大模型幻觉、知识过时、隐私数据无法使用的问题。</p>
+<h3 id="2-2-RAG的核心优势"><a href="#2-2-RAG的核心优势" class="headerlink" title="2.2 RAG的核心优势"></a>2.2 RAG的核心优势</h3><ul>
+<li>实时<strong>获取最新信息，不受模型训练时间限制</strong></li>
+<li>降低**幻觉（Hallucination）**问题</li>
+<li>支持自定义数据库</li>
+<li>提高回答的准确性和可靠</li>
+</ul>
+<h2 id="3-LangChain介绍"><a href="#3-LangChain介绍" class="headerlink" title="3. LangChain介绍"></a>3. LangChain介绍</h2><p>LangChain 是一套以 Python&#x2F;JavaScript 为核心的开源框架，它并非直接提供 AI 能力，而是像 “AI 应用的乐高积木” 一样，<strong>将大模型（如 GPT、文心一言）、外部数据源（文档 &#x2F; 数据库）、工具（搜索引擎 &#x2F; 代码解释器）、向量数据库（Chroma&#x2F;Milvus）等 AI 应用开发的核心组件封装成标准化接口和可组合的 “链（Chain）”</strong>，让开发者无需从零编写所有逻辑，就能快速搭建包含检索增强生成（RAG）、智能体（Agent）、多轮对话等复杂能力的 AI 应用，大幅降低 AI 应用从原型到落地的开发成本和复杂度。</p>
+<h3 id="3-1-核心组件"><a href="#3-1-核心组件" class="headerlink" title="3.1 核心组件"></a>3.1 核心组件</h3><p>LangChain技术的构建LLM应用程序主要如下图所示</p>
+<p><img src="/./../images/image-20260228190849482.png" alt="image-20260228190849482"></p>
+<p>其中设计到多个核心组件，其中核心模块包含六大部分：</p>
+<ul>
+<li><strong>Models 模型</strong></li>
+<li><strong>Prompts 提示</strong></li>
+<li><strong>Indexs 索引</strong></li>
+<li><strong>Memory 内存</strong></li>
+<li><strong>Chains 链</strong></li>
+<li><strong>Agents 代理</strong></li>
+</ul>
+<h3 id="3-2-核心模块-模型"><a href="#3-2-核心模块-模型" class="headerlink" title="3.2 核心模块-模型"></a>3.2 核心模块-模型</h3><p>模型在表现方向上包括两大类型</p>
+<ul>
+<li>语言模型</li>
+<li>文本嵌入模型，其中文本嵌入模型，个人理解：<strong>将文本与向量结合起来，可使用余弦相似度算法分析其表现意思是否唯一或类似</strong></li>
+</ul>
+<h4 id="3-2-1-语言模型"><a href="#3-2-1-语言模型" class="headerlink" title="3.2.1 语言模型"></a>3.2.1 语言模型</h4><p>语言模型，它有两种不同的子类型：<strong>LLMs  和 Chat Models</strong>。LLMs  封装了接受文本输入并返回文本输出的 API，而 Chat Models   封装了接受聊天消息输入并返回聊天消息输出的模型。尽管它们之间存在细微差别，但使用它们的接口是相同的。我们可以导入这两个类，实例化它们，然后在这两个类上使用  predict 函数并观察它们之间的区别。但是，您可能不会直接将文本传递给模型，而是使用提示（prompts）。</p>
+<h4 id="3-2-2-文本嵌入模型"><a href="#3-2-2-文本嵌入模型" class="headerlink" title="3.2.2 文本嵌入模型"></a>3.2.2 文本嵌入模型</h4><p>文本嵌入模型（Text Embedding Model）是一类<strong>将文本（单词、句子、段落）转换成高维数值向量</strong>的 AI 模型，核心原理是通过深度学习捕捉文本的语义信息 —— <strong>语义相似的文本会生成距离更近的向量，语义差异大的文本向量距离更远</strong>，比如 “苹果手机” 和 “iPhone” 的向量高度相似，而和 “香蕉” 的向量差异显著。这种将非结构化文本转为结构化数值的过程，解决了计算机无法直接理解自然语言的问题，是实现语义检索、文本聚类、相似度计算等任务的基础。</p>
+<p><img src="/./../images/image-20260228192551138.png" alt="image-20260228192551138"></p>
+<p>*（*<em>图片来自黑马程序员B站）</em></p>
+<p>在 RAG 等 AI 应用中，嵌入模型是连接文本和向量数据库的核心桥梁：<strong>一方面，它把外部知识库的文本块转换成向量存入数据库</strong>；<strong>另一方面，它把用户的提问也转换成向量，通过向量间的相似性检索，快速找到和问题语义匹配的文本内容</strong>，这也是 RAG 能实现 “精准检索” 的关键前提。常见的嵌入模型既有 OpenAI 的 text-embedding 系列、阿里云的通义嵌入等商用 API 模型，也有 BGE、m3e 等免费开源的本地化部署模型。</p>
+<h4 id="3-2-3-代码"><a href="#3-2-3-代码" class="headerlink" title="3.2.3 代码"></a>3.2.3 代码</h4><h3 id="3-3-核心模块-提示（prompts）"><a href="#3-3-核心模块-提示（prompts）" class="headerlink" title="3.3 核心模块-提示（prompts）"></a>3.3 核心模块-提示（prompts）</h3><h3 id="3-4-核心模块-索引（indexs）"><a href="#3-4-核心模块-索引（indexs）" class="headerlink" title="3.4 核心模块-索引（indexs）"></a>3.4 核心模块-索引（indexs）</h3><h3 id="3-5-核心模块-内存（Memory）"><a href="#3-5-核心模块-内存（Memory）" class="headerlink" title="3.5 核心模块-内存（Memory）"></a>3.5 核心模块-内存（Memory）</h3><h3 id="3-6-核心模块-链路（Chains-）"><a href="#3-6-核心模块-链路（Chains-）" class="headerlink" title="3.6 核心模块-链路（Chains ）"></a>3.6 核心模块-链路（Chains ）</h3><h3 id="3-7-核心模块-代理（Agents-）"><a href="#3-7-核心模块-代理（Agents-）" class="headerlink" title="3.7 核心模块-代理（Agents ）"></a>3.7 核心模块-代理（Agents ）</h3><h2 id="4-实现步骤"><a href="#4-实现步骤" class="headerlink" title="4. 实现步骤"></a>4. 实现步骤</h2><h3 id="第一步：文档加载与分割"><a href="#第一步：文档加载与分割" class="headerlink" title="第一步：文档加载与分割"></a>第一步：文档加载与分割</h3><p>选择合适的分割策略确保语义完整性。</p>
+<h3 id="第二步：向量化处理"><a href="#第二步：向量化处理" class="headerlink" title="第二步：向量化处理"></a>第二步：向量化处理</h3><p>使用Embeddings将文本转换为向量表示。</p>
+<h3 id="第三步：存储与索引"><a href="#第三步：存储与索引" class="headerlink" title="第三步：存储与索引"></a>第三步：存储与索引</h3><p>利用向量数据库快速检索相关文档。</p>
+<h3 id="第四步：LLM调用"><a href="#第四步：LLM调用" class="headerlink" title="第四步：LLM调用"></a>第四步：LLM调用</h3><p>基于检索结果生成最终答案。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/AI/" rel="tag"># AI</a>
+              <a href="/tags/RAG/" rel="tag"># RAG</a>
+              <a href="/tags/LangChain/" rel="tag"># LangChain</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/02/28/leetcode-algorithm-practice/" rel="prev" title="LeetCode算法练习">
+                  <i class="fa fa-angle-left"></i> LeetCode算法练习
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+
+    
+      <div class="post-back-button">
+        <a href="/categories/undefined/" class="back-btn" title="返回分类">
+          <i class="fa fa-arrow-left"></i> 返回分类：
+        </a>
+        <a href="/" class="back-btn" title="返回首页">
+          <i class="fa fa-home"></i> 返回首页
+        </a>
+      </div>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Chen Blog 1.0</span>
+  </div>
+  <div class="powered-by">技术支持: <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+<!-- Live2D 看板娘 -->
+<script src="/js/live2d-widget/L2Dwidget.min.js"></script>
+<script>
+  if (window.L2Dwidget) {
+    L2Dwidget.init({
+      "model": {
+        "jsonPath": "https://cdn.jsdelivr.net/npm/live2d-widget-model-koharu@1.0.5/assets/koharu.model.json",
+        "scale": 1
+      },
+      "display": {
+        "position": "right",
+        "width": 200,
+        "height": 350,
+        "hOffset": 0,
+        "vOffset": 0
+      },
+      "mobile": {
+        "show": false
+      },
+      "react": {
+        "opacityDefault": 0.7,
+        "opacityOnHover": 0.8
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

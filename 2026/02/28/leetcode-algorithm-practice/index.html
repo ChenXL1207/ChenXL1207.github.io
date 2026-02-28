@@ -20,29 +20,30 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"chenxl1207.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="C++软件开发中的设计模式和最佳实践总结...">
+    <meta name="description" content="LeetCode算法练习指南这是一个专门用于记录和总结LeetCode算法练习题的分类。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C++软件开发最佳实践">
-<meta property="og:url" content="https://chenxl1207.github.io/2026/02/27/RAG_study/index.html">
+<meta property="og:title" content="LeetCode算法练习">
+<meta property="og:url" content="https://chenxl1207.github.io/2026/02/28/leetcode-algorithm-practice/index.html">
 <meta property="og:site_name" content="ChenXuanliang Blog">
-<meta property="og:description" content="C++软件开发中的设计模式和最佳实践总结...">
+<meta property="og:description" content="LeetCode算法练习指南这是一个专门用于记录和总结LeetCode算法练习题的分类。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-02-27T04:00:00.000Z">
-<meta property="article:modified_time" content="2026-02-28T10:21:00.121Z">
+<meta property="article:published_time" content="2026-02-28T04:00:00.000Z">
+<meta property="article:modified_time" content="2026-02-28T10:33:27.667Z">
 <meta property="article:author" content="Chen Xuanliang">
-<meta property="article:tag" content="C++">
+<meta property="article:tag" content="LeetCode">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="算法">
 <meta property="article:tag" content="编程">
-<meta property="article:tag" content="软件工程">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://chenxl1207.github.io/2026/02/27/RAG_study/">
+<link rel="canonical" href="https://chenxl1207.github.io/2026/02/28/leetcode-algorithm-practice/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://chenxl1207.github.io/2026/02/27/RAG_study/","path":"2026/02/27/RAG_study/","title":"C++软件开发最佳实践"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://chenxl1207.github.io/2026/02/28/leetcode-algorithm-practice/","path":"2026/02/28/leetcode-algorithm-practice/","title":"LeetCode算法练习"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>C++软件开发最佳实践 | ChenXuanliang Blog</title>
+<title>LeetCode算法练习 | ChenXuanliang Blog</title>
   
 
 
@@ -71,7 +72,9 @@
 
 <link rel="stylesheet" href="/css/index-card.css">
 <link rel="stylesheet" href="/css/category-tag-style.css">
+<link rel="stylesheet" href="/css/sidebar-stats.css">
 <script src="/js/category-names.js" defer></script>
+<script src="/js/sidebar-stats.js" defer></script>
 
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
@@ -136,7 +139,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#C-%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.</span> <span class="nav-text">C++ 软件开发最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">核心概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 内存管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 设计模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-STL-%E5%AE%B9%E5%99%A8%E9%80%89%E6%8B%A9"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. STL 容器选择</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83"><span class="nav-number">1.2.</span> <span class="nav-text">代码规范</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode%E7%AE%97%E6%B3%95%E7%BB%83%E4%B9%A0%E6%8C%87%E5%8D%97"><span class="nav-number">1.</span> <span class="nav-text">LeetCode算法练习指南</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF"><span class="nav-number">1.1.</span> <span class="nav-text">学习路线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%EF%BC%9A%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80"><span class="nav-number">1.1.1.</span> <span class="nav-text">第一阶段：数据结构基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%EF%BC%9A%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95"><span class="nav-number">1.1.2.</span> <span class="nav-text">第二阶段：基础算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5%EF%BC%9A%E8%BF%9B%E9%98%B6%E7%AE%97%E6%B3%95"><span class="nav-number">1.1.3.</span> <span class="nav-text">第三阶段：进阶算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E9%98%B6%E6%AE%B5%EF%BC%9A%E9%AB%98%E7%BA%A7%E9%A2%98%E5%9E%8B"><span class="nav-number">1.1.4.</span> <span class="nav-text">第四阶段：高级题型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87"><span class="nav-number">1.2.</span> <span class="nav-text">学习目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E5%88%86%E7%B1%BB"><span class="nav-number">1.3.</span> <span class="nav-text">题目分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E9%A2%98"><span class="nav-number">1.3.1.</span> <span class="nav-text">数组题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E8%A1%A8%E9%A2%98"><span class="nav-number">1.3.2.</span> <span class="nav-text">链表题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%91%E9%A2%98"><span class="nav-number">1.3.3.</span> <span class="nav-text">树题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E8%AE%BA%E9%A2%98"><span class="nav-number">1.3.4.</span> <span class="nav-text">图论题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E9%A2%98"><span class="nav-number">1.3.5.</span> <span class="nav-text">动态规划题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%A2%98"><span class="nav-number">1.3.6.</span> <span class="nav-text">字符串题</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -149,18 +152,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -187,7 +190,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/02/27/RAG_study/">
+    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/02/28/leetcode-algorithm-practice/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -200,12 +203,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="C++软件开发最佳实践 | ChenXuanliang Blog">
+      <meta itemprop="name" content="LeetCode算法练习 | ChenXuanliang Blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          C++软件开发最佳实践
+          LeetCode算法练习
         </h1>
 
         <div class="post-meta-container">
@@ -216,15 +219,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2026-02-27 12:00:00" itemprop="dateCreated datePublished" datetime="2026-02-27T12:00:00+08:00">2026-02-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-02-28 18:21:00" itemprop="dateModified" datetime="2026-02-28T18:21:00+08:00">2026-02-28</time>
+      <time title="创建时间：2026-02-28 12:00:00 / 修改时间：18:33:27" itemprop="dateCreated datePublished" datetime="2026-02-28T12:00:00+08:00">2026-02-28</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -232,7 +229,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/cpp-development/" itemprop="url" rel="index"><span itemprop="name">cpp-development</span></a>
+          <a href="/categories/leetcode-algorithm/" itemprop="url" rel="index"><span itemprop="name">leetcode-algorithm</span></a>
         </span>
     </span>
 
@@ -252,52 +249,36 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h2 id="C-软件开发最佳实践"><a href="#C-软件开发最佳实践" class="headerlink" title="C++ 软件开发最佳实践"></a>C++ 软件开发最佳实践</h2><h3 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h3><h4 id="1-内存管理"><a href="#1-内存管理" class="headerlink" title="1. 内存管理"></a>1. 内存管理</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 推荐：使用智能指针</span></span><br><span class="line"><span class="function">std::unique_ptr&lt;Object&gt; <span class="title">obj</span><span class="params">(<span class="keyword">new</span> Object())</span></span>;</span><br><span class="line">std::shared_ptr&lt;Resource&gt; res = std::<span class="built_in">make_shared</span>&lt;Resource&gt;();</span><br></pre></td></tr></table></figure>
+    <div class="post-body" itemprop="articleBody"><h1 id="LeetCode算法练习指南"><a href="#LeetCode算法练习指南" class="headerlink" title="LeetCode算法练习指南"></a>LeetCode算法练习指南</h1><p>这是一个专门用于记录和总结LeetCode算法练习题的分类。</p>
+<span id="more"></span>
 
-<h4 id="2-设计模式"><a href="#2-设计模式" class="headerlink" title="2. 设计模式"></a>2. 设计模式</h4><ul>
-<li>Singleton Pattern （单例）</li>
-<li>Factory Pattern （工厂）</li>
-<li>Observer Pattern （观察者）</li>
-<li>Strategy Pattern （策略）</li>
+<h2 id="学习路线"><a href="#学习路线" class="headerlink" title="学习路线"></a>学习路线</h2><h3 id="第一阶段：数据结构基础"><a href="#第一阶段：数据结构基础" class="headerlink" title="第一阶段：数据结构基础"></a>第一阶段：数据结构基础</h3><ul>
+<li>数组和链表</li>
+<li>栈和队列</li>
+<li>树和图</li>
 </ul>
-<h4 id="3-STL-容器选择"><a href="#3-STL-容器选择" class="headerlink" title="3. STL 容器选择"></a>3. STL 容器选择</h4><table>
-<thead>
-<tr>
-<th>容器</th>
-<th>用途</th>
-<th>性能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>vector</td>
-<td>动态数组</td>
-<td>O(1) 访问</td>
-</tr>
-<tr>
-<td>list</td>
-<td>链表</td>
-<td>O(n) 访问</td>
-</tr>
-<tr>
-<td>map</td>
-<td>键值对</td>
-<td>O(log n) 查询</td>
-</tr>
-<tr>
-<td>unordered_map</td>
-<td>哈希表</td>
-<td>O(1) 平均</td>
-</tr>
-</tbody></table>
-<h3 id="代码规范"><a href="#代码规范" class="headerlink" title="代码规范"></a>代码规范</h3><ul>
-<li>命名规范（camelCase）</li>
-<li>注释风格</li>
-<li>错误处理</li>
-<li>性能优化</li>
+<h3 id="第二阶段：基础算法"><a href="#第二阶段：基础算法" class="headerlink" title="第二阶段：基础算法"></a>第二阶段：基础算法</h3><ul>
+<li>排序算法</li>
+<li>搜索算法</li>
+<li>动态规划基础</li>
 </ul>
-<hr>
-<p>💡 点击左侧菜单的”分类”查看该分类的所有文章。</p>
-
+<h3 id="第三阶段：进阶算法"><a href="#第三阶段：进阶算法" class="headerlink" title="第三阶段：进阶算法"></a>第三阶段：进阶算法</h3><ul>
+<li>贪心算法</li>
+<li>回溯算法</li>
+<li>分治法</li>
+</ul>
+<h3 id="第四阶段：高级题型"><a href="#第四阶段：高级题型" class="headerlink" title="第四阶段：高级题型"></a>第四阶段：高级题型</h3><ul>
+<li>字符串处理</li>
+<li>二分查找</li>
+<li>位运算</li>
+</ul>
+<h2 id="学习目标"><a href="#学习目标" class="headerlink" title="学习目标"></a>学习目标</h2><ul>
+<li>掌握常见数据结构的实现和应用</li>
+<li>积累算法解题思路</li>
+<li>提升代码编写能力</li>
+<li>为面试做准备</li>
+</ul>
+<h2 id="题目分类"><a href="#题目分类" class="headerlink" title="题目分类"></a>题目分类</h2><h3 id="数组题"><a href="#数组题" class="headerlink" title="数组题"></a>数组题</h3><h3 id="链表题"><a href="#链表题" class="headerlink" title="链表题"></a>链表题</h3><h3 id="树题"><a href="#树题" class="headerlink" title="树题"></a>树题</h3><h3 id="图论题"><a href="#图论题" class="headerlink" title="图论题"></a>图论题</h3><h3 id="动态规划题"><a href="#动态规划题" class="headerlink" title="动态规划题"></a>动态规划题</h3><h3 id="字符串题"><a href="#字符串题" class="headerlink" title="字符串题"></a>字符串题</h3>
     </div>
 
     
@@ -306,22 +287,23 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/C/" rel="tag"># C++</a>
               <a href="/tags/%E7%BC%96%E7%A8%8B/" rel="tag"># 编程</a>
-              <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" rel="tag"># 软件工程</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+              <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2026/02/27/%E6%96%87%E7%AB%A0%E6%A8%A1%E6%9D%BF/" rel="prev" title="文章标题（请修改）">
-                  <i class="fa fa-angle-left"></i> 文章标题（请修改）
+                <a href="/2026/02/27/Linux%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8/" rel="prev" title="Linux嵌入式开发入门">
+                  <i class="fa fa-angle-left"></i> Linux嵌入式开发入门
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2026/02/27/cpp-development-practices/" rel="next" title="C++软件开发最佳实践">
-                  C++软件开发最佳实践 <i class="fa fa-angle-right"></i>
+                <a href="/2026/02/28/RAG_study/" rel="next" title="RAG">
+                  RAG <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -356,7 +338,7 @@
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>
-    <span class="author" itemprop="copyrightHolder">ChenXuanliang Blog 1.0</span>
+    <span class="author" itemprop="copyrightHolder">Chen Blog 1.0</span>
   </div>
   <div class="powered-by">技术支持: <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 
   </div>

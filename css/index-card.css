@@ -1,38 +1,39 @@
-/* 知乎风格首页卡片布局 */
+/* 商务风格首页卡片布局 */
 
 /* 首页卡片模式 */
 .index.posts-card .post-block {
   background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin-bottom: 16px;
-  padding: 20px;
-  transition: all 0.3s ease;
+  border-radius: 0;
+  box-shadow: none;
+  margin-bottom: 20px;
+  padding: 24px 32px 18px 32px;
+  transition: border-color 0.2s;
   cursor: pointer;
-  border-left: 4px solid transparent;
+  border-left: 4px solid #1976D2;
+  border-top: 1px solid #F5F5F5;
 }
 
 .index.posts-card .post-block:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  border-left-color: #0084ff;
-  transform: translateY(-2px);
+  border-left-color: #1565C0;
+  border-top-color: #1565C0;
 }
 
 /* 首页文章标题 */
 .index.posts-card .post-title {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 700;
   margin-bottom: 12px;
   line-height: 1.5;
 }
 
 .index.posts-card .post-title-link {
-  color: #262626;
+  color: #222;
   text-decoration: none;
+  font-weight: 700;
 }
 
 .index.posts-card .post-title-link:hover {
-  color: #0084ff;
+  color: #1565C0;
 }
 
 /* 首页文章元信息 */
@@ -43,7 +44,7 @@
   flex-wrap: wrap;
   gap: 8px;
   font-size: 13px;
-  color: #65676b;
+  color: #666;
 }
 
 .index.posts-card .post-meta-item {
@@ -53,7 +54,7 @@
 }
 
 .index.posts-card .post-meta-item i {
-  color: #0084ff;
+  color: #1976D2;
 }
 
 /* 消除首页分类显示的多余样式 */
@@ -63,9 +64,9 @@
 
 /* 首页摘要文本 */
 .index.posts-card .post-body {
-  color: #495057;
-  line-height: 1.6;
-  font-size: 14px;
+  color: #222;
+  line-height: 1.7;
+  font-size: 15px;
   max-height: 100px;
   overflow: hidden;
   display: -webkit-box;
@@ -82,30 +83,32 @@
 /* 首页分类标签 */
 .index.posts-card .post-categories {
   display: inline-block;
-  background: linear-gradient(135deg, #0084ff 0%, #0052a3 100%);
-  color: #fff;
+  background: #F5F5F5;
+  color: #1976D2;
   padding: 6px 14px;
-  border-radius: 20px;
+  border-radius: 0;
   font-size: 13px;
   margin-right: 12px;
   margin-bottom: 8px;
-  transition: all 0.2s ease;
+  transition: background 0.2s, color 0.2s;
+  border: 1px solid #F5F5F5;
+  font-weight: 700;
 }
 
 .index.posts-card .post-categories:hover {
-  background: linear-gradient(135deg, #0052a3 0%, #003d7a 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 132, 255, 0.3);
+  background: #E3F2FD;
+  color: #1565C0;
+  border-color: #1976D2;
 }
 
 .index.posts-card .post-categories a {
-  color: #fff;
+  color: #1976D2;
   text-decoration: none;
   font-weight: 500;
 }
 
 .index.posts-card .post-categories a:hover {
-  color: #fff;
+  color: #1565C0;
   text-decoration: underline;
 }
 
@@ -116,21 +119,19 @@
 
 .index.posts-card .post-button .btn {
   display: inline-block;
-  background: linear-gradient(135deg, #0084ff 0%, #0052a3 100%);
+  background: #1976D2;
   color: #fff;
   padding: 8px 18px;
-  border-radius: 6px;
+  border-radius: 0;
   font-size: 13px;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: background 0.2s;
   border: none;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .index.posts-card .post-button .btn:hover {
-  background: linear-gradient(135deg, #0052a3 0%, #003d7a 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 132, 255, 0.3);
+  background: #1565C0;
 }
 
 /* 隐藏首页的 post-eof 分隔符 */
@@ -207,20 +208,21 @@
 }
 
 .index.posts-card .post-tag-link {
-  background: #f0f2f5;
-  color: #0084ff;
+  background: #F5F5F5;
+  color: #1976D2;
   padding: 4px 10px;
-  border-radius: 12px;
+  border-radius: 0;
   font-size: 12px;
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: background 0.2s, color 0.2s;
   display: inline-block;
   white-space: nowrap;
-  border: 1px solid transparent;
+  border: 1px solid #F5F5F5;
+  font-weight: 600;
 }
 
 .index.posts-card .post-tag-link:hover {
-  background: #0084ff;
-  color: #fff;
-  border: 1px solid #0084ff;
+  background: #E3F2FD;
+  color: #1565C0;
+  border: 1px solid #1976D2;
 }

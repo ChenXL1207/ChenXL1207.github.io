@@ -19,6 +19,10 @@ const categoryNameMap = {
   'experience-sharing': {
     name: '心得体会',
     icon: '💡'
+  },
+  'leetcode-algorithm': {
+    name: 'LeetCode算法练习',
+    icon: '💻'
   }
 };
 

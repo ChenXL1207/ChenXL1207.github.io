@@ -1,0 +1,200 @@
+/* 侧边栏统计面板 - 商务风格 */
+
+:root {
+  --primary-blue: #1976D2;       /* 商务蓝 */
+  --primary-blue-light: #5FC3F7; /* 天空蓝 */
+  --gray-dark: #222;             /* 深灰 */
+  --gray-mid: #666;              /* 中灰 */
+  --gray-light: #F5F5F5;         /* 浅灰 */
+  --white: #FFF;
+}
+
+/* 侧边栏统计项优化 - 商务简洁风 */
+.site-state {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--gray-light);
+  border-bottom: 1px solid var(--gray-light);
+  padding: 18px 0;
+  margin: 18px 0;
+  background: var(--white);
+}
+
+.site-state-item {
+  text-align: center;
+  padding: 16px 0;
+  position: relative;
+  border-right: 1px solid var(--gray-light);
+  transition: background 0.2s;
+  font-size: 16px;
+  color: var(--gray-dark);
+  background: var(--white);
+}
+
+.site-state-item:last-child {
+  border-right: none;
+}
+
+.site-state-item:hover {
+  background: rgba(95, 195, 247, 0.04);
+}
+
+.site-state-item-count {
+  display: block;
+  color: var(--primary-blue);
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 2px;
+  letter-spacing: 0.5px;
+}
+
+.site-state-item-name {
+  display: block;
+  font-size: 13px;
+  color: var(--gray-mid);
+  font-weight: 600;
+}
+
+/* 字数和浏览量特殊样式 */
+.site-state-words .site-state-item-count,
+.site-state-views .site-state-item-count {
+  color: var(--primary-blue);
+}
+
+.site-state-words .site-state-item-name,
+.site-state-views .site-state-item-name {
+  color: var(--gray-mid);
+}
+
+/* 额外统计面板 - 商务信息卡 */
+.sidebar-stats-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin-top: 16px;
+  padding: 0;
+  background: var(--white);
+  border: 1px solid var(--gray-light);
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+.stats-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px 0;
+  background: var(--white);
+  border-left: none;
+  border-radius: 0;
+  border-right: 1px solid var(--gray-light);
+}
+
+.stats-label {
+  font-size: 13px;
+  color: var(--gray-mid);
+  font-weight: 600;
+}
+
+.stats-value {
+  font-size: 16px;
+  color: var(--gray-dark);
+  font-weight: 700;
+}
+
+/* 暗色模式适配 */
+.dark-mode .site-state-item {
+  background: transparent;
+  border-right-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .site-state {
+  border-top-color: rgba(255, 255, 255, 0.1);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .site-state-item-name {
+  color: #bbb;
+}
+
+.dark-mode .sidebar-stats-panel {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .stats-item {
+  background: rgba(255, 255, 255, 0.08);
+  border-left-color: var(--primary-blue);
+}
+
+.dark-mode .stats-label {
+  color: #aaa;
+}
+
+.dark-mode .stats-value {
+  color: #ddd;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .site-state {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+
+  .site-state-item {
+    padding: 10px;
+    border-right: 1px solid var(--gray-light);
+  }
+
+  .site-state-item:nth-child(3n) {
+    border-right: none;
+  }
+
+  .site-state-item-count {
+    font-size: 18px;
+  }
+
+  .site-state-item-name {
+    font-size: 11px;
+  }
+
+  .sidebar-stats-panel {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 12px;
+    margin-top: 12px;
+  }
+
+  .stats-item {
+    padding: 10px;
+  }
+
+  .stats-label {
+    font-size: 10px;
+  }
+
+  .stats-value {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-state {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .site-state-item:nth-child(2n) {
+    border-right: none;
+  }
+
+  .site-state-item:nth-child(3n) {
+    border-right: 1px solid var(--gray-light);
+  }
+
+  .site-state-item-count {
+    font-size: 16px;
+  }
+}
+
