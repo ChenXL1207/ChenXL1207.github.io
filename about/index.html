@@ -243,7 +243,7 @@
 </thead>
 <tbody><tr>
 <td>📧 <strong>邮箱</strong></td>
-<td><a href="mailto:&#67;&#x68;&#101;&#110;&#x58;&#x4c;&#51;&#x35;&#48;&#56;&#56;&#x40;&#x31;&#x36;&#51;&#46;&#x63;&#x6f;&#x6d;">ChenXL35088@163.com</a></td>
+<td><a href="mailto:&#67;&#104;&#x65;&#110;&#88;&#x4c;&#x33;&#x35;&#x30;&#56;&#x38;&#x40;&#49;&#x36;&#x33;&#46;&#x63;&#x6f;&#x6d;">ChenXL35088@163.com</a></td>
 </tr>
 <tr>
 <td>📱 <strong>电话</strong></td>
@@ -325,31 +325,46 @@
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
 
-<!-- 看板娘 -->
-<script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script>
+<!-- 蓝色风格男性助手 - pio -->
+<script src="https://cdn.jsdelivr.net/npm/pio@1.5.0/dist/pio.min.js"></script>
 <script>
-  // 看板娘配置
-  L2Dwidget.init({
-    "model": {
-      jsonPath: "https://cdn.jsdelivr.net/npm/live2d-widget-model-unitychan@1.0.0/assets/unitychan.model.json",
-      scale: 1
-    },
-    "display": {
-      "position": "right",
-      "width": 200,
-      "height": 300,
-      "hOffset": 0,
-      "vOffset": 0
-    },
-    "mobile": {
-      "show": false
-    },
-    "react": {
-      "opacityDefault": 0.8,
-      "opacityOnHover": 1
-    }
-  });
+  // 初始化蓝色风格的男性助手
+  if (typeof pio !== 'undefined') {
+    var pio_container = document.createElement('div');
+    pio_container.id = 'pio';
+    document.body.appendChild(pio_container);
+    
+    pio.init({
+      container: document.getElementById('pio'),
+      modelUrl: 'https://cdn.jsdelivr.net/npm/pio@1.5.0/static/pio.model.json',
+      width: 200,
+      height: 254,
+      muted: true,
+      baseUrl: 'https://cdn.jsdelivr.net/npm/pio@1.5.0/static/',
+      position: 'right',
+      model: {
+        scale: 1,
+        y: 0
+      }
+    });
+  }
 </script>
+
+<style>
+  /* 蓝色风格助手样式 */
+  #pio {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    z-index: 999 !important;
+  }
+  
+  #pio canvas {
+    filter: drop-shadow(-5px -5px 10px rgba(0, 150, 255, 0.3));
+    width: 200px !important;
+    height: 254px !important;
+  }
+</style>
 
 </body>
 </html>
