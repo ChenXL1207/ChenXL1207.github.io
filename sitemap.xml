@@ -47,7 +47,7 @@
   </url>
   
   <url>
-    <loc>https://chenxl1207.github.io/2026/02/27/ai-development-basics/</loc>
+    <loc>https://chenxl1207.github.io/2026/02/27/cpp-development-practices/</loc>
     
     <lastmod>2026-02-27</lastmod>
     
@@ -65,7 +65,7 @@
   </url>
   
   <url>
-    <loc>https://chenxl1207.github.io/2026/02/27/cpp-development-practices/</loc>
+    <loc>https://chenxl1207.github.io/2026/02/27/research-exchange/</loc>
     
     <lastmod>2026-02-27</lastmod>
     
@@ -74,7 +74,7 @@
   </url>
   
   <url>
-    <loc>https://chenxl1207.github.io/2026/02/27/research-exchange/</loc>
+    <loc>https://chenxl1207.github.io/2026/02/27/ai-development-basics/</loc>
     
     <lastmod>2026-02-27</lastmod>
     
@@ -140,34 +140,6 @@
   </url>
   
   <url>
-    <loc>https://chenxl1207.github.io/tags/AI/</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://chenxl1207.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://chenxl1207.github.io/tags/Python/</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://chenxl1207.github.io/tags/%E7%B3%BB%E7%BB%9F/</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://chenxl1207.github.io/tags/C/</loc>
     <lastmod>2026-02-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -189,6 +161,13 @@
   </url>
   
   <url>
+    <loc>https://chenxl1207.github.io/tags/%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://chenxl1207.github.io/tags/%E7%A7%91%E7%A0%94/</loc>
     <lastmod>2026-02-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -204,6 +183,27 @@
   
   <url>
     <loc>https://chenxl1207.github.io/tags/%E5%90%88%E4%BD%9C/</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://chenxl1207.github.io/tags/AI/</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://chenxl1207.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://chenxl1207.github.io/tags/Python/</loc>
     <lastmod>2026-02-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -268,13 +268,6 @@
   </url>
   
   <url>
-    <loc>https://chenxl1207.github.io/categories/ai-development/</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://chenxl1207.github.io/categories/cpp-development/</loc>
     <lastmod>2026-02-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -283,6 +276,13 @@
   
   <url>
     <loc>https://chenxl1207.github.io/categories/research-exchange/</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://chenxl1207.github.io/categories/ai-development/</loc>
     <lastmod>2026-02-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

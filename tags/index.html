@@ -249,46 +249,33 @@
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
 
-<!-- 蓝色风格男性助手 - pio -->
-<script src="https://cdn.jsdelivr.net/npm/pio@1.5.0/dist/pio.min.js"></script>
+<!-- 蓝色AI助手 -->
+<script src="https://cdn.jsdelivr.net/gh/HNAkayam/live2d-widget@latest/dist/L2Dwidget.0.min.js"></script>
 <script>
-  // 初始化蓝色风格的男性助手
-  if (typeof pio !== 'undefined') {
-    var pio_container = document.createElement('div');
-    pio_container.id = 'pio';
-    document.body.appendChild(pio_container);
-    
-    pio.init({
-      container: document.getElementById('pio'),
-      modelUrl: 'https://cdn.jsdelivr.net/npm/pio@1.5.0/static/pio.model.json',
-      width: 200,
-      height: 254,
-      muted: true,
-      baseUrl: 'https://cdn.jsdelivr.net/npm/pio@1.5.0/static/',
-      position: 'right',
-      model: {
-        scale: 1,
-        y: 0
+  document.addEventListener('DOMContentLoaded', function() {
+    L2Dwidget.init({
+      "model": {
+        jsonPath: "https://cdn.jsdelivr.net/gh/HNAkayam/live2d-widget@latest/json/46.json",
+        "scale": 1
+      },
+      "display": {
+        "position": "right",
+        "width": 200,
+        "height": 280,
+        "hOffset": 0,
+        "vOffset": 0
+      },
+      "mobile": {
+        "show": true,
+        "scale": 0.5
+      },
+      "react": {
+        "opacityDefault": 0.8,
+        "opacityOnHover": 0.9
       }
     });
-  }
+  });
 </script>
-
-<style>
-  /* 蓝色风格助手样式 */
-  #pio {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    z-index: 999 !important;
-  }
-  
-  #pio canvas {
-    filter: drop-shadow(-5px -5px 10px rgba(0, 150, 255, 0.3));
-    width: 200px !important;
-    height: 254px !important;
-  }
-</style>
 
 </body>
 </html>
