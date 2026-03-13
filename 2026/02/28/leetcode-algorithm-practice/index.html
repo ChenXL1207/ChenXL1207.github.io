@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://chenxl1207.github.io/images/image-20260303103849758.png">
 <meta property="og:image" content="https://chenxl1207.github.io/images/image-20260309170745562.png">
 <meta property="article:published_time" content="2026-02-28T04:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-09T14:22:59.837Z">
+<meta property="article:modified_time" content="2026-03-13T07:09:10.630Z">
 <meta property="article:author" content="Chen Xuanliang">
 <meta property="article:tag" content="LeetCode">
 <meta property="article:tag" content="数据结构">
@@ -232,7 +232,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-03-09 22:22:59" itemprop="dateModified" datetime="2026-03-09T22:22:59+08:00">2026-03-09</time>
+      <time title="修改时间：2026-03-13 15:09:10" itemprop="dateModified" datetime="2026-03-13T15:09:10+08:00">2026-03-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -401,16 +401,60 @@
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">twoSum</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span> </span>&#123;</span><br><span class="line">		unordered_map&lt;<span class="type">int</span>,<span class="type">int</span>&gt; idx;</span><br><span class="line">		<span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span> ; i &lt; n; i++)&#123;</span><br><span class="line">			<span class="keyword">auto</span> it = idx.<span class="built_in">find</span>(target-nums[i]);</span><br><span class="line">			<span class="keyword">if</span>(it != idx.<span class="built_in">end</span>())&#123;</span><br><span class="line">				<span class="keyword">return</span> &#123;it-&gt;second,i&#125;;</span><br><span class="line">			&#125;</span><br><span class="line">			idx[nums[i]] = i;</span><br><span class="line">		&#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p><strong>练习题目如下：</strong></p>
-<ol>
+<ul>
+<li><ol>
 <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/two-sum/">两数之和</a></li>
-<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/number-of-good-pairs/">好数对的数目</a> </li>
-<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/largest-positive-integer-that-exists-with-its-negative/">与对应负数同时存在的最大正整数</a> </li>
+</ol>
+</li>
+<li><ol start="1512">
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/number-of-good-pairs/">好数对的数目</a></li>
+</ol>
+</li>
+<li><ol start="2441">
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/largest-positive-integer-that-exists-with-its-negative/">与对应负数同时存在的最大正整数</a></li>
+</ol>
+</li>
+<li><ol start="121">
 <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/">买卖股票的最佳时机</a></li>
-<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-difference-between-increasing-elements/">增量元素之间的最大差值</a> </li>
+</ol>
+</li>
+<li><ol start="2016">
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-difference-between-increasing-elements/">增量元素之间的最大差值</a></li>
+</ol>
+</li>
+<li><ol start="624">
 <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-distance-in-arrays/">数组列表中的最大距离</a></li>
+</ol>
+</li>
+<li><ol start="2342">
 <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/max-sum-of-a-pair-with-equal-sum-of-digits/">数位和相等数对的最大和</a></li>
 </ol>
+</li>
+</ul>
 <p>注: <font color="red">0309感想：其实减少一次遍历,相当于是贪心思想，其实大部分题目可以往哈希表与哈希集合靠，但是在此前提一定要想一个问题，就是如果使用哈希表，unordered_map的值是key，value，要想一想到底要不要频率统计或者到底是不是存放一个二属性的数据，如果不是，且只要不重合，其实unordered_set要方便的多，在想这个方法前，可以先数学推导，如果能用数学公式解决，完成枚举右，维护左的思想，也方便得多</font></p>
+<ul>
+<li><ol start="1128">
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/number-of-equivalent-domino-pairs/description/">数位和相等数对的最大和</a></li>
+</ol>
+</li>
+<li><ol start="1679">
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/max-number-of-k-sum-pairs/">K 和数对的最大数目</a></li>
+</ol>
+</li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/pairs-with-sum-lcci/">面试题 16.24. 数对和</a></li>
+<li><ol start="219">
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/contains-duplicate-ii/">存在重复元素 II</a></li>
+</ol>
+</li>
+<li><ol start="2260">
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-consecutive-cards-to-pick-up/">必须拿起的最小连续卡牌数 </a></li>
+</ol>
+</li>
+<li><ol start="2001">
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/number-of-pairs-of-interchangeable-rectangles/">可互换矩形的组数 </a></li>
+</ol>
+</li>
+</ul>
 
     </div>
 
@@ -420,10 +464,10 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E7%BC%96%E7%A8%8B/" rel="tag"># 编程</a>
               <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
               <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
               <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
+              <a href="/tags/%E7%BC%96%E7%A8%8B/" rel="tag"># 编程</a>
           </div>
 
         
