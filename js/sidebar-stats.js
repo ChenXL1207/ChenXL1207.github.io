@@ -1,27 +1,15 @@
 // 侧边栏统计功能
 document.addEventListener('DOMContentLoaded', function() {
-  // 优化字数统计，兼容 Next 主题所有页面
-  function countWords() {
-    // 统计所有正文内容（.post-content），如果没有则统计所有可见文本
-    let totalWords = 0;
-    const contents = document.querySelectorAll('.post-content');
-    if (contents.length > 0) {
-      contents.forEach(content => {
-        const text = content.innerText || '';
-        // 中文字数
-        const chineseCount = (text.match(/[\u4e00-\u9fa5]/g) || []).length;
-        // 英文单词数
-        const englishCount = (text.replace(/[\u4e00-\u9fa5]/g, '').match(/\b\w+\b/g) || []).length;
-        totalWords += chineseCount + englishCount;
+  // 读取 wordcount.json 并显示总字数
+  function fetchTotalWords(callback) {
+    fetch('/wordcount.json')
+      .then(res => res.json())
+      .then(data => {
+        callback(data.totalWords || 0);
+      })
+      .catch(() => {
+        callback(0);
       });
-    } else {
-      // 兜底：统计整个 body 的可见文本
-      const text = document.body.innerText || '';
-      const chineseCount = (text.match(/[\u4e00-\u9fa5]/g) || []).length;
-      const englishCount = (text.replace(/[\u4e00-\u9fa5]/g, '').match(/\b\w+\b/g) || []).length;
-      totalWords = chineseCount + englishCount;
-    }
-    return Math.round(totalWords);
   }
 
   // 从localStorage获取或初始化浏览次数
@@ -37,21 +25,19 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // 初始化统计
-  const totalWords = countWords();
   const totalViews = initPageViews();
-
-  // 插入统计信息到侧边栏
   const siteState = document.querySelector('.site-state');
   if (siteState) {
-    // 添加总字数项
-    const wordsItem = document.createElement('div');
-    wordsItem.className = 'site-state-item site-state-words';
-    wordsItem.innerHTML = `
-      <span class="site-state-item-count">${(totalWords / 1000).toFixed(1)}k</span>
-      <span class="site-state-item-name">字数</span>
-    `;
-    siteState.appendChild(wordsItem);
-
+    // 异步获取总字数
+    fetchTotalWords(function(totalWords) {
+      const wordsItem = document.createElement('div');
+      wordsItem.className = 'site-state-item site-state-words';
+      wordsItem.innerHTML = `
+        <span class="site-state-item-count">${(totalWords / 1000).toFixed(1)}k</span>
+        <span class="site-state-item-name">字数</span>
+      `;
+      siteState.appendChild(wordsItem);
+    });
     // 添加浏览量项
     const viewsItem = document.createElement('div');
     viewsItem.className = 'site-state-item site-state-views';
