@@ -1,16 +1,26 @@
 // 侧边栏统计功能
 document.addEventListener('DOMContentLoaded', function() {
-  // 计算总字数
+  // 优化字数统计，兼容 Next 主题所有页面
   function countWords() {
-    const articles = document.querySelectorAll('article');
+    // 统计所有正文内容（.post-content），如果没有则统计所有可见文本
     let totalWords = 0;
-    articles.forEach(article => {
-      const text = article.innerText;
-      const matches = text.match(/[\u4e00-\u9fa5]/g);
-      const chineseCount = matches ? matches.length : 0;
-      const englishCount = text.split(/\s+/).length;
-      totalWords += chineseCount + englishCount / 2;
-    });
+    const contents = document.querySelectorAll('.post-content');
+    if (contents.length > 0) {
+      contents.forEach(content => {
+        const text = content.innerText || '';
+        // 中文字数
+        const chineseCount = (text.match(/[\u4e00-\u9fa5]/g) || []).length;
+        // 英文单词数
+        const englishCount = (text.replace(/[\u4e00-\u9fa5]/g, '').match(/\b\w+\b/g) || []).length;
+        totalWords += chineseCount + englishCount;
+      });
+    } else {
+      // 兜底：统计整个 body 的可见文本
+      const text = document.body.innerText || '';
+      const chineseCount = (text.match(/[\u4e00-\u9fa5]/g) || []).length;
+      const englishCount = (text.replace(/[\u4e00-\u9fa5]/g, '').match(/\b\w+\b/g) || []).length;
+      totalWords = chineseCount + englishCount;
+    }
     return Math.round(totalWords);
   }
 
