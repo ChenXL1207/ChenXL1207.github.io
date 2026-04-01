@@ -27,14 +27,12 @@
 <meta property="og:site_name" content="ChenXuanliang Blog">
 <meta property="og:description" content="卡码网项目...">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://chenxl1207.github.io/images/%E9%A1%B9%E7%9B%AE%E5%88%86%E4%BA%AB/image.png">
 <meta property="article:published_time" content="2026-03-31T04:00:00.000Z">
-<meta property="article:modified_time" content="2026-04-01T07:34:52.868Z">
+<meta property="article:modified_time" content="2026-04-01T08:20:49.547Z">
 <meta property="article:author" content="Chen Xuanliang">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="项目分享">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://chenxl1207.github.io/images/%E9%A1%B9%E7%9B%AE%E5%88%86%E4%BA%AB/image.png">
 
 
 <link rel="canonical" href="https://chenxl1207.github.io/2026/03/31/%E9%A1%B9%E7%9B%AE%E5%88%86%E4%BA%AB/">
@@ -126,7 +124,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -139,7 +137,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F%EF%BC%88C-%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">缓存系统（C++）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">背景介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%93%E5%AD%98%EF%BC%9F"><span class="nav-number">1.1.1.</span> <span class="nav-text">什么是缓存？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AE%9E%E7%8E%B0%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.1.2.</span> <span class="nav-text">为什么要实现缓存系统?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E4%BB%80%E4%B9%88%E5%9C%B0%E6%96%B9%E5%8A%A0%E7%BC%93%E5%AD%98%EF%BC%9F"><span class="nav-number">1.1.3.</span> <span class="nav-text">在什么地方加缓存？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%B1%A0"><span class="nav-number">2.</span> <span class="nav-text">内存池</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%8F%E7%A8%8B%E5%BA%93"><span class="nav-number">3.</span> <span class="nav-text">协程库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98-CPP"><span class="nav-number">4.</span> <span class="nav-text">分布式缓存-CPP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%BA%93muduo-core"><span class="nav-number">5.</span> <span class="nav-text">网络库muduo-core</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E3%80%90%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95%E7%9F%A5%E8%AF%86%E6%98%9F%E7%90%83%E3%80%91%E9%A1%B9%E7%9B%AE%E7%B2%BE%E8%AE%B2-%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%88cmu15445%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">【代码随想录知识星球】项目精讲-数据库（cmu15445）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Krpc%E6%A1%86%E6%9E%B6%EF%BC%88CPP%EF%BC%89"><span class="nav-number">7.</span> <span class="nav-text">Krpc框架（CPP）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E5%99%A8webserver"><span class="nav-number">8.</span> <span class="nav-text">高性能服务器webserver</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%BC%82%E6%AD%A5%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BA%91%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1"><span class="nav-number">9.</span> <span class="nav-text">基于异步日志系统的云存储服务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ai%E5%BA%94%E7%94%A8%E5%B9%B3%E5%8F%B0HTTP%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6"><span class="nav-number">10.</span> <span class="nav-text">ai应用平台HTTP服务框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8Eraft%E5%88%86%E5%B8%83%E5%BC%8Fkv%E5%AD%98%E5%82%A8"><span class="nav-number">11.</span> <span class="nav-text">基于raft分布式kv存储</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">12.</span> <span class="nav-text">项目-操作系统</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -227,7 +224,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-01 15:34:52" itemprop="dateModified" datetime="2026-04-01T15:34:52+08:00">2026-04-01</time>
+      <time title="修改时间：2026-04-01 16:20:49" itemprop="dateModified" datetime="2026-04-01T16:20:49+08:00">2026-04-01</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -256,12 +253,21 @@
     
     
     <div class="post-body" itemprop="articleBody"><p><a target="_blank" rel="noopener" href="https://docs.qq.com/doc/DSGdvT1daRWNnR09x">全项目链接</a></p>
-<h1 id="缓存系统（C-）"><a href="#缓存系统（C-）" class="headerlink" title="缓存系统（C++）"></a>缓存系统（C++）</h1><h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><h3 id="什么是缓存？"><a href="#什么是缓存？" class="headerlink" title="什么是缓存？"></a>什么是缓存？</h3><p>缓存是将高频访问的数据暂存到内存中，是加速数据访问的存储，降低延迟，提高吞吐率的利器。</p>
-<h3 id="为什么要实现缓存系统"><a href="#为什么要实现缓存系统" class="headerlink" title="为什么要实现缓存系统?"></a>为什么要实现缓存系统?</h3><p>因缓存的使用相关需求，通过牺牲一部分服务器内存，减少对磁盘或者数据库资源进行直接读写，可换取更快响应速度，尤其是处理高并发的场景，负责存储经常访问的数据，通过设计合理的缓存机制提高资源的访问效率。由于服务器的内存是有限的，我们不能把所有数据都存放在内存中，因此需要一种机制来决定当使用内存超过一定标准时，应该删除哪些数据，这就涉及到缓存淘汰策略的选择。</p>
-<h3 id="在什么地方加缓存？"><a href="#在什么地方加缓存？" class="headerlink" title="在什么地方加缓存？"></a>在什么地方加缓存？</h3><p>缓存对于每个开发者来说是相当熟悉了，为了提高程序的性能我们会去加缓存，但是在什么地方加缓存，如何加缓存呢？举个例子：假设一个网站，需要提高性能，缓存可以放在浏览器，可以放在反向代理服务器，还可以放在应用程序进程内，同时可以放在分布式缓存系统中。<br><img src="/../images/%E9%A1%B9%E7%9B%AE%E5%88%86%E4%BA%AB/image.png" alt="alt text"><br>从用户请求数据到数据返回，数据经过了浏览器、CDN、代理服务器、应用服务器，以及数据库各个环节。每个环节都可以运用缓存技术。从浏览器&#x2F;客户端开始请求数据，通过HTTP配合CDN获取数据的变更情况，到达代理服务器(Nginx)可以通过反向代理获取静态资源。再往下来到应用服务器可以通过进程内（堆内）缓存，分布式缓存等方式获取数据。如果以上所有缓存都没有命中数据，才会回源到数据库。</p>
-<p><strong>缓存的顺序：用户请求-&gt;HTTP缓存-&gt;CDN缓存-&gt;代理服务器缓存-&gt;进程内缓存-&gt;分布式缓存-&gt;数据库</strong></p>
-<p>距离用户越近，缓存能够发挥的效果越好。</p>
-<h1 id="内存池"><a href="#内存池" class="headerlink" title="内存池"></a>内存池</h1><h1 id="协程库"><a href="#协程库" class="headerlink" title="协程库"></a>协程库</h1><h1 id="分布式缓存-CPP"><a href="#分布式缓存-CPP" class="headerlink" title="分布式缓存-CPP"></a>分布式缓存-CPP</h1><h1 id="网络库muduo-core"><a href="#网络库muduo-core" class="headerlink" title="网络库muduo-core"></a>网络库muduo-core</h1><h1 id="【代码随想录知识星球】项目精讲-数据库（cmu15445）"><a href="#【代码随想录知识星球】项目精讲-数据库（cmu15445）" class="headerlink" title="【代码随想录知识星球】项目精讲-数据库（cmu15445）"></a>【代码随想录知识星球】项目精讲-数据库（cmu15445）</h1><h1 id="Krpc框架（CPP）"><a href="#Krpc框架（CPP）" class="headerlink" title="Krpc框架（CPP）"></a>Krpc框架（CPP）</h1><h1 id="高性能服务器webserver"><a href="#高性能服务器webserver" class="headerlink" title="高性能服务器webserver"></a>高性能服务器webserver</h1><h1 id="基于异步日志系统的云存储服务"><a href="#基于异步日志系统的云存储服务" class="headerlink" title="基于异步日志系统的云存储服务"></a>基于异步日志系统的云存储服务</h1><h1 id="ai应用平台HTTP服务框架"><a href="#ai应用平台HTTP服务框架" class="headerlink" title="ai应用平台HTTP服务框架"></a>ai应用平台HTTP服务框架</h1><h1 id="基于raft分布式kv存储"><a href="#基于raft分布式kv存储" class="headerlink" title="基于raft分布式kv存储"></a>基于raft分布式kv存储</h1><h1 id="项目-操作系统"><a href="#项目-操作系统" class="headerlink" title="项目-操作系统"></a>项目-操作系统</h1><!-- 1. 复制本文件：`cp 文章模板.md source/_posts/你的文章标题.md`
+<ul>
+<li><a href="/CppProgram/CacheSystem/">缓存系统（C++）</a></li>
+<li>内存池</li>
+<li>协程库</li>
+<li>分布式缓存-CPP</li>
+<li>网络库muduo-core</li>
+<li>【代码随想录知识星球】项目精讲-数据库（cmu15445）</li>
+<li>Krpc框架（CPP）</li>
+<li>高性能服务器webserver</li>
+<li>基于异步日志系统的云存储服务</li>
+<li>ai应用平台HTTP服务框架</li>
+<li>基于raft分布式kv存储</li>
+<li>项目-操作系统</li>
+</ul>
+<!-- 1. 复制本文件：`cp 文章模板.md source/_posts/你的文章标题.md`
 2. 修改 FrontMatter（上面的---之间的内容）
 3. 删除这些说明，开始写你的文章
 4. 保存文件，刷新浏览器预览
