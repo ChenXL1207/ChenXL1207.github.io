@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://chenxl1207.github.io/images/CacheSystem/image-2.png">
 <meta property="og:image" content="https://chenxl1207.github.io/images/CacheSystem/image-3.png">
 <meta property="article:published_time" content="2026-04-01T04:00:00.000Z">
-<meta property="article:modified_time" content="2026-04-08T15:17:58.416Z">
+<meta property="article:modified_time" content="2026-04-09T09:43:07.078Z">
 <meta property="article:author" content="Chen Xuanliang">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="项目分享">
@@ -322,6 +322,18 @@
 
 <p>结果展示如下：</p>
 <p><img src="/../images/CacheSystem/image-3.png" alt="alt text"></p>
+<p>学习完基础的LRU缓存算法实现之后，大家不难发现他身上的缺点：</p>
+<ul>
+<li>对访问模式不敏感：如果是循环的一次性遍历大量不重复的数据（如A-&gt;B-&gt;C-&gt;D-&gt;A-&gt;B-&gt;…），LRU可能逐步清空，几乎无法命中。</li>
+<li>缓存污染：如果加载一些不再会被访问的冷数据（如一次性数据），将原有的热点数据挤出，冷数据留在缓存中，降低了缓存的利用率。</li>
+<li>不适用于某些场景：在某些场景下，最近最少使用并不代表最不重要或最少需要。</li>
+<li>锁的粒度大：多线程高并发的访问下，同步等待将是一笔极大的时间开销。</li>
+</ul>
+<p>针对上述问题，可以本文进行了以下几点优化：</p>
+<ul>
+<li>LRU-k  <a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904049263771662">参考链接</a></li>
+<li>HashLRU</li>
+</ul>
 <h2 id="知识补充"><a href="#知识补充" class="headerlink" title="知识补充"></a>知识补充</h2><h3 id="memory库"><a href="#memory库" class="headerlink" title="memory库"></a>memory库</h3><ul>
 <li><strong>std::unique_ptr:</strong> 表示对某个对象的独占所有权。同一时间只能有一个 unique_ptr 指向该对象。它不能被复制，但可以通过 std::move 转移所有权。当 unique_ptr 离开其作用域或被销毁时，它会自动释放所管理的对象。</li>
 <li><strong>std::shared_ptr:</strong> 表示对某个对象的共享所有权。多个 shared_ptr 可以指向同一个对象，内部通过引用计数来跟踪有多少个指针指向该对象。当最后一个指向该对象的 shared_ptr 被销毁时，对象才会被释放。</li>
