@@ -65,15 +65,20 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     siteStateWrap.appendChild(statsPanel);
 
-    // 计算运行时间
+    // 计算运行时间（降频更新，减少主线程开销）
     const startDate = new Date('2026-02-26');
-    setInterval(function() {
+    function updateRuntime() {
       const now = new Date();
       const diff = now - startDate;
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      document.getElementById('runtime').textContent = `${days}天${hours}小时${minutes}分`;
-    }, 1000);
+      const runtimeEl = document.getElementById('runtime');
+      if (runtimeEl) {
+        runtimeEl.textContent = `${days}天${hours}小时${minutes}分`;
+      }
+    }
+    updateRuntime();
+    setInterval(updateRuntime, 60 * 1000);
   }
 });
