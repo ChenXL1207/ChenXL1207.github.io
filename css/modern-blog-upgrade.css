@@ -1,0 +1,125 @@
+/* D 方案：首页偏信息流，文章页偏沉浸阅读，功能偏 Docs。 */
+
+:root {
+  --blog-bg: #f6f8fb;
+  --blog-card: #ffffff;
+  --blog-text: #1f2a37;
+  --blog-muted: #5b6778;
+  --blog-accent: #2563eb;
+  --blog-border: #e6ebf2;
+}
+
+body {
+  background: var(--blog-bg);
+}
+
+.main-inner {
+  max-width: 1180px;
+}
+
+.header-inner,
+.main-inner,
+.footer-inner {
+  width: min(1180px, calc(100% - 32px));
+}
+
+/* 首页：掘金风卡片节奏 */
+.index .post-block {
+  border: 1px solid var(--blog-border);
+  border-radius: 14px;
+}
+
+.index .post-block + .post-block {
+  margin-top: 16px;
+}
+
+/* 文章页：知乎风阅读宽度 */
+.post-body {
+  font-size: 17px;
+  line-height: 1.9;
+  color: var(--blog-text);
+}
+
+.post-body p {
+  margin: 0.95em 0;
+}
+
+.post-body h1,
+.post-body h2,
+.post-body h3 {
+  letter-spacing: 0.2px;
+  margin-top: 1.6em;
+}
+
+/* Docs 风：代码块和表格更清晰 */
+.post-body pre,
+.highlight {
+  border-radius: 12px;
+  border: 1px solid var(--blog-border);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+}
+
+.post-body table {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--blog-border);
+}
+
+.post-body table th {
+  background: #eef4ff;
+}
+
+.post-body a.external-link {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* 导航和目录增强 */
+.menu .menu-item a {
+  font-weight: 600;
+}
+
+.sidebar .post-toc-wrap {
+  border: 1px solid var(--blog-border);
+  border-radius: 12px;
+  padding: 10px 10px 2px;
+  background: #fff;
+}
+
+.sidebar .toc-child {
+  margin-left: 12px;
+}
+
+/* 深色模式 */
+[data-theme='dark'] body {
+  background: #0f172a;
+}
+
+[data-theme='dark'] .index .post-block,
+[data-theme='dark'] .sidebar .post-toc-wrap,
+[data-theme='dark'] .highlight,
+[data-theme='dark'] .post-body pre {
+  border-color: #2a3649;
+  background: #111a2a;
+}
+
+[data-theme='dark'] .post-body {
+  color: #d7dfeb;
+}
+
+[data-theme='dark'] .post-body table th {
+  background: #16253f;
+}
+
+@media (max-width: 768px) {
+  .header-inner,
+  .main-inner,
+  .footer-inner {
+    width: calc(100% - 20px);
+  }
+
+  .post-body {
+    font-size: 16px;
+    line-height: 1.8;
+  }
+}
