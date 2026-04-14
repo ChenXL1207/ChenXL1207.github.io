@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://chenxl1207.github.io/images/leetcode-algorithm-practice/image.png">
 <meta property="og:image" content="https://chenxl1207.github.io/images/leetcode-algorithm-practice/image-1.png">
 <meta property="article:published_time" content="2026-02-28T04:00:00.000Z">
-<meta property="article:modified_time" content="2026-04-13T03:34:16.204Z">
+<meta property="article:modified_time" content="2026-04-14T15:41:45.059Z">
 <meta property="article:author" content="Chen Xuanliang">
 <meta property="article:tag" content="LeetCode">
 <meta property="article:tag" content="数据结构">
@@ -291,7 +291,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-13 11:34:16" itemprop="dateModified" datetime="2026-04-13T11:34:16+08:00">2026-04-13</time>
+      <time title="修改时间：2026-04-14 23:41:45" itemprop="dateModified" datetime="2026-04-14T23:41:45+08:00">2026-04-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -359,7 +359,7 @@
 </li>
 </ul>
 <p>其中提到了left&#x3D;&#x3D;right是有意义的，为什么有意义呢? 看完灵神的B站视频后解释如下：</p>
-<p><img src="/./../images/image-20260303102923062.png" alt="image-20260303102923062"></p>
+<p><img data-src="/./../images/image-20260303102923062.png" alt="image-20260303102923062"></p>
 <p>由于需要更新Left与Right的区间，对于闭区间，其实Left应当更新为middle+1 或 right应当更新为middle-1，因为无论是对于Left往左，即【0，left】区间，还是对于right往右，即对应【right，nums.size（）-1】区间，都是已经搜索过的，所以其实最后L和R指针会相遇，而相遇的这个位置是有意义的，因此需要设置成while (left &lt;&#x3D; right) ，代码示例如下：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">search</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> right = nums.<span class="built_in">size</span>() - <span class="number">1</span>; <span class="comment">// 定义target在左闭右闭的区间里，[left, right]</span></span><br><span class="line">        <span class="keyword">while</span> (left &lt;= right) &#123; <span class="comment">// 当left==right，区间[left, right]依然有效，所以用 &lt;=</span></span><br><span class="line">            <span class="type">int</span> middle = left + ((right - left) / <span class="number">2</span>);<span class="comment">// 防止溢出 等同于(left + right)/2</span></span><br><span class="line">            <span class="keyword">if</span> (nums[middle] &gt; target) &#123;</span><br><span class="line">                right = middle - <span class="number">1</span>; <span class="comment">// target 在左区间，所以[left, middle - 1]</span></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[middle] &lt; target) &#123;</span><br><span class="line">                left = middle + <span class="number">1</span>; <span class="comment">// target 在右区间，所以[middle + 1, right]</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">// nums[middle] == target</span></span><br><span class="line">                <span class="keyword">return</span> middle; <span class="comment">// 数组中找到目标值，直接返回下标</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 未找到目标值</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 </li>
@@ -369,7 +369,7 @@
 <li>if (nums[middle] &gt; target) right 更新为  middle，因为当前nums[middle]不等于target，去左区间继续寻找，而寻找区间是左闭右开区间，所以right更新为middle，即：下一个查询区间不会去比较nums[middle]</li>
 </ul>
 <p>通过对<a target="_blank" rel="noopener" href="https://programmercarl.com/0704.%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE.html#%E6%80%9D%E8%B7%AF">代码随想录</a>的网站上的学习</p>
-<p><img src="/./../images/image-20260303103550395.png" alt="image-20260303103550395"></p>
+<p><img data-src="/./../images/image-20260303103550395.png" alt="image-20260303103550395"></p>
 </li>
 </ul>
 <p>其实需要的是将right设置为nums.size()，那么随之改动的就是我的right的指向，不用再次指向更新后的right-1，也就是Middle-1，而直接就是更新后的right即可，所以修改代码如下：</p>
@@ -377,7 +377,7 @@
 
 <ul>
 <li><p><strong>开区间</strong>，二分查找的第三种写法，其实前俩种掌握了，第三种其实就非常的显而易见</p>
-<p><img src="/./../images/image-20260303103849758.png" alt="image-20260303103849758"></p>
+<p><img data-src="/./../images/image-20260303103849758.png" alt="image-20260303103849758"></p>
 </li>
 </ul>
 <p>从left&#x3D;-1开始寻找，那么根据第二种方法的理解和基础，提供的代码如下：</p>
@@ -460,7 +460,7 @@
 <td>不捕获任何外部变量（函数体只能用参数和局部变量）</td>
 </tr>
 </tbody></table>
-<h3 id="第三阶段：常用数据结构"><a href="#第三阶段：常用数据结构" class="headerlink" title="第三阶段：常用数据结构"></a>第三阶段：<a target="_blank" rel="noopener" href="https://leetcode.cn/discuss/post/3583665/fen-xiang-gun-ti-dan-chang-yong-shu-ju-j-bvmv/">常用数据结构</a></h3><p><img src="/./../images/image-20260309170745562.png" alt="image-20260309170745562"></p>
+<h3 id="第三阶段：常用数据结构"><a href="#第三阶段：常用数据结构" class="headerlink" title="第三阶段：常用数据结构"></a>第三阶段：<a target="_blank" rel="noopener" href="https://leetcode.cn/discuss/post/3583665/fen-xiang-gun-ti-dan-chang-yong-shu-ju-j-bvmv/">常用数据结构</a></h3><p><img data-src="/./../images/image-20260309170745562.png" alt="image-20260309170745562"></p>
 <p>常用数据结构：<strong>Binary Tree（二叉树）、Stack（栈）、Matrix（矩阵）、Unbalanced Tree（不平衡树）、Array（数组）、Heap（堆）、Rebalanced Tree（平衡树）、Linked List（链表）、Sparse Matrix（稀疏矩阵）</strong></p>
 <h4 id="枚举右，维护左"><a href="#枚举右，维护左" class="headerlink" title="枚举右，维护左"></a>枚举右，维护左</h4><p>对于 双变量问题，例如两数之和 $a_i$​+$a_j$​&#x3D;$t$，可以枚举右边的 $a_j$​，转换成 单变量问题，也就是在 $a_j$​ 左边查找是否有 $a_i$​&#x3D;$t−a_j$​，这可以用哈希表维护。我把这个技巧叫做 枚举右，维护左。</p>
 <p><strong>题单列表</strong></p>
@@ -531,7 +531,7 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ans += <span class="number">1LL</span> * pre[x*<span class="number">2</span>] * suf[x*<span class="number">2</span>]; <span class="comment">//组合数学重点</span></span><br></pre></td></tr></table></figure>
 
 <p>豆包解释如下~：</p>
-<p><img src="/./../images/image-20260315224950438.png" alt="image-20260315224950438"></p>
+<p><img data-src="/./../images/image-20260315224950438.png" alt="image-20260315224950438"></p>
 <ul>
 <li>1930 <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/unique-length-3-palindromic-subsequences/"> 长度为 3 的不同回文子序列</a></li>
 </ul>
@@ -873,11 +873,11 @@
 </ol>
 </li>
 <li><ol start="2336">
-<li>无限集中的最小数字 1375</li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/smallest-number-in-infinite-set/">无限集中的最小数字</a> 1375</li>
 </ol>
 </li>
 <li><ol start="2530">
-<li>执行 K 次操作后的最大分数 1386</li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximal-score-after-applying-k-operations/">执行 K 次操作后的最大分数</a> 1386</li>
 </ol>
 </li>
 <li><ol start="3066">
@@ -917,8 +917,8 @@
 </ol>
 </li>
 </ul>
-<h3 id="双端队列练习（要求：练习完“滑动窗口”）"><a href="#双端队列练习（要求：练习完“滑动窗口”）" class="headerlink" title="双端队列练习（要求：练习完“滑动窗口”）"></a>双端队列练习（要求：练习完“滑动窗口”）</h3><p><img src="/../images/leetcode-algorithm-practice/image.png" alt="alt text"></p>
-<p><img src="/../images/leetcode-algorithm-practice/image-1.png" alt="alt text"></p>
+<h3 id="双端队列练习（要求：练习完“滑动窗口”）"><a href="#双端队列练习（要求：练习完“滑动窗口”）" class="headerlink" title="双端队列练习（要求：练习完“滑动窗口”）"></a>双端队列练习（要求：练习完“滑动窗口”）</h3><p><img data-src="/../images/leetcode-algorithm-practice/image.png" alt="alt text"></p>
+<p><img data-src="/../images/leetcode-algorithm-practice/image-1.png" alt="alt text"></p>
 <ol start="239">
 <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/sliding-window-maximum/">滑动窗口最大值</a></li>
 <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/">绝对差不超过限制的最长连续子数组</a> 1672</li>
