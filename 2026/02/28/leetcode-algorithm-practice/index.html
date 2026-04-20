@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://chenxl1207.github.io/images/leetcode-algorithm-practice/image.png">
 <meta property="og:image" content="https://chenxl1207.github.io/images/leetcode-algorithm-practice/image-1.png">
 <meta property="article:published_time" content="2026-02-28T04:00:00.000Z">
-<meta property="article:modified_time" content="2026-04-20T03:37:59.223Z">
+<meta property="article:modified_time" content="2026-04-20T07:56:25.803Z">
 <meta property="article:author" content="Chen Xuanliang">
 <meta property="article:tag" content="LeetCode">
 <meta property="article:tag" content="数据结构">
@@ -262,7 +262,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-20 11:37:59" itemprop="dateModified" datetime="2026-04-20T11:37:59+08:00">2026-04-20</time>
+      <time title="修改时间：2026-04-20 15:56:25" itemprop="dateModified" datetime="2026-04-20T15:56:25+08:00">2026-04-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -918,6 +918,63 @@
 </li>
 <li><ol start="817">
 <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/linked-list-components/">链表组件</a></li>
+</ol>
+</li>
+</ul>
+<h5 id="删除链表结点"><a href="#删除链表结点" class="headerlink" title="删除链表结点"></a>删除链表结点</h5><p>假设我们要删除节点 B：</p>
+<p>A -&gt; B -&gt; C</p>
+<ul>
+<li>定位：我们需要持有 A 的指针（前驱），因为 A 是连接 B 的关键。</li>
+<li>搭桥：执行 A-&gt;next &#x3D; B-&gt;next（即 A-&gt;next &#x3D; C）。</li>
+<li>此时内存中变成了：A -&gt; C，而 B 孤零零地挂在旁边。<br>释放：执行 delete B。</li>
+</ul>
+<p>模板代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 假设 curr 是前驱节点，curr-&gt;next 是要删除的节点</span></span><br><span class="line"></span><br><span class="line">ListNode* temp = curr-&gt;next;       <span class="comment">// 1. 暂存（防止断链后找不到）</span></span><br><span class="line">curr-&gt;next = temp-&gt;next;           <span class="comment">// 2. 搭桥（逻辑删除）</span></span><br><span class="line"><span class="keyword">delete</span> temp;                       <span class="comment">// 3. 释放（物理删除，C++ 特有）</span></span><br></pre></td></tr></table></figure>
+
+<p>一般存在三个特定场景</p>
+<p>场景一：删除指定值的节点（普通遍历删除）<br>关键点： 为了方便处理“<strong>删除头节点</strong>”这种特殊情况，我们通常使用<strong>哨兵节点（Dummy Node）</strong>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ListNode</span> &#123;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    ListNode *next;</span><br><span class="line">    <span class="built_in">ListNode</span>(<span class="type">int</span> x) : <span class="built_in">val</span>(x), <span class="built_in">next</span>(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">ListNode* <span class="title">removeElements</span><span class="params">(ListNode* head, <span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1. 创建哨兵节点，指向头节点</span></span><br><span class="line">    <span class="comment">// 这样即使要删除 head，逻辑也是一样的（head 变成了哨兵的下一个节点）</span></span><br><span class="line">    ListNode* dummy = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">0</span>);</span><br><span class="line">    dummy-&gt;next = head;</span><br><span class="line">    </span><br><span class="line">    ListNode* curr = dummy; <span class="comment">// 从哨兵开始遍历</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 2. 遍历链表</span></span><br><span class="line">    <span class="keyword">while</span> (curr-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (curr-&gt;next-&gt;val == val) &#123;</span><br><span class="line">            <span class="comment">// 找到要删除的节点（curr-&gt;next）</span></span><br><span class="line">            ListNode* temp = curr-&gt;next; <span class="comment">// 暂存要删除的节点</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 3. 核心步骤：搭桥</span></span><br><span class="line">            curr-&gt;next = curr-&gt;next-&gt;next; <span class="comment">// 跳过 temp，直接连到后面</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 4. 核心步骤：释放内存</span></span><br><span class="line">            <span class="keyword">delete</span> temp; </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 没找到，继续向后移动</span></span><br><span class="line">            curr = curr-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    ListNode* res = dummy-&gt;next; <span class="comment">// 保存新的头节点</span></span><br><span class="line">    <span class="keyword">delete</span> dummy; <span class="comment">// 删除哨兵</span></span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>场景二：删除指定位置的节点（如：删除第 N 个节点）</p>
+<p>如果你知道要删除的是第 k 个节点，或者倒数第 k 个节点，原理是一样的，重点在于找到前驱节点。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode* <span class="title">deleteKthNode</span><span class="params">(ListNode* head, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (k &lt;= <span class="number">0</span> || head == <span class="literal">nullptr</span>) <span class="keyword">return</span> head;</span><br><span class="line">    </span><br><span class="line">    ListNode* dummy = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">0</span>);</span><br><span class="line">    dummy-&gt;next = head;</span><br><span class="line">    </span><br><span class="line">    ListNode* curr = dummy;</span><br><span class="line">    <span class="type">int</span> count = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 找到第 k-1 个节点（即前驱节点）</span></span><br><span class="line">    <span class="keyword">while</span> (curr-&gt;next != <span class="literal">nullptr</span> &amp;&amp; count &lt; k - <span class="number">1</span>) &#123;</span><br><span class="line">        curr = curr-&gt;next;</span><br><span class="line">        count++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 如果 k 大于链表长度，curr-&gt;next 会是 nullptr，不做操作</span></span><br><span class="line">    <span class="keyword">if</span> (curr-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        ListNode* toDelete = curr-&gt;next;</span><br><span class="line">        curr-&gt;next = toDelete-&gt;next; <span class="comment">// 搭桥</span></span><br><span class="line">        <span class="keyword">delete</span> toDelete;             <span class="comment">// 释放</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    ListNode* res = dummy-&gt;next;</span><br><span class="line">    <span class="keyword">delete</span> dummy;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>场景三 已知要删除的节点指针（非尾节点）</p>
+<p>有时候题目会直接给你一个指向要删除节点的指针 node（例如 LeetCode 237），而且保证不是尾节点。</p>
+<p>原理：既然找不到前驱节点，那就把下一个节点的值复制过来，然后删除下一个节点。</p>
+<p>A -&gt; B -&gt; C (要删除 B)</p>
+<p>变成：<br>A -&gt; C -&gt; C (把 C 的值给 B)</p>
+<p>然后删除第二个 C。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">deleteNode</span><span class="params">(ListNode* node)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1. 把下一个节点的值赋给当前节点</span></span><br><span class="line">    node-&gt;val = node-&gt;next-&gt;val;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 2. 暂存下一个节点</span></span><br><span class="line">    ListNode* temp = node-&gt;next;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 3. 跳过下一个节点</span></span><br><span class="line">    node-&gt;next = node-&gt;next-&gt;next;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 4. 释放内存</span></span><br><span class="line">    <span class="keyword">delete</span> temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>题单：</p>
+<ul>
+<li><ol start="203">
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-linked-list-elements/">移除链表元素</a></li>
+</ol>
+</li>
+<li><ol start="3217">
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/delete-nodes-from-linked-list-present-in-array/">从链表中移除在数组中存在的节点</a></li>
+</ol>
+</li>
+<li><ol start="83">
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-duplicates-from-sorted-list/">删除排序链表中的重复元素</a></li>
+</ol>
+</li>
+<li><ol start="82">
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-duplicates-from-sorted-list-ii/">删除排序链表中的重复元素 II</a></li>
+</ol>
+</li>
+<li><ol start="237">
+<li>删除链表中的节点</li>
+</ol>
+</li>
+<li><ol start="1669">
+<li>合并两个链表</li>
+</ol>
+</li>
+<li><ol start="2487">
+<li>从链表中移除节点</li>
 </ol>
 </li>
 </ul>
