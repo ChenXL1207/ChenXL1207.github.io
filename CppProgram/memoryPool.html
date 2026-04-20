@@ -26,12 +26,15 @@
 <meta property="og:site_name" content="ChenXuanliang Blog">
 <meta property="og:description" content="卡码网项目...">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chenxl1207.github.io/images/memoryPool/image.png">
+<meta property="og:image" content="https://chenxl1207.github.io/images/memoryPool/image-1.png">
 <meta property="article:published_time" content="2026-04-18T04:00:00.000Z">
-<meta property="article:modified_time" content="2026-04-18T11:05:42.297Z">
+<meta property="article:modified_time" content="2026-04-18T13:11:39.283Z">
 <meta property="article:author" content="Chen Xuanliang">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="项目分享">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chenxl1207.github.io/images/memoryPool/image.png">
 
 
 <link rel="canonical" href="https://chenxl1207.github.io/CppProgram/memoryPool">
@@ -161,7 +164,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%B1%A0"><span class="nav-text">内存池</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%B1%A0"><span class="nav-text">内存池</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-text">定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%86%85%E5%AD%98%E6%B1%A0"><span class="nav-text">什么是内存池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%81%9A%E5%86%85%E5%AD%98%E6%B1%A0%EF%BC%9F"><span class="nav-text">为什么要做内存池？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A"><span class="nav-text">性能优化：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E6%97%B6%E6%80%A7"><span class="nav-text">实时性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text">使用场景</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D"><span class="nav-text">项目介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#v1%E4%BB%8B%E7%BB%8D"><span class="nav-text">v1介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#v2%E4%BB%8B%E7%BB%8D"><span class="nav-text">v2介绍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="nav-text">项目前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#v1%E7%89%88%E6%9C%AC%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="nav-text">v1版本前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#std-allocator"><span class="nav-text">std::allocator</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%A2%8E%E7%89%87%E9%97%AE%E9%A2%98"><span class="nav-text">内存碎片问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85"><span class="nav-text">知识补充</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#new-%E4%B8%8E-malloc-%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98%E9%80%BB%E8%BE%91"><span class="nav-text">new 与 malloc 分配内存逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E9%94%81"><span class="nav-text">线程锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E5%AD%90%E9%94%81-%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C"><span class="nav-text">原子锁&#x2F;原子操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%92%E6%96%A5%E9%94%81-mutex"><span class="nav-text">互斥锁 mutex</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E9%94%81-recursive-mutex"><span class="nav-text">递归锁 recursive_mutex</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E9%94%81-%E8%AF%BB%E5%86%99%E9%94%81-shared-mutex%EF%BC%88%E8%AF%BB%E5%A4%9A%E5%86%99%E5%B0%91%EF%BC%89"><span class="nav-text">共享锁 &#x2F; 读写锁 shared_mutex（读多写少）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E6%97%8B%E9%94%81-spin-lock"><span class="nav-text">自旋锁 spin lock</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E5%8F%98%E9%87%8F%EF%BC%88%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%EF%BC%89-%E9%9C%80%E8%A6%81%E8%A1%A5%E5%85%85"><span class="nav-text">条件变量（生产者消费者） 需要补充</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F-%E9%9C%80%E8%A6%81%E8%A1%A5%E5%85%85"><span class="nav-text">信号量 需要补充</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E6%AF%94"><span class="nav-text">对比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF-1"><span class="nav-text">使用场景</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#operator-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-text">operator 关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E8%BD%BD%E7%AE%97%E6%9C%AF-%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6%EF%BC%88%E8%AE%A9%E5%AF%B9%E8%B1%A1%E8%83%BD%E5%8A%A0%E5%87%8F%E6%AF%94%E8%BE%83%EF%BC%89"><span class="nav-text">重载算术 &#x2F; 逻辑运算符（让对象能加减比较）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E8%BD%BD%E7%89%B9%E6%AE%8A%E8%BF%90%E7%AE%97%E7%AC%A6%EF%BC%88%E8%AE%A9%E7%B1%BB%E7%94%A8%E8%B5%B7%E6%9D%A5%E5%83%8F%E5%86%85%E7%BD%AE%E7%B1%BB%E5%9E%8B%EF%BC%89"><span class="nav-text">重载特殊运算符（让类用起来像内置类型）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E8%BD%BD-operator-new-operator-delete"><span class="nav-text">重载 operator new &#x2F; operator delete</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">类型转换运算符</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97-assert"><span class="nav-text">关键字 assert</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97-forward"><span class="nav-text">关键字 forward</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-text">类型转换</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -226,6 +229,361 @@
       
       <div class="post-body">
           <h1 id="内存池"><a href="#内存池" class="headerlink" title="内存池"></a>内存池</h1><p>代码仓库地址：<a target="_blank" rel="noopener" href="https://gitee.com/chenxuanliang/memory-pool.git">https://gitee.com/chenxuanliang/memory-pool.git</a></p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><h3 id="什么是内存池"><a href="#什么是内存池" class="headerlink" title="什么是内存池"></a>什么是内存池</h3><p>内存池是一种预分配内存并进行重复利用的技术，通过减少频繁的动态内存分配与释放操作，从而提高程序运行效率。内存池通常预先分配一块大的内存区域，将其划分为多个小块，每次需要分配内存时直接从这块区域中分配，而不是调用系统的动态分配函数（如 new 或 malloc ，函数底层知识补充<a href="#jump-target">点击跳转</a>）。简单来说就是申请一块较大的内存块(不够继续申请)，之后将这块内存的管理放在应用层执行，减少系统调用带来的开销。</p>
+<h3 id="为什么要做内存池？"><a href="#为什么要做内存池？" class="headerlink" title="为什么要做内存池？"></a>为什么要做内存池？</h3><h4 id="性能优化："><a href="#性能优化：" class="headerlink" title="性能优化："></a>性能优化：</h4><ul>
+<li>减少动态内存分配的开销：系统调用 malloc&#x2F;new 和 free&#x2F;delete 涉及复杂的内存管理操作（如内存查找、碎片整理），导致性能较低，而内存池通过预分配和简单的管理逻辑显著提高了分配和释放的效率。</li>
+<li>避免内存碎片：动态分配内存会产生内存碎片，尤其在大量小对象频繁分配和释放的场景中，导致的后果就是：当程序长时间运行时，由于所申请的内存块的大小不定，频繁使用时会造成大量的内存碎片从而降低程序和操作系统的性能。内存池通过管理固定大小的内存块，可以有效避免碎片化。</li>
+<li>降低系统调用频率：系统级内存分配（如 malloc ）需要进入内核态，频繁调用会有较高的性能开销。内存池通过减少系统调用频率提高程序效率。</li>
+</ul>
+<h4 id="实时性"><a href="#实时性" class="headerlink" title="实时性"></a>实时性</h4><p>稳定的分配时间：使用内存池可以使分配和释放操作的耗时更加可控和稳定，适合实时性有严格要求的系统。</p>
+<h4 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h4><ul>
+<li><strong>高频小对象分配</strong><ul>
+<li>游戏开发：游戏中大量小对象（如粒子、子弹、NPC）的动态分配和释放非常频繁，使用内存池可以显著优化性能。</li>
+<li>网络编程：网络编程中，大量请求和响应对象（如消息报文）和频繁创建和销毁非常适合使用内存池。</li>
+<li>内存管理库：一些容器或数据结构（如 std::vector 或 std::deque）在内部可能使用内存池来优化分配性能。</li>
+</ul>
+</li>
+<li><strong>实时系统</strong><ul>
+<li>嵌入式设备或实时控制系统中，动态内存分配的延迟可能影响实时性，内存池提供确定性的分配性能。</li>
+</ul>
+</li>
+<li><strong>高性能计算</strong><ul>
+<li>在高性能计算程序中，频繁地内存分配和释放会拖累整个程序的性能，内存池可以优化内存管理。</li>
+</ul>
+</li>
+<li><strong>服务器开发</strong><ul>
+<li>数据库服务器、web 服务器等需要管理大量连接和请求，这些连接涉及大量内存分配，内存池能有效提升服务器性能。</li>
+</ul>
+</li>
+<li><strong>内存池在代码中的应用</strong><ul>
+<li>对 new&#x2F;malloc&#x2F;delete&#x2F;free 等动态开辟内存的系统调用进行替换</li>
+<li>对 STL 众多容器中的空间配置器 std::allocator 进行替换</li>
+</ul>
+</li>
+<li><strong>内存池的缺点</strong><ul>
+<li>初始内存占用：内存池需要预先分配较大的内存区域，可能浪费一些内存。</li>
+<li>复杂性：实现和调试内存池代码比直接使用 malloc &#x2F; new 更复杂。</li>
+<li>不适合大型对象：对于大对象的分配可能并不划算。</li>
+</ul>
+</li>
+</ul>
+<h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p>本项目是基于 C++ 实现的自定义内存池框架，旨在提高内存分配和释放的效率，特别是在多线程环境下。该项目中实现的内存池主要分为两个版本，分别是目录 v1 和 v2（v3 在 v2 基础上进行了一定优化），这两个版本的内存池设计思路大不相同。</p>
+<h3 id="v1介绍"><a href="#v1介绍" class="headerlink" title="v1介绍"></a>v1介绍</h3><p>基于哈希映射的多种定长内存分配器，可用于替换 new 和 delete 等内存申请释放的系统调用。包含以下主要功能：</p>
+<ul>
+<li>内存分配：提供 allocate 方法，从内存池中分配内存块。</li>
+<li>内存释放：提供 deallocate 方法，将内存块归还到内存池。</li>
+<li>内存块管理：通过 allocateNewBlock 方法管理内存块的分配和释放。</li>
+<li>自由链表：使用无锁的自由链表管理空闲内存块，提高并发性能。</li>
+</ul>
+<p>架构图如下（参考代码随想录星球项目）：<br><img data-src="/../images/memoryPool/image.png" alt="alt text"></p>
+<h3 id="v2介绍"><a href="#v2介绍" class="headerlink" title="v2介绍"></a>v2介绍</h3><ul>
+<li>线程本地缓存（ThreadCache）：每个线程维护自己的内存块链表，减少线程间的锁竞争，提高内存分配效率。</li>
+<li>中心缓存（CentralCache）：用于管理多个线程共享的内存块，支持批量分配和回收，优化内存利用率。</li>
+<li>页面缓存（PageCache）：负责从操作系统申请和释放大块内存，支持内存块的合并和分割，减少内存碎片。</li>
+<li>自旋锁和原子操作：在多线程环境下使用自旋锁和原子操作，确保线程安全的同时减少锁的开销。<br><img data-src="/../images/memoryPool/image-1.png" alt="alt text"></li>
+</ul>
+<h2 id="项目前置知识"><a href="#项目前置知识" class="headerlink" title="项目前置知识"></a>项目前置知识</h2><h3 id="v1版本前置知识"><a href="#v1版本前置知识" class="headerlink" title="v1版本前置知识"></a>v1版本前置知识</h3><h4 id="std-allocator"><a href="#std-allocator" class="headerlink" title="std::allocator"></a>std::allocator</h4><h5 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h5><p>std::allocator<T> 是 C++ 标准库中<strong>默认的内存分配器模板</strong>，定义在 <memory> 头文件中，是 STL 容器（如 std::vector、std::list、std::map）的默认内存管理工具。</p>
+<h5 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h5><p>std::allocator 的设计精髓，是把 “<strong>分配原始内存</strong>” 和 “<strong>在内存上构造 &#x2F; 销毁对象</strong>” 拆分成了两套独立接口：</p>
+<ul>
+<li>内存分配 &#x2F; 释放：只管向系统申请 &#x2F; 归还 “裸内存”，不关心对象的构造。</li>
+<li>对象构造 &#x2F; 析构：在已分配的内存上，手动调用构造 &#x2F; 析构函数，实现延迟初始化。</li>
+</ul>
+<h5 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h5><table>
+<thead>
+<tr>
+<th align="left">接口</th>
+<th align="left">作用</th>
+<th align="left">底层实现</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>allocate(n)</code></td>
+<td align="left">分配 n 个 T 类型对象大小的原始内存</td>
+<td align="left">调用 <code>::operator new</code></td>
+</tr>
+<tr>
+<td align="left"><code>deallocate(p, n)</code></td>
+<td align="left">释放 allocate 分配的内存</td>
+<td align="left">调用 <code>::operator delete</code></td>
+</tr>
+<tr>
+<td align="left"><code>construct(p, args...)</code></td>
+<td align="left">在地址 p 上用 args 构造 T 对象</td>
+<td align="left">调用 placement new</td>
+</tr>
+<tr>
+<td align="left"><code>destroy(p)</code></td>
+<td align="left">销毁地址 p 上的 T 对象</td>
+<td align="left">调用 <code>p-&gt;~T()</code></td>
+</tr>
+</tbody></table>
+<h5 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h5><p>一般工作流程如下：</p>
+<ol>
+<li>申请内存：vector 调用 allocator.allocate(capacity)，向系统申请一块连续的裸内存。</li>
+<li>构造对象：vector 调用 allocator.construct(p, value)，用 placement new 在内存上初始化对象。</li>
+<li>使用对象：直接操作内存上的对象，无需额外分配。</li>
+<li>销毁对象：vector 调用 allocator.destroy(p)，调用对象析构函数。</li>
+<li>释放内存：vector 调用 allocator.deallocate(p, capacity)，将裸内存归还系统。</li>
+</ol>
+<h5 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h5><h5 id="自定义分配器"><a href="#自定义分配器" class="headerlink" title="自定义分配器"></a>自定义分配器</h5><ol>
+<li>默认 std::allocator 的缺点</li>
+</ol>
+<ul>
+<li>每次分配都直接调用 ::operator new，频繁小对象分配会产生大量内存碎片。</li>
+<li>多线程环境下无锁优化，并发分配效率低。</li>
+</ul>
+<ol start="2">
+<li>自定义分配器的核心要求</li>
+</ol>
+<p>要实现一个兼容 STL 的分配器，必须满足以下规范（C++11 简化版）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">MyAllocator</span> &#123;</span><br><span class="line">    <span class="keyword">using</span> value_type = T;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 分配 n 个 T 的内存</span></span><br><span class="line">    <span class="function">T* <span class="title">allocate</span><span class="params">(std::<span class="type">size_t</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 自定义内存池分配逻辑</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">static_cast</span>&lt;T*&gt;(pool.<span class="built_in">allocate</span>(n * <span class="built_in">sizeof</span>(T)));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 释放内存</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">deallocate</span><span class="params">(T* p, std::<span class="type">size_t</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 自定义内存池释放逻辑</span></span><br><span class="line">        pool.<span class="built_in">deallocate</span>(p, n * <span class="built_in">sizeof</span>(T));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构造对象（默认实现可省略）</span></span><br><span class="line">    <span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Args&gt;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">construct</span><span class="params">(T* p, Args&amp;&amp;... args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> (p) <span class="built_in">T</span>(std::forward&lt;Args&gt;(args)...);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 销毁对象（默认实现可省略）</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">destroy</span><span class="params">(T* p)</span> </span>&#123;</span><br><span class="line">        p-&gt;~<span class="built_in">T</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="内存碎片问题"><a href="#内存碎片问题" class="headerlink" title="内存碎片问题"></a>内存碎片问题</h4><p>造成堆内存利用率很低的一个主要原因就是内存碎片化。内存碎片化就是计算机程序在运行过程中，频繁地内存分配与释放引起的内存空间不连续性问题，可能导致内存利用率降低甚至无法分配所需的内存。内存碎片主要分为<strong>内碎片</strong>和<strong>外碎片</strong>两种类型。</p>
+<ul>
+<li><p>内碎片</p>
+<ul>
+<li>定义：内碎片指已分配的内存块未被实际使用的部分。即程序请求的内存小于分配的内存块大小时，多余的部分形成内碎片。</li>
+<li>产生原因：内存分配器通常按固定的对齐规则分配内存块（如对齐到4字节或8字节），分配大小往往是申请大小的倍数。</li>
+<li>举例：程序需要13字节内存，但内存分配器按16字节对齐规则分配了16字节。多出的3字节就是内碎片。</li>
+</ul>
+</li>
+<li><p>外碎片</p>
+<ul>
+<li>定义：外碎片是指系统中有足够总量的空闲内存，但这些空闲内存不连续，无法满足一个较大的分配请求。</li>
+<li>产生原因：频繁的小内存块的分配和释放导致内存分布变得零散和不连续的小块空闲内存无法自动组合成足够大的连续块。</li>
+<li>举例：系统中有多个小块空闲内存，总量为100MB，但是由于这些空闲内存块彼此不连续，无法分配一个需要50MB的大块。</li>
+</ul>
+</li>
+</ul>
+<p>注：内存池的固定大小块分配等机制，可以减少有效外碎片，内存池的内存分配策略根据实际需求制定的越精细产生的内碎片越少。ps：内碎片是不可避免只能减少的。</p>
+<p>该内存池项目哈希桶的思想借鉴了STL allocator：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/LF_2016/article/details/53511648">https://blog.csdn.net/LF_2016/article/details/53511648</a></p>
+<p>具体每个小内存池的实现参照了GitHub上的项目：<br>项目：<a target="_blank" rel="noopener" href="https://github.com/cacay/MemoryPool%EF%BC%88%E5%AD%A6%E4%B9%A0%E6%9C%AC%E6%96%87%E9%A1%B9%E7%9B%AE%E4%B9%8B%E5%89%8D%E5%BB%BA%E8%AE%AE%E5%85%88%E7%9C%8B%E4%B8%80%E4%B8%8B%E8%AF%A5%E9%A1%B9%E7%9B%AE%EF%BC%8C%E6%9B%B4%E5%9F%BA%E7%A1%80%EF%BC%89">https://github.com/cacay/MemoryPool（学习本文项目之前建议先看一下该项目，更基础）</a></p>
+<p>对应文档：<a target="_blank" rel="noopener" href="https://github.com/AngryHacker/articles/blob/master/src/code_reading/memorypool.md">https://github.com/AngryHacker/articles/blob/master/src/code_reading/memorypool.md</a></p>
+<h2 id="知识补充"><a href="#知识补充" class="headerlink" title="知识补充"></a>知识补充</h2><h3 id="new-与-malloc-分配内存逻辑"><a href="#new-与-malloc-分配内存逻辑" class="headerlink" title="new 与 malloc 分配内存逻辑"></a><a id="jump-target"></a>new 与 malloc 分配内存逻辑</h3><table>
+<thead>
+<tr>
+<th align="left">特性</th>
+<th align="left">malloc</th>
+<th align="left">new</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>出身</strong></td>
+<td align="left">C 语言函数</td>
+<td align="left">C++ 关键字</td>
+</tr>
+<tr>
+<td align="left"><strong>工作</strong></td>
+<td align="left"><strong>只分配裸内存</strong></td>
+<td align="left"><strong>分配内存 + 自动调用构造函数初始化</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>释放</strong></td>
+<td align="left">free()</td>
+<td align="left">delete</td>
+</tr>
+<tr>
+<td align="left"><strong>类型</strong></td>
+<td align="left">返回 void*，必须强转</td>
+<td align="left">返回对应类型指针，<strong>不用强转</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>报错</strong></td>
+<td align="left">失败返回 NULL</td>
+<td align="left">失败抛异常</td>
+</tr>
+<tr>
+<td align="left"><strong>用法</strong></td>
+<td align="left">需要算字节数</td>
+<td align="left">不用算字节数</td>
+</tr>
+</tbody></table>
+<p>malloc只向操作系统申请一块指定大小的裸内存，示例代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 申请 4 字节内存（存一个 int）</span></span><br><span class="line"><span class="type">int</span>* p = (<span class="type">int</span>*)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(<span class="type">int</span>)); </span><br></pre></td></tr></table></figure>
+
+<p>new申请内存（和 malloc 一样）并自动调用构造函数初始化对象，示例代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 自动分配内存 + 自动初始化</span></span><br><span class="line"><span class="type">int</span>* p = <span class="keyword">new</span> <span class="type">int</span>; </span><br></pre></td></tr></table></figure>
+
+<h3 id="线程锁"><a href="#线程锁" class="headerlink" title="线程锁"></a>线程锁</h3><h4 id="原子锁-原子操作"><a href="#原子锁-原子操作" class="headerlink" title="原子锁&#x2F;原子操作"></a>原子锁&#x2F;原子操作</h4><p>“原子” &#x3D; 不可分割、一步做完、中间不会被打断</p>
+<p>比如：i++，CPU需要执行三步，读i再加i最后覆盖i</p>
+<p>多线程同时跑，就会<strong>互相覆盖</strong>，结果出错，<strong>一次性完成，别的线程插不进来</strong></p>
+<p><strong>用原子变量实现的无锁同步机制</strong>，特点如下：</p>
+<ul>
+<li>不需要操作系统介入</li>
+<li>没有线程阻塞、等待</li>
+<li>速度极快</li>
+<li>只能保护简单操作（加减、赋值、交换）</li>
+</ul>
+<h4 id="互斥锁-mutex"><a href="#互斥锁-mutex" class="headerlink" title="互斥锁 mutex"></a>互斥锁 mutex</h4><p>同一时间，只允许一个线程进入某段代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mutex mtx;</span><br><span class="line">mtx.<span class="built_in">lock</span>();      <span class="comment">// 上锁</span></span><br><span class="line"><span class="comment">// 临界区代码</span></span><br><span class="line">mtx.<span class="built_in">unlock</span>();    <span class="comment">// 解锁</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>优点：简单、安全</li>
+<li>缺点：阻塞、等待、开销中等</li>
+</ul>
+<h4 id="递归锁-recursive-mutex"><a href="#递归锁-recursive-mutex" class="headerlink" title="递归锁 recursive_mutex"></a>递归锁 recursive_mutex</h4><p>允许同一个线程多次上锁，不会死锁。</p>
+<p>普通 mutex：lock → lock → 死锁</p>
+<p>递归 mutex：lock → lock → 没问题（内部计数）</p>
+<p>适合：函数嵌套调用、递归函数里加锁</p>
+<h4 id="共享锁-读写锁-shared-mutex（读多写少）"><a href="#共享锁-读写锁-shared-mutex（读多写少）" class="headerlink" title="共享锁 &#x2F; 读写锁 shared_mutex（读多写少）"></a>共享锁 &#x2F; 读写锁 shared_mutex（读多写少）</h4><p>规则：</p>
+<ul>
+<li>读可以同时多人进</li>
+<li>写只能一个人进</li>
+<li>写的时候不能读，读的时候不能写</li>
+</ul>
+<p>适合：配置读取、缓存、日志、高频读低频写<br>C++：std::shared_mutex</p>
+<ul>
+<li>读锁：lock_shared()</li>
+<li>写锁：lock()</li>
+</ul>
+<h4 id="自旋锁-spin-lock"><a href="#自旋锁-spin-lock" class="headerlink" title="自旋锁 spin lock"></a>自旋锁 spin lock</h4><p>类比与<strong>一直循环询问 “能不能进”线程</strong>，对比 mutex：</p>
+<ul>
+<li>mutex 拿不到锁 → 线程休眠（操作系统调度）</li>
+<li>自旋锁拿不到锁 → while 循环狂问</li>
+</ul>
+<p>优点：</p>
+<ul>
+<li>极快，适合锁内代码非常短</li>
+<li>避免线程切换开销</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>占 CPU 资源</li>
+<li>锁内代码长会卡死 CPU</li>
+</ul>
+<h4 id="条件变量（生产者消费者）-需要补充"><a href="#条件变量（生产者消费者）-需要补充" class="headerlink" title="条件变量（生产者消费者） 需要补充"></a>条件变量（生产者消费者） 需要补充</h4><p>不是锁，是配合锁使用的等待 &#x2F; 唤醒机制</p>
+<p>场景：</p>
+<ul>
+<li>生产者消费者</li>
+<li>队列空了等待，有数据唤醒</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">unique_lock&lt;mutex&gt; <span class="title">lck</span><span class="params">(mtx)</span></span>;</span><br><span class="line">cv.<span class="built_in">wait</span>(lck);    <span class="comment">// 等待并释放锁</span></span><br><span class="line">cv.<span class="built_in">notify_one</span>(); <span class="comment">// 唤醒一个</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="信号量-需要补充"><a href="#信号量-需要补充" class="headerlink" title="信号量 需要补充"></a>信号量 需要补充</h4><p>控制最多 N 个线程同时进入，最多 3 个线程同时访问数据库。</p>
+<h4 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h4><table>
+<thead>
+<tr>
+<th align="left">锁 &#x2F; 机制</th>
+<th align="left">特点</th>
+<th align="left">速度</th>
+<th align="left">适合场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">原子操作</td>
+<td align="left">无锁、不可分割</td>
+<td align="left">最快</td>
+<td align="left">计数、标志位</td>
+</tr>
+<tr>
+<td align="left">自旋锁</td>
+<td align="left">循环等待，不睡眠</td>
+<td align="left">极快</td>
+<td align="left">短临界区、内存池</td>
+</tr>
+<tr>
+<td align="left">互斥锁 mutex</td>
+<td align="left">独占、阻塞</td>
+<td align="left">快</td>
+<td align="left">通用绝大多数场景</td>
+</tr>
+<tr>
+<td align="left">递归锁</td>
+<td align="left">可重复上锁</td>
+<td align="left">快</td>
+<td align="left">嵌套函数、递归</td>
+</tr>
+<tr>
+<td align="left">读写锁</td>
+<td align="left">读共享、写独占</td>
+<td align="left">较快</td>
+<td align="left">读多写少</td>
+</tr>
+<tr>
+<td align="left">条件变量</td>
+<td align="left">等待唤醒</td>
+<td align="left">中</td>
+<td align="left">生产者消费者</td>
+</tr>
+<tr>
+<td align="left">信号量</td>
+<td align="left">控制并发数</td>
+<td align="left">中</td>
+<td align="left">限流、池化资源</td>
+</tr>
+</tbody></table>
+<h4 id="使用场景-1"><a href="#使用场景-1" class="headerlink" title="使用场景"></a>使用场景</h4><ol>
+<li>普通多线程安全 → std::mutex</li>
+<li>锁内代码很短、高并发 → 自旋锁</li>
+<li>读多写少 → shared_mutex</li>
+<li>简单计数、无锁 → std::atomic</li>
+<li>队列 &#x2F; 等待逻辑 → condition_variable</li>
+<li>内存池、高并发分配 → 自旋锁 + 无锁设计</li>
+</ol>
+<h3 id="operator-关键字"><a href="#operator-关键字" class="headerlink" title="operator 关键字"></a>operator 关键字</h3><p>operator 就是让你给 C++ 自带的符号（+、-、*、&#x2F;、[]、&#x3D;、new、delete…）重新定义功能的关键字。</p>
+<h4 id="重载算术-逻辑运算符（让对象能加减比较）"><a href="#重载算术-逻辑运算符（让对象能加减比较）" class="headerlink" title="重载算术 &#x2F; 逻辑运算符（让对象能加减比较）"></a>重载算术 &#x2F; 逻辑运算符（让对象能加减比较）</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Point</span> &#123; <span class="type">int</span> x,y; &#125;;</span><br><span class="line">Point <span class="keyword">operator</span>+(<span class="type">const</span> Point&amp; other) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;x + other.x, y + other.y&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>类似的都能重载：</p>
+<ul>
+<li><ul>
+<li><ul>
+<li>&#x2F; % ++ – &#x3D;&#x3D; !&#x3D; &lt; &gt; &lt;&#x3D; &gt;&#x3D; &amp;&amp; || !</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="重载特殊运算符（让类用起来像内置类型）"><a href="#重载特殊运算符（让类用起来像内置类型）" class="headerlink" title="重载特殊运算符（让类用起来像内置类型）"></a>重载特殊运算符（让类用起来像内置类型）</h4><p>operator&#x3D; 赋值重载</p>
+<p>operator[] 下标重载</p>
+<p>operator-&gt; 指针行为</p>
+<p>operator bool()</p>
+<h4 id="重载-operator-new-operator-delete"><a href="#重载-operator-new-operator-delete" class="headerlink" title="重载 operator new &#x2F; operator delete"></a>重载 operator new &#x2F; operator delete</h4><p>new 本质上会调用两个步骤：</p>
+<ul>
+<li>调用 operator new 分配内存</li>
+<li>调用构造函数</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span>* <span class="keyword">operator</span> <span class="title">new</span><span class="params">(<span class="type">size_t</span> size)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> 内存池分配(size);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="类型转换运算符"><a href="#类型转换运算符" class="headerlink" title="类型转换运算符"></a>类型转换运算符</h4><p>让你的对象自动转成 int、double 等：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">operator</span> <span class="title">int</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> value; &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="关键字-assert"><a href="#关键字-assert" class="headerlink" title="关键字 assert"></a>关键字 assert</h2><p>是一个调试用的断言宏，作用是：<br>如果括号里的条件不成立，程序直接崩溃并报错，告诉你哪里出错了。<br>它只在 Debug 调试模式生效，Release 发布模式会自动消失，不影响性能。</p>
+<h2 id="关键字-forward"><a href="#关键字-forward" class="headerlink" title="关键字 forward"></a>关键字 forward</h2><p>forward<Args>(args)…</p>
+<p>作用: 将参数args完美转发给T构造函数，以确保参数的类型和值被正确传递</p>
+<h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><table>
+<thead>
+<tr>
+<th align="left">转换</th>
+<th align="left">安全度</th>
+<th align="left">用途</th>
+<th align="left">典型场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>static_cast</code></td>
+<td align="left">高</td>
+<td align="left">常规类型、向上转型</td>
+<td align="left">int&#x2F;float、子类转父类</td>
+</tr>
+<tr>
+<td align="left"><code>reinterpret_cast</code></td>
+<td align="left">极低</td>
+<td align="left">二进制重解释</td>
+<td align="left">内存池、指针转整数</td>
+</tr>
+<tr>
+<td align="left"><code>dynamic_cast</code></td>
+<td align="left">最高</td>
+<td align="left">多态向下转型</td>
+<td align="left">父类转子类，运行时检查</td>
+</tr>
+<tr>
+<td align="left"><code>const_cast</code></td>
+<td align="left">中</td>
+<td align="left">增删 const</td>
+<td align="left">兼容老接口、函数参数</td>
+</tr>
+</tbody></table>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用于 dynamic_cast 多态测试</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Base</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123; cout &lt;&lt; <span class="string">&quot;Base&quot;</span> &lt;&lt; endl; &#125;</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">Base</span>() = <span class="keyword">default</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Derived</span> : <span class="keyword">public</span> Base &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">show</span><span class="params">()</span> <span class="keyword">override</span> </span>&#123; cout &lt;&lt; <span class="string">&quot;Derived&quot;</span> &lt;&lt; endl; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ==========================</span></span><br><span class="line">    <span class="comment">// 1. static_cast 基本类型转换</span></span><br><span class="line">    <span class="comment">// ==========================</span></span><br><span class="line">    <span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line">    <span class="type">double</span> b = <span class="built_in">static_cast</span>&lt;<span class="type">double</span>&gt;(a);</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;static_cast int -&gt; double: &quot;</span> &lt;&lt; b &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 子类转父类（向上转型，安全）</span></span><br><span class="line">    Derived d;</span><br><span class="line">    Base* basePtr = <span class="built_in">static_cast</span>&lt;Base*&gt;(&amp;d);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// ==========================</span></span><br><span class="line">    <span class="comment">// 2. reinterpret_cast 底层指针重解释</span></span><br><span class="line">    <span class="comment">// ==========================</span></span><br><span class="line">    <span class="type">int</span> x = <span class="number">0x12345678</span>;</span><br><span class="line">    <span class="comment">// 把 int 地址强行解释为 char*</span></span><br><span class="line">    <span class="type">char</span>* cPtr = <span class="built_in">reinterpret_cast</span>&lt;<span class="type">char</span>*&gt;(&amp;x);</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;reinterpret_cast 取第一个字节: 0x&quot;</span> </span><br><span class="line">         &lt;&lt; hex &lt;&lt; (<span class="type">int</span>)(*cPtr) &lt;&lt; dec &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// ==========================</span></span><br><span class="line">    <span class="comment">// 3. dynamic_cast 多态向下转型</span></span><br><span class="line">    <span class="comment">// ==========================</span></span><br><span class="line">    Base* pb = <span class="keyword">new</span> <span class="built_in">Derived</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 父类指针 安全转回 子类指针</span></span><br><span class="line">    Derived* pd = <span class="built_in">dynamic_cast</span>&lt;Derived*&gt;(pb);</span><br><span class="line">    <span class="keyword">if</span> (pd) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;dynamic_cast 成功: &quot;</span>;</span><br><span class="line">        pd-&gt;<span class="built_in">show</span>();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;dynamic_cast 失败&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">delete</span> pb;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// ==========================</span></span><br><span class="line">    <span class="comment">// 4. const_cast 去掉 const</span></span><br><span class="line">    <span class="comment">// ==========================</span></span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> c = <span class="number">100</span>;</span><br><span class="line">    <span class="comment">// 去掉 const 属性（仅用于适配接口，不要修改原const变量）</span></span><br><span class="line">    <span class="type">int</span>* nc = <span class="built_in">const_cast</span>&lt;<span class="type">int</span>*&gt;(&amp;c);</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;const_cast 去掉const: &quot;</span> &lt;&lt; *nc &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
       </div>
       
