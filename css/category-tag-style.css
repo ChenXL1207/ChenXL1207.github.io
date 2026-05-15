@@ -1,24 +1,21 @@
-/* ==========================================
-   分类和标签页面美化 
-   ========================================== */
+/* Category & Tag Pages - Modern Tech Blog Style */
 
-/* ==================== 分类总览页 ==================== */
-
+/* Category page */
 .category-all-page {
   margin: 20px 0;
-  padding: 20px;
-  background: #f8f9fa;
-  border-radius: 8px;
+  padding: 0;
+  background: transparent;
 }
 
 .category-all-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: #222;
-  margin-bottom: 24px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 20px;
   padding-bottom: 12px;
-  border-bottom: 3px solid #5FC3F7;
+  border-bottom: 2px solid var(--border);
   display: inline-block;
+  letter-spacing: -0.01em;
 }
 
 .category-all {
@@ -30,100 +27,84 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
 }
 
 .category-list-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 28px;
-  border-bottom: 1px solid #F5F5F5;
-  transition: border-color 0.2s, background 0.2s;
-  background: #fff;
-  margin-bottom: 0;
-  border-left: 4px solid #1976D2;
+  padding: 16px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
+  background: var(--bg-secondary);
+  margin: 0;
 }
 
 .category-list-item:hover {
-  background: #F5F5F5;
-  border-left: 4px solid #1565C0;
-}
-
-.category-list-item:first-child {
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-  border-top: none;
-}
-
-.category-list-item:last-child {
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
-  border-bottom: none;
+  border-color: var(--accent);
+  background: var(--accent-subtle);
+  transform: translateY(-1px);
 }
 
 .category-list-link {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #1976D2;
+  color: var(--accent);
   text-decoration: none;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   flex: 1;
-  transition: color 0.2s;
+  transition: color var(--transition-fast);
 }
 
 .category-list-link:hover {
-  color: #1565C0;
-}
-
-.category-list-link::before {
-  content: '📁';
-  font-size: 16px;
+  color: var(--accent-hover);
 }
 
 .category-list-count {
-  background: #F5F5F5;
-  color: #1976D2;
-  padding: 4px 12px;
-  border-radius: 0;
-  font-size: 13px;
-  font-weight: 700;
-  min-width: 32px;
+  background: var(--accent-subtle);
+  color: var(--accent);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 28px;
   text-align: center;
-  border: 1px solid #F5F5F5;
-  transition: background 0.2s, color 0.2s;
+  transition: background var(--transition-fast);
 }
 
 .category-list-item:hover .category-list-count {
-  background: #E3F2FD;
-  color: #1565C0;
+  background: var(--accent-light);
 }
 
-/* ==================== 标签云页面 ==================== */
-
+/* Tag cloud page */
 .tag-cloud {
   margin: 20px 0;
-  padding: 20px;
-  background: #f8f9fa;
-  border-radius: 8px;
+  padding: 0;
+  background: transparent;
 }
 
 .tag-cloud-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: #222;
-  margin-bottom: 24px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 20px;
   padding-bottom: 12px;
-  border-bottom: 3px solid #5FC3F7;
+  border-bottom: 2px solid var(--border);
   display: inline-block;
+  letter-spacing: -0.01em;
 }
 
-/* 统一标签大小的新样式 */
+/* Tag pills */
 .tag-cloud-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
   margin-top: 16px;
 }
 
@@ -132,68 +113,49 @@
   align-items: center;
   justify-content: center;
   padding: 8px 16px;
-  background: #F5F5F5;
-  color: #1976D2;
-  border: 1px solid #F5F5F5;
-  border-radius: 0;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
   text-decoration: none;
   font-size: 14px !important;
-  font-weight: 600;
-  transition: background 0.2s, color 0.2s;
+  font-weight: 500;
+  transition: all var(--transition-fast);
   min-width: 80px;
   text-align: center;
   white-space: nowrap;
 }
 
 .tag-cloud-tags a:hover {
-  background: #E3F2FD;
-  color: #1565C0;
+  background: var(--accent-subtle);
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-1px);
 }
 
-/* 覆盖原有的tag-cloud样式 */
-.tag-cloud-0,
-.tag-cloud-1,
-.tag-cloud-2,
-.tag-cloud-3,
-.tag-cloud-4,
-.tag-cloud-5,
-.tag-cloud-6,
-.tag-cloud-7,
-.tag-cloud-8,
-.tag-cloud-9,
-.tag-cloud-10 {
+/* Override default tag-cloud size classes */
+.tag-cloud-0, .tag-cloud-1, .tag-cloud-2, .tag-cloud-3,
+.tag-cloud-4, .tag-cloud-5, .tag-cloud-6, .tag-cloud-7,
+.tag-cloud-8, .tag-cloud-9, .tag-cloud-10 {
   font-size: 14px !important;
 }
 
-/* ==================== 页面标题 ==================== */
-
-.post-title {
-  text-align: center;
-  margin-bottom: 32px;
-  padding-bottom: 20px;
-  border-bottom: 2px solid #f0f0f0;
+/* Page title for categories/tags */
+.page-title {
+  text-align: left;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--border);
 }
 
-.post-title::before {
-  content: '';
-  display: inline-block;
-  width: 4px;
-  height: 24px;
-  background: #5FC3F7;
-  border-radius: 2px;
-  margin-right: 12px;
-  vertical-align: middle;
-}
-
-/* ==================== 响应式设计 ==================== */
-
+/* Responsive */
 @media (max-width: 768px) {
-  .category-list-item {
-    padding: 12px 14px;
+  .category-list {
+    grid-template-columns: 1fr;
   }
 
-  .category-list-item:hover {
-    padding-left: 18px;
+  .category-list-item {
+    padding: 14px 16px;
   }
 
   .category-list-link {
@@ -202,53 +164,45 @@
   }
 
   .category-list-count {
-    padding: 3px 10px;
+    padding: 3px 8px;
     font-size: 11px;
   }
 
   .tag-cloud-tags {
-    gap: 10px;
+    gap: 8px;
   }
 
   .tag-cloud-tags a {
     padding: 6px 12px;
-    font-size: 12px !important;
-    min-width: 70px;
+    font-size: 13px !important;
+    min-width: 60px;
   }
 
   .category-all-title,
   .tag-cloud-title {
-    font-size: 16px;
+    font-size: 18px;
   }
 }
 
-/* ==================== 深色模式支持 ==================== */
-
-[data-theme='dark'] .category-all-page,
-[data-theme='dark'] .tag-cloud {
-  background: rgba(0, 0, 0, 0.2);
+/* Dark mode */
+[data-theme="dark"] .category-list-item {
+  background: var(--bg-secondary);
+  border-color: var(--border);
 }
 
-[data-theme='dark'] .category-list-item {
-  background: rgba(255, 255, 255, 0.05);
-  border-bottom-color: rgba(255, 255, 255, 0.1);
+[data-theme="dark"] .category-list-item:hover {
+  background: var(--accent-subtle);
+  border-color: var(--accent);
 }
 
-[data-theme='dark'] .category-list-item:hover {
-  background: rgba(95, 195, 247, 0.1);
+[data-theme="dark"] .tag-cloud-tags a {
+  background: var(--bg-secondary);
+  border-color: var(--border);
+  color: var(--text-secondary);
 }
 
-[data-theme='dark'] .category-list-link {
-  color: #5FC3F7;
-}
-
-[data-theme='dark'] .tag-cloud-tags a {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: #5FC3F7;
-  color: #5FC3F7;
-}
-
-[data-theme='dark'] .tag-cloud-tags a:hover {
-  background: #5FC3F7;
-  color: #fff;
+[data-theme="dark"] .tag-cloud-tags a:hover {
+  background: var(--accent-subtle);
+  color: var(--accent);
+  border-color: var(--accent);
 }

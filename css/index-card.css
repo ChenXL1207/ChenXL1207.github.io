@@ -1,50 +1,86 @@
-/* 商务风格首页卡片布局 */
+/* Index Card - Modern Tech Blog Style */
 
-/* 首页卡片模式 */
+/* Category color indicators */
+.index.posts-card .post-block[data-cat="cpp"] { --cat-color: var(--cat-cpp); }
+.index.posts-card .post-block[data-cat="algorithm"] { --cat-color: var(--cat-algorithm); }
+.index.posts-card .post-block[data-cat="ai"] { --cat-color: var(--cat-ai); }
+.index.posts-card .post-block[data-cat="embedded"] { --cat-color: var(--cat-embedded); }
+.index.posts-card .post-block { --cat-color: var(--accent); }
+
+/* Card container */
+.index.posts-card {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Card */
 .index.posts-card .post-block {
-  background: #fff;
-  border-radius: 0;
-  box-shadow: none;
-  margin-bottom: 20px;
-  padding: 24px 32px 18px 32px;
-  transition: border-color 0.2s;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  padding: 28px 32px 24px;
+  margin: 0;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
   cursor: pointer;
-  border-left: 4px solid #1976D2;
-  border-top: 1px solid #F5F5F5;
+  position: relative;
+  overflow: hidden;
+}
+
+.index.posts-card .post-block::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--cat-color);
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+  opacity: 0;
+  transition: opacity var(--transition-base);
 }
 
 .index.posts-card .post-block:hover {
-  border-left-color: #1565C0;
-  border-top-color: #1565C0;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-hover);
 }
 
-/* 首页文章标题 */
+.index.posts-card .post-block:hover::before {
+  opacity: 1;
+}
+
+/* Title */
 .index.posts-card .post-title {
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 700;
-  margin-bottom: 12px;
+  margin: 0 0 10px;
   line-height: 1.5;
+  letter-spacing: -0.01em;
 }
 
 .index.posts-card .post-title-link {
-  color: #222;
+  color: var(--text-primary);
   text-decoration: none;
-  font-weight: 700;
+  transition: color var(--transition-fast);
 }
 
 .index.posts-card .post-title-link:hover {
-  color: #1565C0;
+  color: var(--accent);
 }
 
-/* 首页文章元信息 */
+/* Meta info */
 .index.posts-card .post-meta-container {
   margin-bottom: 12px;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 12px;
   font-size: 13px;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 .index.posts-card .post-meta-item {
@@ -54,25 +90,21 @@
 }
 
 .index.posts-card .post-meta-item i {
-  color: #1976D2;
+  color: var(--text-tertiary);
+  font-size: 12px;
 }
 
-/* 消除首页分类显示的多余样式 */
-.index.posts-card .post-back-button {
-  display: none;
-}
-
-/* 首页摘要文本 */
+/* Excerpt */
 .index.posts-card .post-body {
-  color: #222;
-  line-height: 1.7;
-  font-size: 15px;
-  max-height: 100px;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  font-size: 14.5px;
+  max-height: 78px;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .index.posts-card .post-body p {
@@ -80,87 +112,121 @@
   padding: 0;
 }
 
-/* 首页分类标签 */
+/* Category badge */
 .index.posts-card .post-categories {
-  display: inline-block;
-  background: #F5F5F5;
-  color: #1976D2;
-  padding: 6px 14px;
-  border-radius: 0;
-  font-size: 13px;
-  margin-right: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent-subtle);
+  color: var(--accent);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  transition: background var(--transition-fast);
+  margin-right: 8px;
   margin-bottom: 8px;
-  transition: background 0.2s, color 0.2s;
-  border: 1px solid #F5F5F5;
-  font-weight: 700;
+  border: none;
 }
 
 .index.posts-card .post-categories:hover {
-  background: #E3F2FD;
-  color: #1565C0;
-  border-color: #1976D2;
+  background: var(--accent-light);
 }
 
 .index.posts-card .post-categories a {
-  color: #1976D2;
+  color: var(--accent);
   text-decoration: none;
-  font-weight: 500;
 }
 
 .index.posts-card .post-categories a:hover {
-  color: #1565C0;
-  text-decoration: underline;
+  color: var(--accent-hover);
+  text-decoration: none;
 }
 
-/* "阅读更多"按钮样式 */
+/* Tags row */
+.index.posts-card .post-meta-tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.index.posts-card .post-tag-link {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  padding: 3px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  text-decoration: none;
+  transition: color var(--transition-fast), background var(--transition-fast);
+  font-weight: 500;
+  border: none;
+}
+
+.index.posts-card .post-tag-link:hover {
+  background: var(--accent-light);
+  color: var(--accent);
+}
+
+/* Read more link */
 .index.posts-card .post-button {
-  margin-top: 12px;
+  margin-top: 14px;
 }
 
 .index.posts-card .post-button .btn {
-  display: inline-block;
-  background: #1976D2;
-  color: #fff;
-  padding: 8px 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  color: var(--accent);
+  padding: 0;
   border-radius: 0;
   font-size: 13px;
+  font-weight: 600;
   text-decoration: none;
-  transition: background 0.2s;
+  transition: gap var(--transition-fast), color var(--transition-fast);
   border: none;
-  font-weight: 700;
+}
+
+.index.posts-card .post-button .btn::after {
+  content: "\2192";
+  transition: transform var(--transition-fast);
 }
 
 .index.posts-card .post-button .btn:hover {
-  background: #1565C0;
+  color: var(--accent-hover);
+  gap: 10px;
+  background: none;
 }
 
-/* 隐藏首页的 post-eof 分隔符 */
-.index.posts-card .post-eof {
+.index.posts-card .post-button .btn:hover::after {
+  transform: translateX(2px);
+}
+
+/* Hide unnecessary elements */
+.index.posts-card .post-eof,
+.index.posts-card .post-tags,
+.index.posts-card .post-footer,
+.index.posts-card .post-nav,
+.index.posts-card .post-description,
+.index.posts-card .post-back-button,
+.index.posts-card .post-gallery {
   display: none;
 }
 
-/* 首页的文章容器 */
-.index.posts-card {
-  max-width: 900px;
-  margin: 0 auto;
+.index.posts-card.main-content-wrap {
+  width: 100%;
 }
 
-/* 移除首页的 post-expand 样式冲突 */
-.index.posts-card .post-gallery {
-  margin-bottom: 12px;
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.index.posts-card .post-gallery img {
-  max-height: 200px;
-  object-fit: cover;
-}
-
-/* 响应式 */
+/* Responsive */
 @media (max-width: 768px) {
+  .index.posts-card {
+    gap: 12px;
+  }
+
   .index.posts-card .post-block {
-    padding: 16px;
+    padding: 20px;
+    border-radius: var(--radius-md);
   }
 
   .index.posts-card .post-title {
@@ -168,8 +234,9 @@
   }
 
   .index.posts-card .post-body {
-    font-size: 13px;
+    font-size: 13.5px;
     -webkit-line-clamp: 2;
+    max-height: 52px;
   }
 
   .index.posts-card .post-meta-container {
@@ -177,52 +244,15 @@
   }
 }
 
-/* 首页没有侧边栏时的全宽处理 */
-.index.posts-card.main-content-wrap {
-  width: 100%;
+/* Dark mode adjustments */
+[data-theme="dark"] .index.posts-card .post-block {
+  background: var(--bg-secondary);
 }
 
-/* 标签和其他元素的处理 */
-.index.posts-card .post-tags {
-  display: none;
+[data-theme="dark"] .index.posts-card .post-categories {
+  background: rgba(59, 130, 246, 0.15);
 }
 
-.index.posts-card .post-footer {
-  display: none;
-}
-
-.index.posts-card .post-nav {
-  display: none;
-}
-
-/* 首页描述的隐藏 */
-.index.posts-card .post-description {
-  display: none;
-}
-
-/* 首页标签样式 - 新增的post-meta-tags */
-.index.posts-card .post-meta-tags {
-  display: inline-flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.index.posts-card .post-tag-link {
-  background: #F5F5F5;
-  color: #1976D2;
-  padding: 4px 10px;
-  border-radius: 0;
-  font-size: 12px;
-  text-decoration: none;
-  transition: background 0.2s, color 0.2s;
-  display: inline-block;
-  white-space: nowrap;
-  border: 1px solid #F5F5F5;
-  font-weight: 600;
-}
-
-.index.posts-card .post-tag-link:hover {
-  background: #E3F2FD;
-  color: #1565C0;
-  border: 1px solid #1976D2;
+[data-theme="dark"] .index.posts-card .post-tag-link {
+  background: var(--bg-tertiary);
 }

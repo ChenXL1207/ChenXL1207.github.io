@@ -16,8 +16,9 @@
 
 
 <link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/ui/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"chenxl1207.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"language":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chenxl1207.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"language":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
     <meta name="description" content="记录思想，分享知识，思考人生">
 <meta property="og:type" content="website">
@@ -49,19 +50,30 @@
 
   
   <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="/lib/@fancyapps/ui/dist/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
   <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous" defer></script>
 <script src="/js/utils.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script><script src="/js/bookmark.js" defer></script>
 
+  <script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+
+
   
 
 
 
 
-
-
   
 
-
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><link rel="stylesheet" href="/lib/katex/dist/katex.min.css" integrity="sha256-UF1fgpAiu3tPJN/uCqEUHNe7pnr+QR0SQDNfgglgtcM=" crossorigin="anonymous">
+  <script class="next-config" data-name="katex" type="application/json">{"copy_tex_js":{"url":"/lib/katex/dist/contrib/copy-tex.min.js","integrity":"sha256-Us54+rSGDSTvIhKKUs4kygE2ipA0RXpWWh0/zLqw3bs="}}</script>
+  <script src="/js/third-party/math/katex.js" defer></script>
 
 
   <script src="/lib/quicklink/dist/quicklink.umd.js" integrity="sha256-44BednzIpUeQJcY8qtLyarFu0UCCTbgmWOvaoehiFQQ=" crossorigin="anonymous" defer></script>
@@ -69,26 +81,27 @@
   <script src="/js/third-party/quicklink.js" defer></script>
 
 <style id="anti-fouc">
-  html {
-    opacity: 0;
-  }
+  html { opacity: 0; }
 </style>
 <script>
   (function () {
     function revealPage() {
       document.documentElement.style.opacity = "1";
-      var antiFouc = document.getElementById("anti-fouc");
-      if (antiFouc) antiFouc.remove();
+      var s = document.getElementById("anti-fouc");
+      if (s) s.remove();
     }
     window.addEventListener("load", revealPage, { once: true });
     window.addEventListener("pageshow", revealPage, { once: true });
     setTimeout(revealPage, 1800);
   })();
 </script>
+<link rel="stylesheet" href="/css/variables.css">
 <link rel="stylesheet" href="/css/index-card.css">
 <link rel="stylesheet" href="/css/category-tag-style.css">
 <link rel="stylesheet" href="/css/sidebar-stats.css">
 <link rel="stylesheet" href="/css/modern-blog-upgrade.css">
+<link rel="stylesheet" href="/css/code-highlight.css">
+<link rel="stylesheet" href="/css/animations.css">
 <script src="/js/category-names.js" defer></script>
 <script src="/js/sidebar-stats.js" defer></script>
 <script src="/js/modern-blog.js" defer></script>
@@ -125,6 +138,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -133,11 +147,37 @@
 
 <nav class="site-nav">
   <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-folder-open fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </header>
         
@@ -169,18 +209,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">36</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -210,7 +250,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/04/08/openclaw%E5%AE%89%E8%A3%85/">
+    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/05/07/cpp/coroutine-pool/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -228,101 +268,25 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2026/04/08/openclaw%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">openclaw安装</a>
+          <a href="/2026/05/07/cpp/coroutine-pool/" class="post-title-link" itemprop="url">C++协程池项目</a>
         </h2>
 
         <div class="post-meta-container">
             
               <span class="post-categories">
                 <i class="fa fa-folder"></i>
-                  <a href="/categories/ai%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">ai工具使用</a>
+                  <a href="/categories/cpp/">cpp</a>
+                  <a href="/categories/cpp/coroutine/">coroutine</a>
               </span>
             <span class="post-meta-item">
               <i class="fa fa-calendar"></i>
-              <time datetime="2026-04-08T00:00:00+08:00" itemprop="datePublished">2026-04-08   <span style="font-size: 12px; color: #999;">Time:00:00</span></time>
-            </span>
-              <span class="post-meta-tags">
-                  <a href="/tags/ai%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" class="post-tag-link" rel="tag">#ai工具使用</a>
-              </span>
-
-          
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          openclaw...
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2026/04/08/openclaw%E5%AE%89%E8%A3%85/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-
-    
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/03/31/%E9%A1%B9%E7%9B%AE%E5%88%86%E4%BA%AB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Chen Xuanliang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ChenXuanliang Blog">
-      <meta itemprop="description" content="记录思想，分享知识，思考人生">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | ChenXuanliang Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2026/03/31/%E9%A1%B9%E7%9B%AE%E5%88%86%E4%BA%AB/" class="post-title-link" itemprop="url">C++项目开发及日志</a>
-        </h2>
-
-        <div class="post-meta-container">
-            
-              <span class="post-categories">
-                <i class="fa fa-folder"></i>
-                  <a href="/categories/C-%E9%A1%B9%E7%9B%AE/">C++项目</a>
-              </span>
-            <span class="post-meta-item">
-              <i class="fa fa-calendar"></i>
-              <time datetime="2026-03-31T12:00:00+08:00" itemprop="datePublished">2026-03-31   <span style="font-size: 12px; color: #999;">Time:12:00</span></time>
+              <time datetime="2026-05-07T12:00:00+08:00" itemprop="datePublished">2026-05-07   <span style="font-size: 12px; color: #999;">Time:12:00</span></time>
             </span>
               <span class="post-meta-tags">
                   <a href="/tags/C/" class="post-tag-link" rel="tag">#C++</a>
-                  <a href="/tags/%E9%A1%B9%E7%9B%AE%E5%88%86%E4%BA%AB/" class="post-tag-link" rel="tag">#项目分享</a>
+                  <a href="/tags/%E5%8D%8F%E7%A8%8B/" class="post-tag-link" rel="tag">#协程</a>
+                  <a href="/tags/%E5%B9%B6%E5%8F%91/" class="post-tag-link" rel="tag">#并发</a>
+                  <a href="/tags/%E8%B0%83%E5%BA%A6%E5%99%A8/" class="post-tag-link" rel="tag">#调度器</a>
               </span>
 
           
@@ -333,10 +297,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          卡码网项目...
+          从零实现协程库，包含线程、协程、调度器、IO调度器、定时器和Hook模块
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2026/03/31/%E9%A1%B9%E7%9B%AE%E5%88%86%E4%BA%AB/#more" rel="contents">
+              <a class="btn" href="/2026/05/07/cpp/coroutine-pool/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -369,7 +333,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/03/05/%E9%B8%BF%E8%92%99%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91-%E8%93%9D%E6%A1%A5%E6%9D%AF%E8%B5%9B%E9%81%93/">
+    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/04/18/cpp/memory-pool/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -387,22 +351,25 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2026/03/05/%E9%B8%BF%E8%92%99%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91-%E8%93%9D%E6%A1%A5%E6%9D%AF%E8%B5%9B%E9%81%93/" class="post-title-link" itemprop="url">鸿蒙应用开发-蓝桥杯赛道</a>
+          <a href="/2026/04/18/cpp/memory-pool/" class="post-title-link" itemprop="url">C++内存池项目</a>
         </h2>
 
         <div class="post-meta-container">
             
               <span class="post-categories">
                 <i class="fa fa-folder"></i>
-                  <a href="/categories/%E9%B8%BF%E8%92%99%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0/">鸿蒙应用开发学习</a>
+                  <a href="/categories/cpp/">cpp</a>
+                  <a href="/categories/cpp/memory/">memory</a>
               </span>
             <span class="post-meta-item">
               <i class="fa fa-calendar"></i>
-              <time datetime="2026-03-05T10:00:00+08:00" itemprop="datePublished">2026-03-05   <span style="font-size: 12px; color: #999;">Time:10:00</span></time>
+              <time datetime="2026-04-18T12:00:00+08:00" itemprop="datePublished">2026-04-18   <span style="font-size: 12px; color: #999;">Time:12:00</span></time>
             </span>
               <span class="post-meta-tags">
-                  <a href="/tags/%E9%B8%BF%E8%92%99/" class="post-tag-link" rel="tag">#鸿蒙</a>
-                  <a href="/tags/%E7%AB%9E%E8%B5%9B/" class="post-tag-link" rel="tag">#竞赛</a>
+                  <a href="/tags/C/" class="post-tag-link" rel="tag">#C++</a>
+                  <a href="/tags/%E5%B9%B6%E5%8F%91/" class="post-tag-link" rel="tag">#并发</a>
+                  <a href="/tags/%E5%86%85%E5%AD%98%E6%B1%A0/" class="post-tag-link" rel="tag">#内存池</a>
+                  <a href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="post-tag-link" rel="tag">#内存管理</a>
               </span>
 
           
@@ -413,10 +380,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          鸿蒙学习日常...
+          从零实现定长内存池，支持多线程安全、类型转换和运算符重载
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2026/03/05/%E9%B8%BF%E8%92%99%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91-%E8%93%9D%E6%A1%A5%E6%9D%AF%E8%B5%9B%E9%81%93/#more" rel="contents">
+              <a class="btn" href="/2026/04/18/cpp/memory-pool/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -449,7 +416,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/02/28/RAG_study/">
+    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/04/15/ai/agent-tool/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -467,24 +434,25 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2026/02/28/RAG_study/" class="post-title-link" itemprop="url">RAG</a>
+          <a href="/2026/04/15/ai/agent-tool/" class="post-title-link" itemprop="url">JChatMind - AI智能体助手</a>
         </h2>
 
         <div class="post-meta-container">
             
               <span class="post-categories">
                 <i class="fa fa-folder"></i>
-                  <a href="/categories/ai-development/">ai-development</a>
+                  <a href="/categories/ai/">ai</a>
+                  <a href="/categories/ai/agent/">agent</a>
               </span>
             <span class="post-meta-item">
               <i class="fa fa-calendar"></i>
-              <time datetime="2026-02-28T18:00:00+08:00" itemprop="datePublished">2026-02-28   <span style="font-size: 12px; color: #999;">Time:18:00</span></time>
+              <time datetime="2026-04-15T12:00:00+08:00" itemprop="datePublished">2026-04-15   <span style="font-size: 12px; color: #999;">Time:12:00</span></time>
             </span>
               <span class="post-meta-tags">
                   <a href="/tags/AI/" class="post-tag-link" rel="tag">#AI</a>
-                  <a href="/tags/RAG/" class="post-tag-link" rel="tag">#RAG</a>
-                  <a href="/tags/LangChain/" class="post-tag-link" rel="tag">#LangChain</a>
-                  <a href="/tags/Python/" class="post-tag-link" rel="tag">#Python</a>
+                  <a href="/tags/LLM/" class="post-tag-link" rel="tag">#LLM</a>
+                  <a href="/tags/Agent/" class="post-tag-link" rel="tag">#Agent</a>
+                  <a href="/tags/%E5%B7%A5%E5%85%B7%E5%BC%80%E5%8F%91/" class="post-tag-link" rel="tag">#工具开发</a>
               </span>
 
           
@@ -495,10 +463,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          AI应用开发初步探索，RAG与LangChain学习...
+          AI智能体助手项目开发记录（待完善）
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2026/02/28/RAG_study/#more" rel="contents">
+              <a class="btn" href="/2026/04/15/ai/agent-tool/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -531,7 +499,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/02/28/leetcode-algorithm-practice/">
+    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/04/08/ai/openclaw-setup/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -549,23 +517,108 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2026/02/28/leetcode-algorithm-practice/" class="post-title-link" itemprop="url">LeetCode算法练习</a>
+          <a href="/2026/04/08/ai/openclaw-setup/" class="post-title-link" itemprop="url">OpenClaw安装与配置指南</a>
         </h2>
 
         <div class="post-meta-container">
             
               <span class="post-categories">
                 <i class="fa fa-folder"></i>
-                  <a href="/categories/leetcode-algorithm/">leetcode-algorithm</a>
+                  <a href="/categories/ai/">ai</a>
+                  <a href="/categories/ai/tools/">tools</a>
               </span>
             <span class="post-meta-item">
               <i class="fa fa-calendar"></i>
-              <time datetime="2026-02-28T12:00:00+08:00" itemprop="datePublished">2026-02-28   <span style="font-size: 12px; color: #999;">Time:12:00</span></time>
+              <time datetime="2026-04-08T12:00:00+08:00" itemprop="datePublished">2026-04-08   <span style="font-size: 12px; color: #999;">Time:12:00</span></time>
             </span>
               <span class="post-meta-tags">
-                  <a href="/tags/%E7%BC%96%E7%A8%8B/" class="post-tag-link" rel="tag">#编程</a>
-                  <a href="/tags/%E7%AE%97%E6%B3%95/" class="post-tag-link" rel="tag">#算法</a>
-                  <a href="/tags/LeetCode/" class="post-tag-link" rel="tag">#LeetCode</a>
+                  <a href="/tags/AI/" class="post-tag-link" rel="tag">#AI</a>
+                  <a href="/tags/%E5%B7%A5%E5%85%B7/" class="post-tag-link" rel="tag">#工具</a>
+                  <a href="/tags/WSL/" class="post-tag-link" rel="tag">#WSL</a>
+                  <a href="/tags/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" class="post-tag-link" rel="tag">#安装配置</a>
+              </span>
+
+          
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          OpenClaw在WSL环境中的完整安装与配置指南
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/04/08/ai/openclaw-setup/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+
+    
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/04/01/cpp/cache-system/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chen Xuanliang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChenXuanliang Blog">
+      <meta itemprop="description" content="记录思想，分享知识，思考人生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | ChenXuanliang Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2026/04/01/cpp/cache-system/" class="post-title-link" itemprop="url">C++缓存系统项目</a>
+        </h2>
+
+        <div class="post-meta-container">
+            
+              <span class="post-categories">
+                <i class="fa fa-folder"></i>
+                  <a href="/categories/cpp/">cpp</a>
+                  <a href="/categories/cpp/cache/">cache</a>
+              </span>
+            <span class="post-meta-item">
+              <i class="fa fa-calendar"></i>
+              <time datetime="2026-04-01T12:00:00+08:00" itemprop="datePublished">2026-04-01   <span style="font-size: 12px; color: #999;">Time:12:00</span></time>
+            </span>
+              <span class="post-meta-tags">
+                  <a href="/tags/C/" class="post-tag-link" rel="tag">#C++</a>
+                  <a href="/tags/%E7%BC%93%E5%AD%98/" class="post-tag-link" rel="tag">#缓存</a>
+                  <a href="/tags/LRU/" class="post-tag-link" rel="tag">#LRU</a>
+                  <a href="/tags/LFU/" class="post-tag-link" rel="tag">#LFU</a>
                   <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="post-tag-link" rel="tag">#数据结构</a>
               </span>
 
@@ -577,10 +630,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          欢迎一起开始算法练习之旅......
+          实现多种缓存淘汰策略：FIFO、LRU、LRU-K、LFU、ARC等，含完整C++代码和性能测试
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2026/02/28/leetcode-algorithm-practice/#more" rel="contents">
+              <a class="btn" href="/2026/04/01/cpp/cache-system/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -613,7 +666,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/02/27/cpp-development-practices/">
+    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/03/31/cpp/project-overview/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -631,23 +684,24 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2026/02/27/cpp-development-practices/" class="post-title-link" itemprop="url">C++软件开发最佳实践</a>
+          <a href="/2026/03/31/cpp/project-overview/" class="post-title-link" itemprop="url">C++项目开发及日志</a>
         </h2>
 
         <div class="post-meta-container">
             
               <span class="post-categories">
                 <i class="fa fa-folder"></i>
-                  <a href="/categories/cpp-development/">cpp-development</a>
+                  <a href="/categories/cpp/">cpp</a>
+                  <a href="/categories/cpp/projects/">projects</a>
               </span>
             <span class="post-meta-item">
               <i class="fa fa-calendar"></i>
-              <time datetime="2026-02-27T12:00:00+08:00" itemprop="datePublished">2026-02-27   <span style="font-size: 12px; color: #999;">Time:12:00</span></time>
+              <time datetime="2026-03-31T12:00:00+08:00" itemprop="datePublished">2026-03-31   <span style="font-size: 12px; color: #999;">Time:12:00</span></time>
             </span>
               <span class="post-meta-tags">
                   <a href="/tags/C/" class="post-tag-link" rel="tag">#C++</a>
-                  <a href="/tags/%E7%BC%96%E7%A8%8B/" class="post-tag-link" rel="tag">#编程</a>
-                  <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" class="post-tag-link" rel="tag">#软件工程</a>
+                  <a href="/tags/%E9%A1%B9%E7%9B%AE%E5%88%86%E4%BA%AB/" class="post-tag-link" rel="tag">#项目分享</a>
+                  <a href="/tags/%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97/" class="post-tag-link" rel="tag">#开发日志</a>
               </span>
 
           
@@ -658,10 +712,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          C++软件开发中的设计模式和最佳实践总结...
+          C++项目集合：缓存系统、内存池、协程库等项目的开发记录和学习笔记
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2026/02/27/cpp-development-practices/#more" rel="contents">
+              <a class="btn" href="/2026/03/31/cpp/project-overview/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -694,7 +748,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/02/27/linux-embedded-guide/">
+    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/03/10/algorithm/sliding-window/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -712,23 +766,24 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2026/02/27/linux-embedded-guide/" class="post-title-link" itemprop="url">Linux嵌入式开发入门指南</a>
+          <a href="/2026/03/10/algorithm/sliding-window/" class="post-title-link" itemprop="url">定长滑动窗口个人心得</a>
         </h2>
 
         <div class="post-meta-container">
             
               <span class="post-categories">
                 <i class="fa fa-folder"></i>
-                  <a href="/categories/linux-embedded/">linux-embedded</a>
+                  <a href="/categories/algorithm/">algorithm</a>
+                  <a href="/categories/algorithm/sliding-window/">sliding-window</a>
               </span>
             <span class="post-meta-item">
               <i class="fa fa-calendar"></i>
-              <time datetime="2026-02-27T10:00:00+08:00" itemprop="datePublished">2026-02-27   <span style="font-size: 12px; color: #999;">Time:10:00</span></time>
+              <time datetime="2026-03-10T12:00:00+08:00" itemprop="datePublished">2026-03-10   <span style="font-size: 12px; color: #999;">Time:12:00</span></time>
             </span>
               <span class="post-meta-tags">
-                  <a href="/tags/Linux/" class="post-tag-link" rel="tag">#Linux</a>
-                  <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="post-tag-link" rel="tag">#嵌入式</a>
-                  <a href="/tags/%E7%B3%BB%E7%BB%9F/" class="post-tag-link" rel="tag">#系统</a>
+                  <a href="/tags/%E7%AE%97%E6%B3%95/" class="post-tag-link" rel="tag">#算法</a>
+                  <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" class="post-tag-link" rel="tag">#滑动窗口</a>
+                  <a href="/tags/LeetCode/" class="post-tag-link" rel="tag">#LeetCode</a>
               </span>
 
           
@@ -739,10 +794,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          本文介绍Linux嵌入式开发的基础知识和学习路径...
+          定长滑动窗口算法的解题思路、技巧和易错点总结
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2026/02/27/linux-embedded-guide/#more" rel="contents">
+              <a class="btn" href="/2026/03/10/algorithm/sliding-window/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -767,6 +822,259 @@
 
 
 
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/03/05/embedded/harmonyos/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chen Xuanliang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChenXuanliang Blog">
+      <meta itemprop="description" content="记录思想，分享知识，思考人生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | ChenXuanliang Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2026/03/05/embedded/harmonyos/" class="post-title-link" itemprop="url">鸿蒙应用开发-蓝桥杯赛道</a>
+        </h2>
+
+        <div class="post-meta-container">
+            
+              <span class="post-categories">
+                <i class="fa fa-folder"></i>
+                  <a href="/categories/embedded/">embedded</a>
+                  <a href="/categories/embedded/harmonyos/">harmonyos</a>
+              </span>
+            <span class="post-meta-item">
+              <i class="fa fa-calendar"></i>
+              <time datetime="2026-03-05T10:00:00+08:00" itemprop="datePublished">2026-03-05   <span style="font-size: 12px; color: #999;">Time:10:00</span></time>
+            </span>
+              <span class="post-meta-tags">
+                  <a href="/tags/%E9%B8%BF%E8%92%99/" class="post-tag-link" rel="tag">#鸿蒙</a>
+                  <a href="/tags/%E7%AB%9E%E8%B5%9B/" class="post-tag-link" rel="tag">#竞赛</a>
+                  <a href="/tags/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/" class="post-tag-link" rel="tag">#移动开发</a>
+                  <a href="/tags/HarmonyOS/" class="post-tag-link" rel="tag">#HarmonyOS</a>
+              </span>
+
+          
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          鸿蒙应用开发学习记录，蓝桥杯竞赛准备
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/03/05/embedded/harmonyos/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+
+    
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/02/28/ai/rag-study/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chen Xuanliang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChenXuanliang Blog">
+      <meta itemprop="description" content="记录思想，分享知识，思考人生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | ChenXuanliang Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2026/02/28/ai/rag-study/" class="post-title-link" itemprop="url">RAG技术学习与实践</a>
+        </h2>
+
+        <div class="post-meta-container">
+            
+              <span class="post-categories">
+                <i class="fa fa-folder"></i>
+                  <a href="/categories/ai/">ai</a>
+                  <a href="/categories/ai/rag/">rag</a>
+              </span>
+            <span class="post-meta-item">
+              <i class="fa fa-calendar"></i>
+              <time datetime="2026-02-28T18:00:00+08:00" itemprop="datePublished">2026-02-28   <span style="font-size: 12px; color: #999;">Time:18:00</span></time>
+            </span>
+              <span class="post-meta-tags">
+                  <a href="/tags/AI/" class="post-tag-link" rel="tag">#AI</a>
+                  <a href="/tags/RAG/" class="post-tag-link" rel="tag">#RAG</a>
+                  <a href="/tags/LangChain/" class="post-tag-link" rel="tag">#LangChain</a>
+                  <a href="/tags/Python/" class="post-tag-link" rel="tag">#Python</a>
+                  <a href="/tags/LLM/" class="post-tag-link" rel="tag">#LLM</a>
+              </span>
+
+          
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          RAG（检索增强生成）技术学习，结合LangChain框架的实践探索
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/02/28/ai/rag-study/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+
+    
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/02/28/algorithm/leetcode-practice/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chen Xuanliang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChenXuanliang Blog">
+      <meta itemprop="description" content="记录思想，分享知识，思考人生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | ChenXuanliang Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2026/02/28/algorithm/leetcode-practice/" class="post-title-link" itemprop="url">LeetCode算法练习</a>
+        </h2>
+
+        <div class="post-meta-container">
+            
+              <span class="post-categories">
+                <i class="fa fa-folder"></i>
+                  <a href="/categories/algorithm/">algorithm</a>
+                  <a href="/categories/algorithm/leetcode/">leetcode</a>
+              </span>
+            <span class="post-meta-item">
+              <i class="fa fa-calendar"></i>
+              <time datetime="2026-02-28T12:00:00+08:00" itemprop="datePublished">2026-02-28   <span style="font-size: 12px; color: #999;">Time:12:00</span></time>
+            </span>
+              <span class="post-meta-tags">
+                  <a href="/tags/%E7%AE%97%E6%B3%95/" class="post-tag-link" rel="tag">#算法</a>
+                  <a href="/tags/LeetCode/" class="post-tag-link" rel="tag">#LeetCode</a>
+                  <a href="/tags/%E7%BC%96%E7%A8%8B/" class="post-tag-link" rel="tag">#编程</a>
+                  <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="post-tag-link" rel="tag">#数据结构</a>
+              </span>
+
+          
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          LeetCode算法题解与练习，涵盖链表、数组、滑动窗口等常见题型
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/02/28/algorithm/leetcode-practice/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+
+    
+  </article>
+</div>
+
+
+
+
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
 
 </div>
   </main>
@@ -782,7 +1090,7 @@
     </span>
     <span class="author" itemprop="copyrightHolder">Chen Blog 1.0</span>
   </div>
-  <div class="powered-by">技术支持: <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 
+  <div class="powered-by">技术支持: <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 
   </div>
 
     </div>

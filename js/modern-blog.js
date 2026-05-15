@@ -1,21 +1,31 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // 首页整卡可点击，保留内部链接优先级。
-  const cards = document.querySelectorAll(".index .post-block");
-  cards.forEach((card) => {
-    const titleLink = card.querySelector(".post-title-link");
+  // Card click-to-navigate
+  var cards = document.querySelectorAll(".index .post-block");
+  cards.forEach(function (card) {
+    var titleLink = card.querySelector(".post-title-link");
     if (!titleLink) return;
 
-    card.addEventListener("click", (event) => {
-      const target = event.target;
+    // Add category data attribute for color coding
+    var catLink = card.querySelector(".post-categories a");
+    if (catLink) {
+      var href = catLink.getAttribute("href") || "";
+      var match = href.match(/\/categories\/([^/]+)\//);
+      if (match) {
+        card.setAttribute("data-cat", match[1]);
+      }
+    }
+
+    card.addEventListener("click", function (event) {
+      var target = event.target;
       if (target && target.closest("a, button, input, textarea")) return;
       window.location.href = titleLink.getAttribute("href");
     });
   });
 
-  // 外链增加标识，提升阅读可预期性。
-  const links = document.querySelectorAll(".post-body a[href]");
-  links.forEach((link) => {
-    const href = link.getAttribute("href");
+  // External link enhancement
+  var links = document.querySelectorAll(".post-body a[href]");
+  links.forEach(function (link) {
+    var href = link.getAttribute("href");
     if (!href || !/^https?:\/\//.test(href)) return;
     if (link.dataset.enhanced === "1") return;
     link.dataset.enhanced = "1";
@@ -24,4 +34,23 @@ document.addEventListener("DOMContentLoaded", function () {
       link.textContent = link.textContent + " ↗";
     }
   });
+
+  // Intersection Observer for scroll reveal
+  if ("IntersectionObserver" in window) {
+    var revealObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+    );
+
+    document.querySelectorAll(".reveal, .reveal-stagger").forEach(function (el) {
+      revealObserver.observe(el);
+    });
+  }
 });

@@ -1,41 +1,77 @@
-// 分类名称映射表 - 将英文slug映射到中文名称和图标
-const categoryNameMap = {
+// Category name mapping - English slug to Chinese display name
+var categoryNameMap = {
+  'cpp': {
+    name: 'C++ 开发',
+    icon: '⚙️',
+    color: '#2563eb'
+  },
+  'algorithm': {
+    name: '算法与数据结构',
+    icon: '🧮',
+    color: '#16a34a'
+  },
+  'ai': {
+    name: 'AI 应用开发',
+    icon: '🤖',
+    color: '#9333ea'
+  },
+  'embedded': {
+    name: '嵌入式开发',
+    icon: '🔧',
+    color: '#ea580c'
+  },
+  // Legacy mappings (for backwards compatibility during transition)
   'linux-embedded': {
-    name: 'Linux嵌入式开发',
-    icon: '🐧'
+    name: '嵌入式开发',
+    icon: '🔧',
+    color: '#ea580c'
   },
   'ai-development': {
-    name: 'AI应用开发',
-    icon: '🤖'
+    name: 'AI 应用开发',
+    icon: '🤖',
+    color: '#9333ea'
   },
   'cpp-development': {
-    name: 'C++软件开发',
-    icon: '⚙️'
-  },
-  'research-exchange': {
-    name: '科研学习交流',
-    icon: '🔬'
-  },
-  'experience-sharing': {
-    name: '心得体会',
-    icon: '💡'
+    name: 'C++ 开发',
+    icon: '⚙️',
+    color: '#2563eb'
   },
   'leetcode-algorithm': {
-    name: 'LeetCode算法练习',
-    icon: '💻'
+    name: '算法与数据结构',
+    icon: '🧮',
+    color: '#16a34a'
+  },
+  'C++项目': {
+    name: 'C++ 开发',
+    icon: '⚙️',
+    color: '#2563eb'
+  },
+  'ai工具使用': {
+    name: 'AI 应用开发',
+    icon: '🤖',
+    color: '#9333ea'
+  },
+  '鸿蒙应用开发学习': {
+    name: '嵌入式开发',
+    icon: '🔧',
+    color: '#ea580c'
+  },
+  '算法心得': {
+    name: '算法与数据结构',
+    icon: '🧮',
+    color: '#16a34a'
   }
 };
 
-// 将所有post-categories中的英文分类名替换为中文
-document.addEventListener('DOMContentLoaded', function() {
-  // 处理首页卡片上的分类名
-  const categoryLinks = document.querySelectorAll('.post-categories a');
-  categoryLinks.forEach(link => {
-    const href = link.getAttribute('href');
-    const match = href.match(/\/categories\/([^/]+)\//);
+// Replace English category slugs with Chinese names on page
+document.addEventListener('DOMContentLoaded', function () {
+  var categoryLinks = document.querySelectorAll('.post-categories a');
+  categoryLinks.forEach(function (link) {
+    var href = link.getAttribute('href') || '';
+    var match = href.match(/\/categories\/([^/]+)\//);
     if (match) {
-      const slug = match[1];
-      const catInfo = categoryNameMap[slug];
+      var slug = match[1];
+      var catInfo = categoryNameMap[slug];
       if (catInfo) {
         link.textContent = catInfo.name;
       }

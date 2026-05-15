@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/ui/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chenxl1207.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"language":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="RAG（检索增强生成）技术学习，结合LangChain框架的实践探索">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RAG技术学习与实践">
+<meta property="og:url" content="https://chenxl1207.github.io/2026/02/28/ai/rag-study/index.html">
+<meta property="og:site_name" content="ChenXuanliang Blog">
+<meta property="og:description" content="RAG（检索增强生成）技术学习，结合LangChain框架的实践探索">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chenxl1207.github.io/images/image-20260228200452703.png">
+<meta property="og:image" content="https://chenxl1207.github.io/images/image-20260228200528405.png">
+<meta property="og:image" content="https://chenxl1207.github.io/images/image-20260228190849482.png">
+<meta property="og:image" content="https://chenxl1207.github.io/images/image-20260228192551138.png">
+<meta property="article:published_time" content="2026-02-28T10:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-14T09:12:17.655Z">
+<meta property="article:author" content="Chen Xuanliang">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="LLM">
+<meta property="article:tag" content="LangChain">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="RAG">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chenxl1207.github.io/images/image-20260228200452703.png">
+
+
+<link rel="canonical" href="https://chenxl1207.github.io/2026/02/28/ai/rag-study/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://chenxl1207.github.io/2026/02/28/ai/rag-study/","path":"2026/02/28/ai/rag-study/","title":"RAG技术学习与实践"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>RAG技术学习与实践 | ChenXuanliang Blog</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="/lib/@fancyapps/ui/dist/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script><script src="/js/bookmark.js" defer></script>
+
+  <script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><link rel="stylesheet" href="/lib/katex/dist/katex.min.css" integrity="sha256-UF1fgpAiu3tPJN/uCqEUHNe7pnr+QR0SQDNfgglgtcM=" crossorigin="anonymous">
+  <script class="next-config" data-name="katex" type="application/json">{"copy_tex_js":{"url":"/lib/katex/dist/contrib/copy-tex.min.js","integrity":"sha256-Us54+rSGDSTvIhKKUs4kygE2ipA0RXpWWh0/zLqw3bs="}}</script>
+  <script src="/js/third-party/math/katex.js" defer></script>
+
+
+  <script src="/lib/quicklink/dist/quicklink.umd.js" integrity="sha256-44BednzIpUeQJcY8qtLyarFu0UCCTbgmWOvaoehiFQQ=" crossorigin="anonymous" defer></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://chenxl1207.github.io/2026/02/28/ai/rag-study/"}</script>
+  <script src="/js/third-party/quicklink.js" defer></script>
+
+<style id="anti-fouc">
+  html { opacity: 0; }
+</style>
+<script>
+  (function () {
+    function revealPage() {
+      document.documentElement.style.opacity = "1";
+      var s = document.getElementById("anti-fouc");
+      if (s) s.remove();
+    }
+    window.addEventListener("load", revealPage, { once: true });
+    window.addEventListener("pageshow", revealPage, { once: true });
+    setTimeout(revealPage, 1800);
+  })();
+</script>
+<link rel="stylesheet" href="/css/variables.css">
+<link rel="stylesheet" href="/css/index-card.css">
+<link rel="stylesheet" href="/css/category-tag-style.css">
+<link rel="stylesheet" href="/css/sidebar-stats.css">
+<link rel="stylesheet" href="/css/modern-blog-upgrade.css">
+<link rel="stylesheet" href="/css/code-highlight.css">
+<link rel="stylesheet" href="/css/animations.css">
+<script src="/js/category-names.js" defer></script>
+<script src="/js/sidebar-stats.js" defer></script>
+<script src="/js/modern-blog.js" defer></script>
+<script src="/js/category-page-bridge.js" defer></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">ChenXuanliang Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Xdu teleCom student, software developer, blogger</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-folder-open fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80%EF%BC%88%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%EF%BC%89"><span class="nav-text">前言（环境搭建）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RAG%E5%92%8CLangChain%E5%AD%A6%E4%B9%A0"><span class="nav-text">RAG和LangChain学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E8%AE%BE%E8%AE%A1%E8%B7%AF%E7%BA%BF"><span class="nav-text">1.  设计路线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-RAG%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">2. RAG基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E4%BB%80%E4%B9%88%E6%98%AFRAG%EF%BC%9F"><span class="nav-text">2.1 什么是RAG？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-RAG%E7%9A%84%E6%A0%B8%E5%BF%83%E4%BC%98%E5%8A%BF"><span class="nav-text">2.2 RAG的核心优势</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-LangChain%E4%BB%8B%E7%BB%8D"><span class="nav-text">3. LangChain介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="nav-text">3.1 核心组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97-%E6%A8%A1%E5%9E%8B"><span class="nav-text">3.2 核心模块-模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B"><span class="nav-text">3.2.1 语言模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-%E6%96%87%E6%9C%AC%E5%B5%8C%E5%85%A5%E6%A8%A1%E5%9E%8B"><span class="nav-text">3.2.2 文本嵌入模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-3-%E4%BB%A3%E7%A0%81"><span class="nav-text">3.2.3 代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97-%E6%8F%90%E7%A4%BA%EF%BC%88prompts%EF%BC%89"><span class="nav-text">3.3 核心模块-提示（prompts）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-1-%E6%8F%90%E7%A4%BA%E6%A8%A1%E6%9D%BF%EF%BC%88Prompt-Template%EF%BC%89"><span class="nav-text">3.3.1 提示模板（Prompt Template）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97-%E7%B4%A2%E5%BC%95%EF%BC%88indexs%EF%BC%89"><span class="nav-text">3.4 核心模块-索引（indexs）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-1-%E6%96%87%E6%A1%A3%E5%8A%A0%E8%BD%BD%E5%99%A8"><span class="nav-text">3.4.1 文档加载器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-2-%E6%96%87%E6%9C%AC%E5%88%86%E5%89%B2%E5%99%A8"><span class="nav-text">3.4.2 文本分割器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97-%E5%86%85%E5%AD%98%EF%BC%88Memory%EF%BC%89"><span class="nav-text">3.5 核心模块-内存（Memory）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97-%E9%93%BE%E8%B7%AF%EF%BC%88Chains-%EF%BC%89"><span class="nav-text">3.6 核心模块-链路（Chains ）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97-%E4%BB%A3%E7%90%86%EF%BC%88Agents-%EF%BC%89"><span class="nav-text">3.7 核心模块-代理（Agents ）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-%E6%80%BB%E7%BB%93%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%AD%A5%E9%AA%A4"><span class="nav-text">3.8 总结：实现步骤</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chen Xuanliang</p>
+  <div class="site-description" itemprop="description">记录思想，分享知识，思考人生</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/02/28/ai/rag-study/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chen Xuanliang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChenXuanliang Blog">
+      <meta itemprop="description" content="记录思想，分享知识，思考人生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="RAG技术学习与实践 | ChenXuanliang Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RAG技术学习与实践
+        </h1>
+
+        <div class="post-meta-container">
+            
+            <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-02-28 18:00:00" itemprop="dateCreated datePublished" datetime="2026-02-28T18:00:00+08:00">2026-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-05-14 17:12:17" itemprop="dateModified" datetime="2026-05-14T17:12:17+08:00">2026-05-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ai/" itemprop="url" rel="index"><span itemprop="name">ai</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ai/rag/" itemprop="url" rel="index"><span itemprop="name">rag</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+          
+            <div class="post-back-button" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee;">
+              <a href="/categories/undefined/" class="back-btn" title="返回分类">
+                <i class="fa fa-arrow-left"></i> 返回分类
+              </a>
+            </div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="前言（环境搭建）"><a href="#前言（环境搭建）" class="headerlink" title="前言（环境搭建）"></a>前言（环境搭建）</h1><p>使用在线开发，API调用使用硅基流动<a target="_blank" rel="noopener" href="https://cloud.siliconflow.cn/me/models">https://cloud.siliconflow.cn/me/models</a></p>
+<p>其中API部署方式，为了防止泄露使用本地部署方式，其中部署方法如下：</p>
+<p><img data-src="/../../images/image-20260228200452703.png" alt="image-20260228200452703"></p>
+<p>其中测试代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> ChatOpenAI</span><br><span class="line"></span><br><span class="line">client = ChatOpenAI(</span><br><span class="line">    api_key=os.getenv(<span class="string">&quot;SILICONFLOW_API_KEY&quot;</span>),</span><br><span class="line">    base_url=<span class="string">&quot;https://api.siliconflow.cn/v1&quot;</span>,</span><br><span class="line">    model=<span class="string">&quot;Pro/zai-org/GLM-4.7&quot;</span>,</span><br><span class="line">    temperature=<span class="number">0</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">stream_response = client.stream([</span><br><span class="line">    &#123;<span class="string">&quot;role&quot;</span>: <span class="string">&quot;system&quot;</span>, <span class="string">&quot;content&quot;</span>: <span class="string">&quot;你是一个有用的助手&quot;</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;role&quot;</span>: <span class="string">&quot;user&quot;</span>, <span class="string">&quot;content&quot;</span>: <span class="string">&quot;你好，请介绍一下你自己&quot;</span>&#125;</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;流式回答：&quot;</span>, end=<span class="string">&quot;&quot;</span>, flush=<span class="literal">True</span>)</span><br><span class="line">full_content = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> chunk <span class="keyword">in</span> stream_response:</span><br><span class="line">    chunk_content = chunk.content</span><br><span class="line">    <span class="keyword">if</span> chunk_content:</span><br><span class="line">        <span class="built_in">print</span>(chunk_content, end=<span class="string">&quot;&quot;</span>, flush=<span class="literal">True</span>)</span><br><span class="line">        full_content += chunk_content</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<p><img data-src="/../../images/image-20260228200528405.png" alt="image-20260228200528405"></p>
+<h1 id="RAG和LangChain学习"><a href="#RAG和LangChain学习" class="headerlink" title="RAG和LangChain学习"></a>RAG和LangChain学习</h1><h2 id="1-设计路线"><a href="#1-设计路线" class="headerlink" title="1.  设计路线"></a>1.  设计路线</h2><ol>
+<li><strong>RAG基本概念</strong></li>
+<li><strong>LangChain、OpenAI Embeddings等中间件学习</strong></li>
+<li><strong>RAG中的数据处理（文档加载、分割）</strong></li>
+<li><strong>Embedding（文本嵌入、向量化）</strong></li>
+<li><strong>向量数据库（存储与检索）</strong></li>
+<li><strong>大模型调用（生成式回答）</strong></li>
+<li><strong>RAG项目实战（端到端开发）</strong></li>
+</ol>
+<h2 id="2-RAG基本概念"><a href="#2-RAG基本概念" class="headerlink" title="2. RAG基本概念"></a>2. RAG基本概念</h2><h3 id="2-1-什么是RAG？"><a href="#2-1-什么是RAG？" class="headerlink" title="2.1 什么是RAG？"></a>2.1 什么是RAG？</h3><p>RAG（检索增强生成）是一种<strong>先从外部知识库检索相关信息，再把这些信息交给大模型生成回答</strong>的技术，能让大模型<strong>不编造内容、用上最新知识、只回答指定领域内容</strong>，从根本解决大模型幻觉、知识过时、隐私数据无法使用的问题。</p>
+<h3 id="2-2-RAG的核心优势"><a href="#2-2-RAG的核心优势" class="headerlink" title="2.2 RAG的核心优势"></a>2.2 RAG的核心优势</h3><ul>
+<li>实时<strong>获取最新信息，不受模型训练时间限制</strong></li>
+<li>降低**幻觉（Hallucination）**问题</li>
+<li>支持自定义数据库</li>
+<li>提高回答的准确性和可靠</li>
+</ul>
+<h2 id="3-LangChain介绍"><a href="#3-LangChain介绍" class="headerlink" title="3. LangChain介绍"></a>3. LangChain介绍</h2><p>LangChain 是一套以 Python&#x2F;JavaScript 为核心的开源框架，它并非直接提供 AI 能力，而是像 “AI 应用的乐高积木” 一样，<strong>将大模型（如 GPT、文心一言）、外部数据源（文档 &#x2F; 数据库）、工具（搜索引擎 &#x2F; 代码解释器）、向量数据库（Chroma&#x2F;Milvus）等 AI 应用开发的核心组件封装成标准化接口和可组合的 “链（Chain）”</strong>，让开发者无需从零编写所有逻辑，就能快速搭建包含检索增强生成（RAG）、智能体（Agent）、多轮对话等复杂能力的 AI 应用，大幅降低 AI 应用从原型到落地的开发成本和复杂度。</p>
+<h3 id="3-1-核心组件"><a href="#3-1-核心组件" class="headerlink" title="3.1 核心组件"></a>3.1 核心组件</h3><p>LangChain技术的构建LLM应用程序主要如下图所示</p>
+<p><img data-src="/../../images/image-20260228190849482.png" alt="image-20260228190849482"></p>
+<p>其中设计到多个核心组件，其中核心模块包含六大部分：</p>
+<ul>
+<li><strong>Models 模型</strong></li>
+<li><strong>Prompts 提示</strong></li>
+<li><strong>Indexs 索引</strong></li>
+<li><strong>Memory 内存</strong></li>
+<li><strong>Chains 链</strong></li>
+<li><strong>Agents 代理</strong></li>
+</ul>
+<h3 id="3-2-核心模块-模型"><a href="#3-2-核心模块-模型" class="headerlink" title="3.2 核心模块-模型"></a>3.2 核心模块-模型</h3><p>模型在表现方向上包括两大类型</p>
+<ul>
+<li>语言模型</li>
+<li>文本嵌入模型，其中文本嵌入模型，个人理解：<strong>将文本与向量结合起来，可使用余弦相似度算法分析其表现意思是否唯一或类似</strong></li>
+</ul>
+<h4 id="3-2-1-语言模型"><a href="#3-2-1-语言模型" class="headerlink" title="3.2.1 语言模型"></a>3.2.1 语言模型</h4><p>语言模型，它有两种不同的子类型：<strong>LLMs  和 Chat Models</strong>。LLMs  封装了接受文本输入并返回文本输出的 API，而 Chat Models   封装了接受聊天消息输入并返回聊天消息输出的模型。尽管它们之间存在细微差别，但使用它们的接口是相同的。我们可以导入这两个类，实例化它们，然后在这两个类上使用  predict 函数并观察它们之间的区别。但是，您可能不会直接将文本传递给模型，而是使用提示（prompts）。</p>
+<h4 id="3-2-2-文本嵌入模型"><a href="#3-2-2-文本嵌入模型" class="headerlink" title="3.2.2 文本嵌入模型"></a>3.2.2 文本嵌入模型</h4><p>文本嵌入模型（Text Embedding Model）是一类<strong>将文本（单词、句子、段落）转换成高维数值向量</strong>的 AI 模型，核心原理是通过深度学习捕捉文本的语义信息 —— <strong>语义相似的文本会生成距离更近的向量，语义差异大的文本向量距离更远</strong>，比如 “苹果手机” 和 “iPhone” 的向量高度相似，而和 “香蕉” 的向量差异显著。这种将非结构化文本转为结构化数值的过程，解决了计算机无法直接理解自然语言的问题，是实现语义检索、文本聚类、相似度计算等任务的基础。</p>
+<p><img data-src="/../../images/image-20260228192551138.png" alt="image-20260228192551138"></p>
+<p><em>图片来自黑马程序员B站</em></p>
+<p>在 RAG 等 AI 应用中，嵌入模型是连接文本和向量数据库的核心桥梁：<strong>一方面，它把外部知识库的文本块转换成向量存入数据库</strong>；<strong>另一方面，它把用户的提问也转换成向量，通过向量间的相似性检索，快速找到和问题语义匹配的文本内容</strong>，这也是 RAG 能实现 “精准检索” 的关键前提。常见的嵌入模型既有 OpenAI 的 text-embedding 系列、阿里云的通义嵌入等商用 API 模型，也有 BGE、m3e 等免费开源的本地化部署模型。</p>
+<h4 id="3-2-3-代码"><a href="#3-2-3-代码" class="headerlink" title="3.2.3 代码"></a>3.2.3 代码</h4><ul>
+<li>对于文本嵌入模型。这里使用硅基流动的BGE-large-zh-v1.5模型，其中配置如下：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">embedding_model = OpenAIEmbeddings(</span><br><span class="line">    api_key=API_KEY,</span><br><span class="line">    base_url=BASE_URL,</span><br><span class="line">    model=<span class="string">&quot;BAAI/bge-large-zh-v1.5&quot;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>通常计算，可能需要用到余弦相似度算法，计算各个promot的相似性，因此在本Demo中使用normalize_vector将不同长度的promot关联到同一向量空间</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">normalize_vector</span>(<span class="params">vec</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;将向量L2归一化（转为单位向量），是余弦相似度的标准预处理&quot;&quot;&quot;</span></span><br><span class="line">    vec_np = np.array(vec)</span><br><span class="line">    norm = np.linalg.norm(vec_np)  <span class="comment"># 计算向量的L2范数</span></span><br><span class="line">    <span class="keyword">if</span> norm == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> vec_np  <span class="comment"># 避免除以0</span></span><br><span class="line">    <span class="keyword">return</span> vec_np / norm  <span class="comment"># 归一化到单位长度</span></span><br></pre></td></tr></table></figure>
+
+<p>本例设置三个测试样本，结果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">text1 = <span class="string">&quot;如何快速学习RAG技术，掌握检索增强生成的核心原理&quot;</span></span><br><span class="line">text2 = <span class="string">&quot;快速掌握RAG的核心原理，学习检索增强生成的方法&quot;</span></span><br><span class="line">text3 = <span class="string">&quot;2025年香蕉的市场价格走势，全国各地区批发价对比&quot;</span></span><br><span class="line"></span><br><span class="line">vec1 = normalize_vector(embedding_model.embed_query(text1))</span><br><span class="line">vec2 = normalize_vector(embedding_model.embed_query(text2))</span><br><span class="line">vec3 = normalize_vector(embedding_model.embed_query(text3))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;文本1：<span class="subst">&#123;text1&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;文本2：<span class="subst">&#123;text2&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;文本3：<span class="subst">&#123;text3&#125;</span>\n&quot;</span>)</span><br><span class="line"></span><br><span class="line">sim_1_2 = cosine_similarity([vec1], [vec2])[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">sim_1_3 = cosine_similarity([vec1], [vec3])[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;「文本1」和「文本2」的相似度：<span class="subst">&#123;sim_1_2:<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;「文本1」和「文本3」的相似度：<span class="subst">&#123;sim_1_3:<span class="number">.4</span>f&#125;</span>\n&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>结果如下：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">文本1：如何快速学习RAG技术，掌握检索增强生成的核心原理</span><br><span class="line">文本2：快速掌握RAG的核心原理，学习检索增强生成的方法</span><br><span class="line">文本3：2025年香蕉的市场价格走势，全国各地区批发价对比</span><br><span class="line"></span><br><span class="line">「文本1」和「文本2」的相似度：0.9407</span><br><span class="line">「文本1」和「文本3」的相似度：0.6704</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>而对于LLM，即文本语言相对比较简单，其模型配置如下</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">llm_model = ChatOpenAI(</span><br><span class="line">    api_key=API_KEY,  </span><br><span class="line">    base_url=BASE_URL,  </span><br><span class="line">    model=<span class="string">&quot;Qwen/Qwen3-8B&quot;</span>,  </span><br><span class="line">    temperature=<span class="number">0</span>  </span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>使用<strong>invoke函数</strong>即可，其中invoke函数的使用方法如下，使用方法分为**“纯文本”<strong>与</strong>“消息列表”**两种方式，如下</p>
+<p><strong>① 纯文本形式</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response = llm.invoke(<span class="string">&quot;请解释什么是RAG技术&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>②消息列表形式</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 构造消息列表（system=系统指令，user=用户问题，assistant=历史回答）</span></span><br><span class="line">messages = [</span><br><span class="line">    &#123;<span class="string">&quot;role&quot;</span>: <span class="string">&quot;system&quot;</span>, <span class="string">&quot;content&quot;</span>: <span class="string">&quot;你是一名专业的AI讲师，回答简洁易懂，控制在100字以内&quot;</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;role&quot;</span>: <span class="string">&quot;user&quot;</span>, <span class="string">&quot;content&quot;</span>: <span class="string">&quot;请解释什么是RAG技术&quot;</span>&#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 调用invoke方法（输入消息列表）</span></span><br><span class="line">response = llm.invoke(messages)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 解析结果（和纯文本输入的解析方式完全一致）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;带角色设定的回答：&quot;</span>, response.content)</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-核心模块-提示（prompts）"><a href="#3-3-核心模块-提示（prompts）" class="headerlink" title="3.3 核心模块-提示（prompts）"></a>3.3 核心模块-提示（prompts）</h3><p>提示（prompts）是指模型的输入。我们通常希望具有比硬编码的字符串更灵活的方式，LangChain 提供了 <font color="red"><strong>Prompt Template</strong></font> 类来构建使用多个值的提示。提示的重要概念包括提示模板、输出解析器、示例选择器和聊天提示模板。</p>
+<h4 id="3-3-1-提示模板（Prompt-Template）"><a href="#3-3-1-提示模板（Prompt-Template）" class="headerlink" title="3.3.1 提示模板（Prompt Template）"></a>3.3.1 提示模板（Prompt Template）</h4><p>LangChain 1.0 + 版本将核心组件拆分到<code>langchain_core</code>模块,主流写法如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方式2：新版官方推荐导入</span></span><br><span class="line"><span class="keyword">from</span> langchain_core.prompts <span class="keyword">import</span> PromptTemplate</span><br><span class="line"></span><br><span class="line"><span class="comment"># 功能和使用方式完全一致</span></span><br><span class="line">prompt_template = PromptTemplate(</span><br><span class="line">    input_variables=[<span class="string">&quot;question&quot;</span>, <span class="string">&quot;context&quot;</span>],</span><br><span class="line">    template=<span class="string">&quot;基于以下上下文回答问题：\n&#123;context&#125;\n问题：&#123;question&#125;\n回答：&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">prompt = prompt_template.<span class="built_in">format</span>(</span><br><span class="line">    context=<span class="string">&quot;RAG是检索增强生成技术&quot;</span>,</span><br><span class="line">    question=<span class="string">&quot;什么是RAG？&quot;</span></span><br><span class="line">)</span><br><span class="line"><span class="built_in">print</span>(prompt)</span><br></pre></td></tr></table></figure>
+
+<p>其中结合3.2部分的聊天模型（LLM）模型，提供demo例子，如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> ChatOpenAI</span><br><span class="line"><span class="keyword">from</span> langchain_core.prompts <span class="keyword">import</span> PromptTemplate</span><br><span class="line"></span><br><span class="line">API_KEY = os.getenv(<span class="string">&quot;SILICONFLOW_API_KEY&quot;</span>)</span><br><span class="line">BASE_URL = <span class="string">&quot;https://api.siliconflow.cn/v1&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化大模型</span></span><br><span class="line">llm_Model = ChatOpenAI(</span><br><span class="line">    api_key=API_KEY,</span><br><span class="line">    base_url=BASE_URL,</span><br><span class="line">    model=<span class="string">&quot;Qwen/Qwen3-8B&quot;</span>,</span><br><span class="line">    temperature=<span class="number">0</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">prompt_template = PromptTemplate(</span><br><span class="line">    input_variables=[<span class="string">&quot;question&quot;</span>,<span class="string">&quot;context&quot;</span>],  <span class="comment"># 错误点：input_var → input_variables</span></span><br><span class="line">    template = <span class="string">&quot;基于以下上下文回答问题：\n&#123;context&#125;\n问题：&#123;question&#125;\n回答：&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">prompt = prompt_template.<span class="built_in">format</span>(</span><br><span class="line">    context=<span class="string">&quot;RAG是检索增强生成技术，核心是先检索外部知识库，再让大模型基于检索结果生成回答，解决大模型幻觉问题&quot;</span>,</span><br><span class="line">    question=<span class="string">&quot;什么是RAG？&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;提示词内容：&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(prompt)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 流式回答</span></span><br><span class="line">stream_response = llm_Model.stream(prompt)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> chunk <span class="keyword">in</span> stream_response:</span><br><span class="line">    chunk_content = chunk.content</span><br><span class="line">    <span class="keyword">if</span> chunk_content:</span><br><span class="line">        <span class="built_in">print</span>(chunk_content, end=<span class="string">&quot;&quot;</span>, flush=<span class="literal">True</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-4-核心模块-索引（indexs）"><a href="#3-4-核心模块-索引（indexs）" class="headerlink" title="3.4 核心模块-索引（indexs）"></a>3.4 核心模块-索引（indexs）</h3><p>LangChain 中的 “索引（Index）” 并非传统数据库的索引，而是<strong>对外部文本数据的 “结构化封装”</strong> —— 它将非结构化的文本（PDF &#x2F; 文档 &#x2F; 网页）处理成 “可快速检索” 的格式（如向量索引、关键词索引），并封装成统一的<code>Retriever</code>接口，让你能一键检索和问题相关的文本内容。</p>
+<h4 id="3-4-1-文档加载器"><a href="#3-4-1-文档加载器" class="headerlink" title="3.4.1 文档加载器"></a>3.4.1 文档加载器</h4><p>Langchain 提供了“挖掘数据的钻机”，通过提供文档加载器，文档是他们说的文本的花哨方式。有很多支持的格式和服务，比如 CSV、电子邮件、SQL、Discord、AWS S3、PDF，等等。</p>
+<p><strong>作用：加载外部文本（PDF&#x2F;Word&#x2F; 网页 &#x2F; 数据库），转为统一的<code>Document</code>对象</strong></p>
+<p>例如，在这里使用WebServer加载网页对象，相对于的demo代码如下（已附上注释）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> dotenv <span class="keyword">import</span> load_dotenv</span><br><span class="line"><span class="comment"># 网页加载器</span></span><br><span class="line"><span class="keyword">from</span> langchain_community.document_loaders <span class="keyword">import</span> WebBaseLoader</span><br><span class="line"><span class="comment"># 加载模型</span></span><br><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> ChatOpenAI</span><br><span class="line"></span><br><span class="line"><span class="comment"># ====================== 加载.env文件 ======================</span></span><br><span class="line"><span class="comment"># load_dotenv()无需传参，默认加载当前目录的.env文件</span></span><br><span class="line">load_dotenv()</span><br><span class="line"></span><br><span class="line"><span class="comment"># ====================== 读取环境变量 ======================</span></span><br><span class="line">API_KEY = os.getenv(<span class="string">&quot;SILICONFLOW_API_KEY&quot;</span>)</span><br><span class="line">BASE_URL = <span class="string">&quot;https://api.siliconflow.cn/v1&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化大模型</span></span><br><span class="line">llm_Model = ChatOpenAI(</span><br><span class="line">    api_key=API_KEY,</span><br><span class="line">    base_url=BASE_URL,</span><br><span class="line">    model=<span class="string">&quot;Qwen/Qwen3-8B&quot;</span>,</span><br><span class="line">    temperature=<span class="number">0</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">target_url =  <span class="string">&quot;https://python.langchain.com/docs/use_cases/qa_chat_history/&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ====================== User-Agent配置 ======================</span></span><br><span class="line">os.environ[<span class="string">&quot;USER_AGENT&quot;</span>] = <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&quot;</span></span><br><span class="line"></span><br><span class="line">loader = WebBaseLoader(</span><br><span class="line">    web_paths=[target_url],  <span class="comment"># 支持传入URL列表，加载多个网页</span></span><br><span class="line">    <span class="comment"># 关键配置：解决中文网页乱码/加载不全问题</span></span><br><span class="line">    requests_kwargs=&#123;</span><br><span class="line">        <span class="string">&quot;headers&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;User-Agent&quot;</span>: os.environ[<span class="string">&quot;USER_AGENT&quot;</span>]  <span class="comment"># 复用上面设置的User-Agent</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment"># 可选：启用JS渲染（应对动态加载的网页，如Vue/React渲染的页面）</span></span><br><span class="line">    <span class="comment"># verify_ssl=False,  # 部分网页SSL证书问题时关闭</span></span><br><span class="line">    <span class="comment"># js_kwargs=&#123;&quot;args&quot;: [&quot;--no-sandbox&quot;]&#125;  # 解决JS渲染权限问题</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载网页文本</span></span><br><span class="line">documents = loader.load()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;成功加载<span class="subst">&#123;<span class="built_in">len</span>(documents)&#125;</span>个文档&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;网页标题：<span class="subst">&#123;documents[<span class="number">0</span>].metadata.get(<span class="string">&#x27;title&#x27;</span>, <span class="string">&#x27;无标题&#x27;</span>)&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;文本内容前200字：\n<span class="subst">&#123;documents[<span class="number">0</span>].page_content[:<span class="number">200</span>]&#125;</span>...&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-4-2-文本分割器"><a href="#3-4-2-文本分割器" class="headerlink" title="3.4.2 文本分割器"></a>3.4.2 文本分割器</h4><p>文本分割器是 LangChain 中处理长文本的核心工具，<strong>核心作用</strong>是将大段的非结构化文本（比如网页、PDF、长文档）分割成小的 “文本块（Chunk）”，适配嵌入模型 &#x2F; 大模型的上下文长度限制。</p>
+<p><strong>LangChain 中常用的文本分割器（按场景选）</strong></p>
+<ul>
+<li>RecursiveCharacterTextSplitter（主流）<ul>
+<li>按 “分隔符优先级” 递归分割（先按大分隔符，再按小分隔符）,适用中文文本、通用长文本（网页 &#x2F; PDF）</li>
+<li>优点：适配中文语义，避免断句；缺点：需自定义分隔符</li>
+</ul>
+</li>
+<li>CharacterTextSplitter（基础）<ul>
+<li>按固定字符数分割，不考虑语义，适用无结构的纯文本（如日志）</li>
+<li>优点：简单；缺点：易切断语义（比如把一句话拆成两半）</li>
+</ul>
+</li>
+<li>TokenTextSplitter（精准）<ul>
+<li>按 token 数分割（适配模型 token 限制），适用对 token 敏感的场景（如 GPT 系列）</li>
+<li>优点：精准匹配模型限制；缺点：需计算 token，稍复杂</li>
+</ul>
+</li>
+<li>MarkdownTextSplitter（专用）<ul>
+<li>按 Markdown 格式分割（标题 &#x2F; 列表 &#x2F; 代码块），适用Markdown 文档、笔记</li>
+<li>优点：保留格式语义；缺点：仅适配 MD 文件</li>
+</ul>
+</li>
+</ul>
+<p>demo例子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_text_splitters <span class="keyword">import</span> RecursiveCharacterTextSplitter</span><br><span class="line"></span><br><span class="line"><span class="comment"># ====================== 1. 准备测试长文本（模拟网页/文档中的长内容） ======================</span></span><br><span class="line">long_text = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">诚实一口是一款国产猫粮品牌，主打高性价比、无谷配方。很多用户反馈，自家猫咪吃了诚实一口后，毛发变得更亮，</span></span><br><span class="line"><span class="string">而且没有出现软便的情况。不过也有少数用户反映，猫咪初期换粮时会有轻微挑食，适应2-3天后就会好转。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">在小红书上，有用户分享：“诚实一口P40猫粮配料表很干净，含肉量高，我家布偶猫吃了3个月，体重稳定增长，</span></span><br><span class="line"><span class="string">没有泪痕，性价比绝了！” 但也有推广类评论：“诚实一口团购价超划算，加V：123456789，量大从优！”</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">B站的宠物UP主测评中提到：“诚实一口的原料溯源做得不错，每批次都有检测报告，对比同价位的猫粮，</span></span><br><span class="line"><span class="string">蛋白质含量达标，适合预算有限的养猫家庭。” 无效评论：“沙发！”“👍”</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ====================== 2. 初始化中文文本分割器（核心配置） ======================</span></span><br><span class="line">text_splitter = RecursiveCharacterTextSplitter(</span><br><span class="line">    <span class="comment"># 核心参数1：每个文本块的最大字符数（中文按字符算，建议500-1000）</span></span><br><span class="line">    chunk_size=<span class="number">200</span>,</span><br><span class="line">    <span class="comment"># 核心参数2：文本块重叠字符数（保证上下文连贯，一般为chunk_size的10%-20%）</span></span><br><span class="line">    chunk_overlap=<span class="number">20</span>,</span><br><span class="line">    <span class="comment"># 核心参数3：中文分隔符优先级（从上到下依次尝试，避免切断语义）</span></span><br><span class="line">    separators=[</span><br><span class="line">        <span class="string">&quot;\n\n&quot;</span>,  <span class="comment"># 优先按空行分割（段落）</span></span><br><span class="line">        <span class="string">&quot;\n&quot;</span>,    <span class="comment"># 再按换行分割（句子）</span></span><br><span class="line">        <span class="string">&quot;。&quot;</span>,    <span class="comment"># 中文句号（完整句子）</span></span><br><span class="line">        <span class="string">&quot;！&quot;</span>,    <span class="comment"># 感叹号</span></span><br><span class="line">        <span class="string">&quot;？&quot;</span>,    <span class="comment"># 问号</span></span><br><span class="line">        <span class="string">&quot;，&quot;</span>,    <span class="comment"># 逗号</span></span><br><span class="line">        <span class="string">&quot; &quot;</span>,     <span class="comment"># 空格</span></span><br><span class="line">        <span class="string">&quot;&quot;</span>       <span class="comment"># 最后按字符强制分割（避免超长）</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="comment"># 辅助参数：计算长度的函数（中文用len即可，token场景换tiktoken）</span></span><br><span class="line">    length_function=<span class="built_in">len</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ====================== 3. 执行分割 ======================</span></span><br><span class="line"><span class="comment"># 分割文本（返回Document对象列表，包含文本内容+元数据）</span></span><br><span class="line">splits = text_splitter.create_documents([long_text])</span><br><span class="line"></span><br><span class="line"><span class="comment"># ====================== 4. 打印分割结果 ======================</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;原始文本长度：<span class="subst">&#123;<span class="built_in">len</span>(long_text)&#125;</span> 字符&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;分割后得到 <span class="subst">&#123;<span class="built_in">len</span>(splits)&#125;</span> 个文本块\n&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 遍历打印每个文本块</span></span><br><span class="line"><span class="keyword">for</span> i, split <span class="keyword">in</span> <span class="built_in">enumerate</span>(splits):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;=== 文本块 <span class="subst">&#123;i+<span class="number">1</span>&#125;</span> ===&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;内容：<span class="subst">&#123;split.page_content&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;长度：<span class="subst">&#123;<span class="built_in">len</span>(split.page_content)&#125;</span> 字符\n&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> langchain_community.document_loaders <span class="keyword">import</span> WebBaseLoader</span><br><span class="line"><span class="keyword">from</span> langchain_text_splitters <span class="keyword">import</span> RecursiveCharacterTextSplitter</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 设置User-Agent，加载网页</span></span><br><span class="line">os.environ[<span class="string">&quot;USER_AGENT&quot;</span>] = <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&quot;</span></span><br><span class="line">loader = WebBaseLoader(</span><br><span class="line">    web_paths=[<span class="string">&quot;https://www.xiaohongshu.com/explore?keyword=诚实一口&quot;</span>],</span><br><span class="line">    requests_kwargs=&#123;<span class="string">&quot;headers&quot;</span>: &#123;<span class="string">&quot;User-Agent&quot;</span>: os.environ[<span class="string">&quot;USER_AGENT&quot;</span>]&#125;&#125;</span><br><span class="line">)</span><br><span class="line">documents = loader.load()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 初始化中文分割器</span></span><br><span class="line">text_splitter = RecursiveCharacterTextSplitter(</span><br><span class="line">    chunk_size=<span class="number">500</span>,</span><br><span class="line">    chunk_overlap=<span class="number">50</span>,</span><br><span class="line">    separators=[<span class="string">&quot;\n\n&quot;</span>, <span class="string">&quot;\n&quot;</span>, <span class="string">&quot;。&quot;</span>, <span class="string">&quot;！&quot;</span>, <span class="string">&quot;？&quot;</span>, <span class="string">&quot;，&quot;</span>, <span class="string">&quot; &quot;</span>]</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 分割网页文本</span></span><br><span class="line">split_docs = text_splitter.split_documents(documents)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 打印结果</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;网页原始文本长度：<span class="subst">&#123;<span class="built_in">len</span>(documents[<span class="number">0</span>].page_content)&#125;</span> 字符&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;分割后得到 <span class="subst">&#123;<span class="built_in">len</span>(split_docs)&#125;</span> 个文本块&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;第一个文本块内容：\n<span class="subst">&#123;split_docs[<span class="number">0</span>].page_content[:<span class="number">100</span>]&#125;</span>...&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-5-核心模块-内存（Memory）"><a href="#3-5-核心模块-内存（Memory）" class="headerlink" title="3.5 核心模块-内存（Memory）"></a>3.5 核心模块-内存（Memory）</h3><p>Memory 是 LangChain 中<strong>管理对话上下文的模块</strong>，核心作用是 “保存历史对话记录”，让大模型能基于 “当前问题 + 历史对话” 生成回答，而非每次都 “失忆”（仅回答当前问题）</p>
+<ul>
+<li>ConversationBufferMemory（基础）<ul>
+<li>按顺序保存所有对话记录（纯文本）</li>
+<li>简单多轮对话（如客服问答）</li>
+</ul>
+</li>
+<li>ConversationBufferWindowMemory（窗口）<ul>
+<li>只保存最近 N 轮对话（避免上下文过长）</li>
+<li>长对话场景（如多轮咨询）</li>
+</ul>
+</li>
+<li>ConversationSummaryMemory（摘要）<ul>
+<li>用大模型总结历史对话（压缩上下文）</li>
+<li>超长对话（如几十轮聊天）</li>
+</ul>
+</li>
+<li>VectorStoreRetrieverMemory（语义）<ul>
+<li>将历史对话存入向量库，检索相关记忆</li>
+<li>复杂语义对话（如 RAG + 多轮问答）</li>
+</ul>
+</li>
+</ul>
+<p><strong>demo</strong>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> ChatOpenAI</span><br><span class="line"><span class="comment"># 1. ConversationChain 正确导入</span></span><br><span class="line"><span class="keyword">from</span> langchain.chains <span class="keyword">import</span> ConversationChain</span><br><span class="line"><span class="comment"># 2. ConversationBufferMemory 精准导入（核心修正！）</span></span><br><span class="line"><span class="keyword">from</span> langchain.memory <span class="keyword">import</span> ConversationBufferMemory</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> dotenv <span class="keyword">import</span> load_dotenv</span><br><span class="line"></span><br><span class="line"><span class="comment"># 基础配置</span></span><br><span class="line">load_dotenv()</span><br><span class="line">API_KEY = os.getenv(<span class="string">&quot;SILICONFLOW_API_KEY&quot;</span>)</span><br><span class="line">BASE_URL = <span class="string">&quot;https://api.siliconflow.cn/v1&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化大模型</span></span><br><span class="line">llm = ChatOpenAI(</span><br><span class="line">    api_key=API_KEY,</span><br><span class="line">    base_url=BASE_URL,</span><br><span class="line">    model=<span class="string">&quot;Qwen/Qwen3-8B&quot;</span>,</span><br><span class="line">    temperature=<span class="number">0</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化Memory（保存对话记录）</span></span><br><span class="line">memory = ConversationBufferMemory()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化对话链路（绑定Memory）</span></span><br><span class="line">conversation_chain = ConversationChain(</span><br><span class="line">    llm=llm,</span><br><span class="line">    memory=memory,</span><br><span class="line">    verbose=<span class="literal">True</span>  <span class="comment"># 打印对话流程（方便调试）</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 多轮对话测试</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;===== 第一轮对话 =====&quot;</span>)</span><br><span class="line">response1 = conversation_chain.invoke(&#123;<span class="string">&quot;input&quot;</span>: <span class="string">&quot;诚实一口是什么品牌？&quot;</span>&#125;)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;AI回答：&quot;</span>, response1[<span class="string">&quot;response&quot;</span>], <span class="string">&quot;\n&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;===== 第二轮对话（关联历史） =====&quot;</span>)</span><br><span class="line">response2 = conversation_chain.invoke(&#123;<span class="string">&quot;input&quot;</span>: <span class="string">&quot;它的猫粮有什么特点？&quot;</span>&#125;)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;AI回答：&quot;</span>, response2[<span class="string">&quot;response&quot;</span>], <span class="string">&quot;\n&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看Memory中的历史记录</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;===== Memory中的对话记录 =====&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(memory.load_memory_variables(&#123;&#125;))</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-6-核心模块-链路（Chains-）"><a href="#3-6-核心模块-链路（Chains-）" class="headerlink" title="3.6 核心模块-链路（Chains ）"></a>3.6 核心模块-链路（Chains ）</h3><p>Chains 是 LangChain 中<strong>串联多个组件的 “流水线”</strong>，核心作用是将 “PromptTemplate、LLM、Memory、Retriever” 等组件按逻辑组合，实现复杂任务（而非单一的 “调用模型”）。</p>
+<ul>
+<li><p>没有 Chains：你需要手动写代码拼接 Prompt、调用模型、处理 Memory，代码冗余且易出错；</p>
+</li>
+<li><p>有 Chains：只需定义组件和流程，LangChain 自动处理 “输入→组件 1→组件 2→输出” 的全流程。</p>
+</li>
+</ul>
+<p><strong>常用Chain类型</strong></p>
+<ul>
+<li>LLMChain（基础）<ul>
+<li>仅串联 “PromptTemplate + LLM”</li>
+<li>单轮问答、简单生成（如文本总结）</li>
+</ul>
+</li>
+<li>ConversationChain（对话）<ul>
+<li>串联 “LLM + Memory”</li>
+<li>多轮对话（如上面的 Memory Demo）</li>
+</ul>
+</li>
+<li>RetrievalQA（RAG 核心）<ul>
+<li>串联 “Retriever + LLM”</li>
+<li>基于知识库的问答（如网页文本问答）</li>
+</ul>
+</li>
+<li>SequentialChain（串联）<ul>
+<li>按顺序执行多个 Chain（输出作为下一个输入）</li>
+<li>复杂任务（如 “文本总结→关键词提取→回答问题”）</li>
+</ul>
+</li>
+</ul>
+<p>Demo例子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> ChatOpenAI, OpenAIEmbeddings</span><br><span class="line"><span class="keyword">from</span> langchain_chroma <span class="keyword">import</span> Chroma</span><br><span class="line"><span class="keyword">from</span> langchain.chains <span class="keyword">import</span> RetrievalQA</span><br><span class="line"><span class="keyword">from</span> langchain_text_splitters <span class="keyword">import</span> RecursiveCharacterTextSplitter</span><br><span class="line"><span class="keyword">from</span> langchain_community.document_loaders <span class="keyword">import</span> WebBaseLoader</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> dotenv <span class="keyword">import</span> load_dotenv</span><br><span class="line"></span><br><span class="line"><span class="comment"># ====================== 基础配置（极简，新手易上手） ======================</span></span><br><span class="line">load_dotenv()  <span class="comment"># 加载.env中的SILICONFLOW_API_KEY</span></span><br><span class="line">os.environ[<span class="string">&quot;USER_AGENT&quot;</span>] = <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&quot;</span></span><br><span class="line">API_KEY = os.getenv(<span class="string">&quot;SILICONFLOW_API_KEY&quot;</span>)</span><br><span class="line">BASE_URL = <span class="string">&quot;https://api.siliconflow.cn/v1&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ====================== 1. 加载麦当劳用户评价文本（核心：真实用户评价） ======================</span></span><br><span class="line"><span class="comment"># 选择公开的麦当劳用户评价网页（无反爬，内容为真实用户评价）</span></span><br><span class="line">loader = WebBaseLoader(</span><br><span class="line">    web_paths=[<span class="string">&quot;https://www.dianping.com/shop/H898989/review_all&quot;</span>],  <span class="comment"># 替换为真实点评页（示例地址，可直接换公开评价页）</span></span><br><span class="line">    requests_kwargs=&#123;<span class="string">&quot;headers&quot;</span>: &#123;<span class="string">&quot;User-Agent&quot;</span>: os.environ[<span class="string">&quot;USER_AGENT&quot;</span>]&#125;&#125;</span><br><span class="line">)</span><br><span class="line"><span class="comment"># 若上述地址访问失败，用本地模拟评价文本（避免爬取问题，直接运行）</span></span><br><span class="line">fake_reviews = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">麦当劳用户评价汇总：</span></span><br><span class="line"><span class="string">1. 好评：麦辣鸡腿堡性价比超高，15元一个，肉质鲜嫩，辣度适中；薯条刚出锅的最好吃，酥脆不油；麦咖啡的拿铁性价比比星巴克高，9.9元一杯。</span></span><br><span class="line"><span class="string">2. 差评：高峰期出餐慢，要等20分钟；部分门店卫生差，餐桌有油污；甜筒冰淇淋化得太快，拿到手就流一手。</span></span><br><span class="line"><span class="string">3. 中性评价：新品麦麦脆汁鸡比原味鸡嫩，但价格贵5元；早餐的猪柳蛋麦满分分量足，适合打工人。</span></span><br><span class="line"><span class="string">4. 高频反馈：儿童套餐的玩具很受小朋友喜欢；自助点餐机偶尔卡顿，不如人工点单快。</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="comment"># 模拟加载文档（避免爬取失败，保证代码能直接运行）</span></span><br><span class="line"><span class="keyword">from</span> langchain_core.documents <span class="keyword">import</span> Document</span><br><span class="line">docs = [Document(page_content=fake_reviews)]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;✅ 加载到麦当劳用户评价：<span class="subst">&#123;<span class="built_in">len</span>(docs[<span class="number">0</span>].page_content)&#125;</span> 字符&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ====================== 2. 分割文本（适配评价类文本） ======================</span></span><br><span class="line">text_splitter = RecursiveCharacterTextSplitter(</span><br><span class="line">    chunk_size=<span class="number">300</span>,  <span class="comment"># 评价文本短，调小chunk_size，更精准</span></span><br><span class="line">    chunk_overlap=<span class="number">30</span>,</span><br><span class="line">    separators=[<span class="string">&quot;；&quot;</span>, <span class="string">&quot;\n&quot;</span>, <span class="string">&quot;。&quot;</span>, <span class="string">&quot;！&quot;</span>, <span class="string">&quot;？&quot;</span>]  <span class="comment"># 按评价条目分割</span></span><br><span class="line">)</span><br><span class="line">split_docs = text_splitter.split_documents(docs)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;✅ 分割后得到 <span class="subst">&#123;<span class="built_in">len</span>(split_docs)&#125;</span> 个评价文本块&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ====================== 3. 构建向量检索库（核心RAG） ======================</span></span><br><span class="line">embeddings = OpenAIEmbeddings(</span><br><span class="line">    api_key=API_KEY,</span><br><span class="line">    base_url=BASE_URL,</span><br><span class="line">    model=<span class="string">&quot;BAAI/bge-large-zh-v1.5&quot;</span></span><br><span class="line">)</span><br><span class="line"><span class="comment"># 构建向量库（本地保存，复用方便）</span></span><br><span class="line">vector_db = Chroma.from_documents(</span><br><span class="line">    documents=split_docs,</span><br><span class="line">    embedding=embeddings,</span><br><span class="line">    persist_directory=<span class="string">&quot;./mcdonalds_chroma_db&quot;</span></span><br><span class="line">)</span><br><span class="line">retriever = vector_db.as_retriever(search_kwargs=&#123;<span class="string">&quot;k&quot;</span>: <span class="number">2</span>&#125;)  <span class="comment"># 评价类文本，检索Top2足够</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ====================== 4. 初始化大模型+问答链路 ======================</span></span><br><span class="line">llm = ChatOpenAI(</span><br><span class="line">    api_key=API_KEY,</span><br><span class="line">    base_url=BASE_URL,</span><br><span class="line">    model=<span class="string">&quot;Qwen/Qwen3-8B&quot;</span>,</span><br><span class="line">    temperature=<span class="number">0</span>  <span class="comment"># 评价类问答，精准优先</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化RetrievalQA（聚焦用户评价问答）</span></span><br><span class="line">qa_chain = RetrievalQA.from_chain_type(</span><br><span class="line">    llm=llm,</span><br><span class="line">    chain_type=<span class="string">&quot;stuff&quot;</span>,</span><br><span class="line">    retriever=retriever,</span><br><span class="line">    return_source_documents=<span class="literal">True</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ====================== 5. 测试大众熟知的评价类问题 ======================</span></span><br><span class="line"><span class="comment"># 问题1：麦当劳用户觉得麦辣鸡腿堡怎么样？（核心产品评价）</span></span><br><span class="line">query1 = <span class="string">&quot;麦当劳用户觉得麦辣鸡腿堡怎么样？&quot;</span></span><br><span class="line">result1 = qa_chain.invoke(&#123;<span class="string">&quot;query&quot;</span>: query1&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 问题2：麦当劳有哪些差评反馈？（负面评价统计）</span></span><br><span class="line">query2 = <span class="string">&quot;麦当劳有哪些差评反馈？&quot;</span></span><br><span class="line">result2 = qa_chain.invoke(&#123;<span class="string">&quot;query&quot;</span>: query2&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 问题3：麦当劳的性价比怎么样？（核心用户关注点）</span></span><br><span class="line">query3 = <span class="string">&quot;麦当劳的性价比怎么样？&quot;</span></span><br><span class="line">result3 = qa_chain.invoke(&#123;<span class="string">&quot;query&quot;</span>: query3&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ====================== 输出结果（直观展示） ======================</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\n&quot;</span> + <span class="string">&quot;=&quot;</span>*<span class="number">60</span>)</span><br><span class="line"><span class="keyword">for</span> i, (q, res) <span class="keyword">in</span> <span class="built_in">enumerate</span>([(query1, result1), (query2, result2), (query3, result3)]):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;\n📌 问题<span class="subst">&#123;i+<span class="number">1</span>&#125;</span>：<span class="subst">&#123;q&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;🤖 AI回答：<span class="subst">&#123;res[<span class="string">&#x27;result&#x27;</span>]&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="comment"># 展示检索到的原文（验证回答来源）</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;🔍 参考评价：<span class="subst">&#123;res[<span class="string">&#x27;source_documents&#x27;</span>][<span class="number">0</span>].page_content&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\n&quot;</span> + <span class="string">&quot;=&quot;</span>*<span class="number">60</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-7-核心模块-代理（Agents-）"><a href="#3-7-核心模块-代理（Agents-）" class="headerlink" title="3.7 核心模块-代理（Agents ）"></a>3.7 核心模块-代理（Agents ）</h3><p>Agents（代理）是 LangChain 中<strong>最高阶的核心模块</strong>，本质是 “能自主决策的 AI 助手”—— 它不再像 Chains 那样按人工预设的固定流程执行任务，而是让大模型根据用户的目标，<strong>自主判断需要调用哪些工具、执行哪些步骤</strong>，最终完成复杂任务。</p>
+<h3 id="3-8-总结：实现步骤"><a href="#3-8-总结：实现步骤" class="headerlink" title="3.8 总结：实现步骤"></a>3.8 总结：实现步骤</h3><h5 id="step-1：文档加载与分割"><a href="#step-1：文档加载与分割" class="headerlink" title="step 1：文档加载与分割"></a>step 1：文档加载与分割</h5><p>选择合适的分割策略确保语义完整性。</p>
+<h5 id="step-2：向量化处理"><a href="#step-2：向量化处理" class="headerlink" title="step 2：向量化处理"></a>step 2：向量化处理</h5><p>使用Embeddings将文本转换为向量表示。</p>
+<h5 id="step-3：存储与索引"><a href="#step-3：存储与索引" class="headerlink" title="step 3：存储与索引"></a>step 3：存储与索引</h5><p>利用向量数据库快速检索相关文档。</p>
+<h5 id="step-4：LLM调用"><a href="#step-4：LLM调用" class="headerlink" title="step 4：LLM调用"></a>step 4：LLM调用</h5><p>基于检索结果生成最终答案。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/AI/" rel="tag"># AI</a>
+              <a href="/tags/RAG/" rel="tag"># RAG</a>
+              <a href="/tags/LangChain/" rel="tag"># LangChain</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/LLM/" rel="tag"># LLM</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/02/28/algorithm/leetcode-practice/" rel="prev" title="LeetCode算法练习">
+                  <i class="fa fa-angle-left"></i> LeetCode算法练习
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2026/03/05/embedded/harmonyos/" rel="next" title="鸿蒙应用开发-蓝桥杯赛道">
+                  鸿蒙应用开发-蓝桥杯赛道 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+
+    
+      <div class="post-back-button">
+        <a href="/categories/undefined/" class="back-btn" title="返回分类">
+          <i class="fa fa-arrow-left"></i> 返回分类：
+        </a>
+        <a href="/" class="back-btn" title="返回首页">
+          <i class="fa fa-home"></i> 返回首页
+        </a>
+      </div>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Chen Blog 1.0</span>
+  </div>
+  <div class="powered-by">技术支持: <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+<script>
+  (function () {
+    function loadScript(src) {
+      return new Promise(function (resolve, reject) {
+        var s = document.createElement("script");
+        s.src = src;
+        s.async = true;
+        s.defer = true;
+        s.onload = resolve;
+        s.onerror = reject;
+        document.body.appendChild(s);
+      });
+    }
+
+    function initLive2D() {
+      if (window.innerWidth < 768) return;
+      loadScript("/js/live2d-widget/L2Dwidget.min.js")
+        .then(function () {
+          if (!window.L2Dwidget) return;
+          window.L2Dwidget.init({
+            model: {
+              jsonPath: "https://cdn.jsdelivr.net/npm/live2d-widget-model-koharu@1.0.5/assets/koharu.model.json",
+              scale: 0.9
+            },
+            display: {
+              position: "right",
+              width: 180,
+              height: 320,
+              hOffset: 0,
+              vOffset: 0
+            },
+            mobile: {
+              show: false
+            },
+            react: {
+              opacityDefault: 0.68,
+              opacityOnHover: 0.8
+            }
+          });
+        })
+        .catch(function () {
+          // 静默失败，避免影响页面主流程
+        });
+    }
+
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(initLive2D, { timeout: 2500 });
+    } else {
+      setTimeout(initLive2D, 1200);
+    }
+  })();
+</script>
+
+</body>
+</html>

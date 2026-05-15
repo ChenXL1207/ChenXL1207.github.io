@@ -1,0 +1,233 @@
+/* Code Highlight - Catppuccin Mocha Inspired */
+
+/* Code block container */
+.highlight,
+.post-body pre {
+  background: #1e1e2e;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+/* Code block header (language label) */
+.highlight .highlight-heading {
+  background: #181825;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6c7086;
+  border-bottom: 1px solid #313244;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.highlight .code-lang {
+  color: #7aa2f7;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Copy button */
+.highlight .copy-btn {
+  background: transparent;
+  color: #6c7086;
+  border: 1px solid #313244;
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-family: var(--font-sans);
+}
+
+.highlight .copy-btn:hover {
+  color: #cdd6f4;
+  border-color: #45475a;
+  background: #313244;
+}
+
+.highlight .copy-btn.copied {
+  color: #a6e3a1;
+  border-color: #a6e3a1;
+}
+
+/* Line numbers */
+.highlight .gutter {
+  background: #181825;
+  padding: 16px 0;
+  border-right: 1px solid #313244;
+}
+
+.highlight .gutter pre {
+  color: #45475a;
+  font-size: 13px;
+  text-align: right;
+  padding: 0 12px;
+  background: transparent;
+  border: none;
+}
+
+/* Code content */
+.highlight .code {
+  padding: 16px;
+  overflow-x: auto;
+}
+
+.highlight .code pre {
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  color: #cdd6f4;
+  font-size: 14px;
+  line-height: 1.7;
+  font-family: var(--font-mono);
+}
+
+/* Scrollbar for code blocks */
+.highlight .code::-webkit-scrollbar {
+  height: 6px;
+}
+
+.highlight .code::-webkit-scrollbar-track {
+  background: #181825;
+}
+
+.highlight .code::-webkit-scrollbar-thumb {
+  background: #45475a;
+  border-radius: 3px;
+}
+
+.highlight .code::-webkit-scrollbar-thumb:hover {
+  background: #585b70;
+}
+
+/* Catppuccin Mocha syntax colors */
+.highlight .comment,
+.highlight .quote {
+  color: #6c7086;
+  font-style: italic;
+}
+
+.highlight .keyword,
+.highlight .selector-tag,
+.highlight .addition {
+  color: #cba6f7;
+}
+
+.highlight .number,
+.highlight .string,
+.highlight .meta .meta-string,
+.highlight .literal,
+.highlight .bullet {
+  color: #a6e3a1;
+}
+
+.highlight .built_in,
+.highlight .type,
+.highlight .params {
+  color: #fab387;
+}
+
+.highlight .function,
+.highlight .attribute {
+  color: #7aa2f7;
+}
+
+.highlight .variable,
+.highlight .template-variable {
+  color: #f38ba8;
+}
+
+.highlight .title,
+.highlight .section,
+.highlight .selector-id {
+  color: #7aa2f7;
+  font-weight: 600;
+}
+
+.highlight .link {
+  color: #7dcfff;
+  text-decoration: underline;
+}
+
+.highlight .regexp {
+  color: #f5c2e7;
+}
+
+.highlight .symbol,
+.highlight .deletion {
+  color: #f38ba8;
+}
+
+.highlight .meta {
+  color: #fab387;
+}
+
+.highlight .meta .keyword {
+  color: #cba6f7;
+}
+
+.highlight .emphasis {
+  font-style: italic;
+}
+
+.highlight .strong {
+  font-weight: 700;
+}
+
+/* Inline code (not inside pre) */
+.post-body :not(pre) > code {
+  background: var(--bg-tertiary);
+  color: #d20f39;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  font-size: 0.88em;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  word-break: break-word;
+}
+
+[data-theme="dark"] .post-body :not(pre) > code {
+  color: #f38ba8;
+  background: rgba(243, 139, 168, 0.1);
+}
+
+/* Max height for long code blocks */
+.highlight .code pre {
+  max-height: 600px;
+}
+
+/* Gist embed style */
+.gist .highlight {
+  border-radius: var(--radius-md);
+}
+
+/* Diff highlighting */
+.highlight .deletion {
+  color: #f38ba8;
+  background: rgba(243, 139, 168, 0.1);
+}
+
+.highlight .addition {
+  color: #a6e3a1;
+  background: rgba(166, 227, 161, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .highlight .code pre {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .highlight .gutter pre {
+    font-size: 12px;
+  }
+
+  .highlight .code {
+    padding: 12px;
+  }
+}
