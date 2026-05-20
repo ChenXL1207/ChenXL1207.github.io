@@ -1,51 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://ChenXL1207.github.io/2026/05/07/cpp/coroutine-pool/</loc>
-    <lastmod>2026-05-15</lastmod>
+    <loc>https://ChenXL1207.github.io/2026/05/19/cpp/CRTP/</loc>
+    <lastmod>2026-05-19</lastmod>
   </url>
   <url>
-    <loc>https://ChenXL1207.github.io/2026/02/28/algorithm/leetcode-practice/</loc>
-    <lastmod>2026-05-14</lastmod>
-  </url>
-  <url>
-    <loc>https://ChenXL1207.github.io/2026/02/28/ai/rag-study/</loc>
-    <lastmod>2026-05-14</lastmod>
-  </url>
-  <url>
-    <loc>https://ChenXL1207.github.io/2026/04/18/cpp/memory-pool/</loc>
-    <lastmod>2026-05-14</lastmod>
-  </url>
-  <url>
-    <loc>https://ChenXL1207.github.io/2026/04/01/cpp/cache-system/</loc>
-    <lastmod>2026-05-14</lastmod>
-  </url>
-  <url>
-    <loc>https://ChenXL1207.github.io/2026/03/31/cpp/project-overview/</loc>
-    <lastmod>2026-05-14</lastmod>
-  </url>
-  <url>
-    <loc>https://ChenXL1207.github.io/2026/03/05/embedded/harmonyos/</loc>
-    <lastmod>2026-05-14</lastmod>
+    <loc>https://ChenXL1207.github.io/2026/05/19/cpp/cppDesignerMode/</loc>
+    <lastmod>2026-05-19</lastmod>
   </url>
   <url>
     <loc>https://ChenXL1207.github.io/2026/02/27/embedded/linux-guide/</loc>
-    <lastmod>2026-05-14</lastmod>
+    <lastmod>2026-05-16</lastmod>
   </url>
   <url>
-    <loc>https://ChenXL1207.github.io/2026/04/08/ai/openclaw-setup/</loc>
-    <lastmod>2026-05-14</lastmod>
+    <loc>https://ChenXL1207.github.io/2026/03/05/embedded/harmonyos/</loc>
+    <lastmod>2026-05-16</lastmod>
   </url>
   <url>
-    <loc>https://ChenXL1207.github.io/2026/03/10/algorithm/sliding-window/</loc>
-    <lastmod>2026-05-14</lastmod>
+    <loc>https://ChenXL1207.github.io/2026/04/18/cpp/memory-pool/</loc>
+    <lastmod>2026-05-16</lastmod>
+  </url>
+  <url>
+    <loc>https://ChenXL1207.github.io/2026/03/31/cpp/project-overview/</loc>
+    <lastmod>2026-05-16</lastmod>
+  </url>
+  <url>
+    <loc>https://ChenXL1207.github.io/2026/05/07/cpp/coroutine-pool/</loc>
+    <lastmod>2026-05-16</lastmod>
+  </url>
+  <url>
+    <loc>https://ChenXL1207.github.io/2026/04/01/cpp/cache-system/</loc>
+    <lastmod>2026-05-16</lastmod>
   </url>
   <url>
     <loc>https://ChenXL1207.github.io/2026/02/27/cpp/best-practices/</loc>
-    <lastmod>2026-05-14</lastmod>
+    <lastmod>2026-05-16</lastmod>
+  </url>
+  <url>
+    <loc>https://ChenXL1207.github.io/2026/03/10/algorithm/sliding-window/</loc>
+    <lastmod>2026-05-16</lastmod>
+  </url>
+  <url>
+    <loc>https://ChenXL1207.github.io/2026/02/28/algorithm/leetcode-practice/</loc>
+    <lastmod>2026-05-16</lastmod>
+  </url>
+  <url>
+    <loc>https://ChenXL1207.github.io/2026/02/28/ai/rag-study/</loc>
+    <lastmod>2026-05-16</lastmod>
+  </url>
+  <url>
+    <loc>https://ChenXL1207.github.io/2026/04/08/ai/openclaw-setup/</loc>
+    <lastmod>2026-05-16</lastmod>
   </url>
   <url>
     <loc>https://ChenXL1207.github.io/2026/04/15/ai/agent-tool/</loc>
-    <lastmod>2026-05-14</lastmod>
+    <lastmod>2026-05-16</lastmod>
   </url>
 </urlset> 

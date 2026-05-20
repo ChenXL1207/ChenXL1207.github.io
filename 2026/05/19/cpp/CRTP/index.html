@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/ui/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chenxl1207.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"night-owl","dark":"night-owl"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"language":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="C++软件开发中的CRTP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++-CRTP模式">
+<meta property="og:url" content="https://chenxl1207.github.io/2026/05/19/cpp/CRTP/index.html">
+<meta property="og:site_name" content="ChenXuanliang Blog">
+<meta property="og:description" content="C++软件开发中的CRTP">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-19T04:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-19T14:22:17.242Z">
+<meta property="article:author" content="Chen Xuanliang">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://chenxl1207.github.io/2026/05/19/cpp/CRTP/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://chenxl1207.github.io/2026/05/19/cpp/CRTP/","path":"2026/05/19/cpp/CRTP/","title":"C++-CRTP模式"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>C++-CRTP模式 | ChenXuanliang Blog</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="/lib/@fancyapps/ui/dist/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script><script src="/js/bookmark.js" defer></script>
+
+  <script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><link rel="stylesheet" href="/lib/katex/dist/katex.min.css" integrity="sha256-UF1fgpAiu3tPJN/uCqEUHNe7pnr+QR0SQDNfgglgtcM=" crossorigin="anonymous">
+  <script class="next-config" data-name="katex" type="application/json">{"copy_tex_js":{"url":"/lib/katex/dist/contrib/copy-tex.min.js","integrity":"sha256-Us54+rSGDSTvIhKKUs4kygE2ipA0RXpWWh0/zLqw3bs="}}</script>
+  <script src="/js/third-party/math/katex.js" defer></script>
+
+
+  <script src="/lib/quicklink/dist/quicklink.umd.js" integrity="sha256-44BednzIpUeQJcY8qtLyarFu0UCCTbgmWOvaoehiFQQ=" crossorigin="anonymous" defer></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://chenxl1207.github.io/2026/05/19/cpp/CRTP/"}</script>
+  <script src="/js/third-party/quicklink.js" defer></script>
+
+<style id="anti-fouc">
+  html { opacity: 0; }
+</style>
+<script>
+  (function () {
+    function revealPage() {
+      document.documentElement.style.opacity = "1";
+      var s = document.getElementById("anti-fouc");
+      if (s) s.remove();
+    }
+    window.addEventListener("load", revealPage, { once: true });
+    window.addEventListener("pageshow", revealPage, { once: true });
+    setTimeout(revealPage, 1800);
+  })();
+</script>
+<link rel="stylesheet" href="/css/variables.css">
+<link rel="stylesheet" href="/css/index-card.css">
+<link rel="stylesheet" href="/css/category-tag-style.css">
+<link rel="stylesheet" href="/css/sidebar-stats.css">
+<link rel="stylesheet" href="/css/modern-blog-upgrade.css">
+<link rel="stylesheet" href="/css/code-highlight.css">
+<link rel="stylesheet" href="/css/animations.css">
+<script src="/js/category-names.js" defer></script>
+<script src="/js/sidebar-stats.js" defer></script>
+<script src="/js/modern-blog.js" defer></script>
+<script src="/js/category-page-bridge.js" defer></script>
+<style>
+/* Header language switch button */
+.header-lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: 16px;
+  background: #f4f4f5;
+  border-radius: 9999px;
+  padding: 2px;
+  vertical-align: middle;
+}
+.lang-btn {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #71717a;
+  transition: all 150ms ease;
+  line-height: 1.4;
+}
+.lang-btn:hover {
+  color: #18181b;
+  background: #e4e4e7;
+}
+.lang-btn-active {
+  color: #fafafa;
+  background: #2563eb;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.lang-btn-active:hover {
+  color: #fafafa;
+  background: #1d4ed8;
+}
+[data-theme="dark"] .header-lang-switch {
+  background: #27272a;
+}
+[data-theme="dark"] .lang-btn:hover {
+  background: #3f3f46;
+}
+@media (max-width: 767px) {
+  .header-lang-switch {
+    margin-left: 8px;
+    margin-top: 4px;
+  }
+  .lang-btn {
+    padding: 3px 8px;
+    font-size: 11px;
+  }
+}
+</style>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">ChenXuanliang Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Xdu teleCom student, software developer, blogger</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-folder-open fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="header-lang-switch">
+  <a href="/2026/05/19/cpp/CRTP/" class="lang-btn lang-btn-active" title="简体中文">CN</a>
+  <a href="/en/2026/05/19/cpp/CRTP/" class="lang-btn" title="English">EN</a>
+</div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CRTP%E6%A8%A1%E5%BC%8F"><span class="nav-text">CRTP模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CRTP%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86"><span class="nav-text">CRTP核心原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CRTP%EF%BC%88%E9%9D%99%E6%80%81%E5%A4%9A%E6%80%81%EF%BC%89-vs-%E8%99%9A%E5%87%BD%E6%95%B0%EF%BC%88%E5%8A%A8%E6%80%81%E5%A4%9A%E6%80%81%EF%BC%89"><span class="nav-text">CRTP（静态多态） vs 虚函数（动态多态）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CRTP%E4%BD%9C%E7%94%A8"><span class="nav-text">CRTP作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CRTP-%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-text">CRTP 的注意事项</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chen Xuanliang</p>
+  <div class="site-description" itemprop="description">记录思想，分享知识，思考人生</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/05/19/cpp/CRTP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chen Xuanliang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChenXuanliang Blog">
+      <meta itemprop="description" content="记录思想，分享知识，思考人生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="C++-CRTP模式 | ChenXuanliang Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C++-CRTP模式
+        </h1>
+
+        <div class="post-meta-container">
+            
+            <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-05-19 12:00:00 / 修改时间：22:22:17" itemprop="dateCreated datePublished" datetime="2026-05-19T12:00:00+08:00">2026-05-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/cpp/" itemprop="url" rel="index"><span itemprop="name">cpp</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+          
+            <div class="post-back-button" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee;">
+              <a href="/categories/undefined/" class="back-btn" title="返回分类">
+                <i class="fa fa-arrow-left"></i> 返回分类
+              </a>
+            </div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="CRTP模式"><a href="#CRTP模式" class="headerlink" title="CRTP模式"></a>CRTP模式</h1><p>CRTP 的全称是 奇异递归模板模式（Curiously Recurring Template Pattern）。听起来名字非常高大上，甚至有点吓人，但其实它只是 C++ 模板编程中一种非常经典的“惯用法”。</p>
+<p>简单来说，CRTP 就是一种“<strong>子类把自己作为模板参数传给父类</strong>”的写法。</p>
+<p>它的核心目的只有一个：<strong>实现“编译期多态”（也叫静态多态）</strong>。</p>
+<p>也就是说，它能像虚函数一样实现多态，但没有任何运行时的性能开销（不需要虚函数表 vtable，也不需要间接跳转）。</p>
+<p>我们平时写继承都是 class 子类 : public 父类。但在 CRTP 中，代码看起来是这样的：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基类是一个模板，参数 T 代表将来的派生类</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Base</span> &#123; ... &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 派生类继承 Base，并且把自己（Derived）作为模板参数传进去</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Derived</span> : <span class="keyword">public</span> Base&lt;Derived&gt; &#123; ... &#125;;</span><br></pre></td></tr></table></figure>
+<p>Derived 还没定义完，就出现在了 Base<Derived> 里，看起来像是自己引用了自己的“递归”，所以被称为“奇异递归”。</p>
+<h2 id="CRTP核心原理"><a href="#CRTP核心原理" class="headerlink" title="CRTP核心原理"></a>CRTP核心原理</h2><p>CRTP 的魔法在于：基类可以通过 static_cast 把 this 指针强制转换成派生类的指针，从而在编译期就直接调用派生类的函数。</p>
+<p>用一个最基础的代码来直观感受一下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 基类模板</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Derived&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Base</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">interface</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 核心魔法：将基类指针安全地转为派生类指针</span></span><br><span class="line">        <span class="comment">// 因为模板在编译期就已经确定了 Derived 的具体类型，所以这里是静态绑定</span></span><br><span class="line">        <span class="built_in">static_cast</span>&lt;Derived*&gt;(<span class="keyword">this</span>)-&gt;<span class="built_in">implementation</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 派生类：把自己作为模板参数传给 Base</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Derived</span> : <span class="keyword">public</span> Base&lt;Derived&gt; &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 派生类实现具体的逻辑</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">implementation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;我是派生类 Derived，我的逻辑被执行了！&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Derived d;</span><br><span class="line">    d.<span class="built_in">interface</span>(); <span class="comment">// 调用基类的接口，实际执行的是派生类的逻辑</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="CRTP（静态多态）-vs-虚函数（动态多态）"><a href="#CRTP（静态多态）-vs-虚函数（动态多态）" class="headerlink" title="CRTP（静态多态） vs 虚函数（动态多态）"></a>CRTP（静态多态） vs 虚函数（动态多态）</h2><p>这是理解 CRTP 最重要的一环。在 C++ 中，我们通常用 virtual 虚函数来实现多态，而 CRTP 是虚函数的“高性能替代方案”：</p>
+<table>
+<thead>
+<tr>
+<th align="left">特性</th>
+<th align="left">虚函数 (Virtual)</th>
+<th align="left">CRTP (奇异递归模板)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">多态时机</td>
+<td align="left">运行时（动态绑定）</td>
+<td align="left">编译期（静态绑定）</td>
+</tr>
+<tr>
+<td align="left">性能开销</td>
+<td align="left">有开销（需要维护虚表 vtable，查找函数指针）</td>
+<td align="left">零开销（编译器直接内联展开，和普通函数调用一样快）</td>
+</tr>
+<tr>
+<td align="left">灵活性</td>
+<td align="left">极高（可以在运行时随意切换对象）</td>
+<td align="left">较低（类型在编译时就定死了）</td>
+</tr>
+<tr>
+<td align="left">底层原理</td>
+<td align="left">依赖虚函数表指针</td>
+<td align="left">依赖模板实例化和 <code>static_cast</code></td>
+</tr>
+</tbody></table>
+<p>一句话总结： 如果你追求极致的性能，且对象的类型在写代码时就已经确定，CRTP 是比虚函数更好的选择。</p>
+<h2 id="CRTP作用"><a href="#CRTP作用" class="headerlink" title="CRTP作用"></a>CRTP作用</h2><p>CRTP 在实际的 C++ 项目开发中非常强大，主要有两个经典用途：</p>
+<ol>
+<li><p>提取公共逻辑（代码复用）<br>基类可以封装通用的流程，而把具体的差异交给派生类去实现。这有点像“模板方法模式”的编译期版本。<br>比如：基类负责处理前置校验和后置日志，中间的核心业务逻辑由派生类通过 CRTP 提供。</p>
+</li>
+<li><p>实现极其优雅的单例模式（Singleton）<br>你在上一轮对话中学到的单例模式，用 CRTP 可以写出“万能单例基类”。任何类只要继承这个基类，就能自动变成单例，完全不用重复写 getInstance 和 delete 构造函数的代码：</p>
+</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 万能单例基类</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="built_in">Singleton</span>() = <span class="keyword">default</span>;</span><br><span class="line">    ~<span class="built_in">Singleton</span>() = <span class="keyword">default</span>;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Singleton</span>(<span class="type">const</span> Singleton&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">    Singleton&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Singleton&amp;) = <span class="keyword">delete</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">static</span> T&amp; <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="type">static</span> T instance; <span class="comment">// C++11 线程安全的局部静态变量</span></span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 业务类：只要继承 Singleton&lt;自己&gt;，立马变成单例！</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AppConfig</span> : <span class="keyword">public</span> Singleton&lt;AppConfig&gt; &#123;</span><br><span class="line">    <span class="comment">// 必须把基类设为友元，否则基类无法调用 AppConfig 的私有构造函数</span></span><br><span class="line">    <span class="keyword">friend</span> <span class="keyword">class</span> <span class="title class_">Singleton</span>&lt;AppConfig&gt;; </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">AppConfig</span>() &#123; std::cout &lt;&lt; <span class="string">&quot;AppConfig 单例被创建&quot;</span> &lt;&lt; std::endl; &#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">printInfo</span><span class="params">()</span> </span>&#123; std::cout &lt;&lt; <span class="string">&quot;打印配置信息...&quot;</span> &lt;&lt; std::endl; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    AppConfig::<span class="built_in">getInstance</span>().<span class="built_in">printInfo</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AppConfig 单例被创建</span><br><span class="line">打印配置信息...</span><br></pre></td></tr></table></figure>
+<h2 id="CRTP-的注意事项"><a href="#CRTP-的注意事项" class="headerlink" title="CRTP 的注意事项"></a>CRTP 的注意事项</h2><ol>
+<li>不能多态混存：因为 <code>Base&lt;A&gt;</code> 和 <code>Base&lt;B&gt;</code> 在编译器眼里是完全不相关的两个类型，所以你不能把它们放进同一个 std::vector 里（这是虚函数的强项）。</li>
+<li>接口约束严格：派生类必须老老实实实现基类调用的函数（比如上面的 implementation），如果漏写了，编译器会报出一大堆让人看不懂的模板错误。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/07/cpp/coroutine-pool/" rel="prev" title="C++协程池项目">
+                  <i class="fa fa-angle-left"></i> C++协程池项目
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2026/05/19/cpp/cppDesignerMode/" rel="next" title="C++设计模式">
+                  C++设计模式 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+
+    
+      <div class="post-back-button">
+        <a href="/categories/undefined/" class="back-btn" title="返回分类">
+          <i class="fa fa-arrow-left"></i> 返回分类：
+        </a>
+        <a href="/" class="back-btn" title="返回首页">
+          <i class="fa fa-home"></i> 返回首页
+        </a>
+      </div>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+  <div class="languages">
+    <label class="lang-select-label">
+      <i class="fa fa-language"></i>
+      <span>简体中文</span>
+      <i class="fa fa-angle-up" aria-hidden="true"></i>
+    </label>
+    <select class="lang-select" data-canonical="" aria-label="选择语言">
+      
+        <option value="zh-CN" data-href="/2026/05/19/cpp/CRTP/" selected="">
+          简体中文
+        </option>
+      
+        <option value="en" data-href="/en/2026/05/19/cpp/CRTP/" selected="">
+          English
+        </option>
+      
+    </select>
+  </div>
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Chen Blog 1.0</span>
+  </div>
+  <div class="powered-by">技术支持: <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+<script>
+  (function () {
+    function loadScript(src) {
+      return new Promise(function (resolve, reject) {
+        var s = document.createElement("script");
+        s.src = src;
+        s.async = true;
+        s.defer = true;
+        s.onload = resolve;
+        s.onerror = reject;
+        document.body.appendChild(s);
+      });
+    }
+
+    function initLive2D() {
+      if (window.innerWidth < 768) return;
+      loadScript("/js/live2d-widget/L2Dwidget.min.js")
+        .then(function () {
+          if (!window.L2Dwidget) return;
+          window.L2Dwidget.init({
+            model: {
+              jsonPath: "https://cdn.jsdelivr.net/npm/live2d-widget-model-koharu@1.0.5/assets/koharu.model.json",
+              scale: 0.9
+            },
+            display: {
+              position: "right",
+              width: 180,
+              height: 320,
+              hOffset: 0,
+              vOffset: 0
+            },
+            mobile: {
+              show: false
+            },
+            react: {
+              opacityDefault: 0.68,
+              opacityOnHover: 0.8
+            }
+          });
+        })
+        .catch(function () {
+          // 静默失败，避免影响页面主流程
+        });
+    }
+
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(initLive2D, { timeout: 2500 });
+    } else {
+      setTimeout(initLive2D, 1200);
+    }
+  })();
+</script>
+
+</body>
+</html>

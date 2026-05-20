@@ -1,63 +1,65 @@
-// Category name mapping - English slug to Chinese display name
+// Category name mapping - English slug to display names (zh/en)
+var isEnglish = window.location.pathname.startsWith('/en/');
+
 var categoryNameMap = {
   'cpp': {
-    name: 'C++ 开发',
+    name: isEnglish ? 'C++ Development' : 'C++ 开发',
     icon: '⚙️',
     color: '#2563eb'
   },
   'algorithm': {
-    name: '算法与数据结构',
+    name: isEnglish ? 'Algorithms & Data Structures' : '算法与数据结构',
     icon: '🧮',
     color: '#16a34a'
   },
   'ai': {
-    name: 'AI 应用开发',
+    name: isEnglish ? 'AI Development' : 'AI 应用开发',
     icon: '🤖',
     color: '#9333ea'
   },
   'embedded': {
-    name: '嵌入式开发',
+    name: isEnglish ? 'Embedded Development' : '嵌入式开发',
     icon: '🔧',
     color: '#ea580c'
   },
   // Legacy mappings (for backwards compatibility during transition)
   'linux-embedded': {
-    name: '嵌入式开发',
+    name: isEnglish ? 'Embedded Development' : '嵌入式开发',
     icon: '🔧',
     color: '#ea580c'
   },
   'ai-development': {
-    name: 'AI 应用开发',
+    name: isEnglish ? 'AI Development' : 'AI 应用开发',
     icon: '🤖',
     color: '#9333ea'
   },
   'cpp-development': {
-    name: 'C++ 开发',
+    name: isEnglish ? 'C++ Development' : 'C++ 开发',
     icon: '⚙️',
     color: '#2563eb'
   },
   'leetcode-algorithm': {
-    name: '算法与数据结构',
+    name: isEnglish ? 'Algorithms & Data Structures' : '算法与数据结构',
     icon: '🧮',
     color: '#16a34a'
   },
   'C++项目': {
-    name: 'C++ 开发',
+    name: isEnglish ? 'C++ Development' : 'C++ 开发',
     icon: '⚙️',
     color: '#2563eb'
   },
   'ai工具使用': {
-    name: 'AI 应用开发',
+    name: isEnglish ? 'AI Development' : 'AI 应用开发',
     icon: '🤖',
     color: '#9333ea'
   },
   '鸿蒙应用开发学习': {
-    name: '嵌入式开发',
+    name: isEnglish ? 'Embedded Development' : '嵌入式开发',
     icon: '🔧',
     color: '#ea580c'
   },
   '算法心得': {
-    name: '算法与数据结构',
+    name: isEnglish ? 'Algorithms & Data Structures' : '算法与数据结构',
     icon: '🧮',
     color: '#16a34a'
   }
