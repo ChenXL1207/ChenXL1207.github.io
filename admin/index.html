@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>精选文章管理</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f5f5;
+      color: #1a1a1a;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 24px 16px;
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    h1 .icon { color: #f59e0b; }
+    .subtitle {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+    .status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+    }
+    .status-bar .count {
+      font-size: 14px;
+      color: #555;
+    }
+    .status-bar .count strong {
+      color: #f59e0b;
+      font-size: 18px;
+    }
+    .btn-group { display: flex; gap: 8px; }
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .btn-primary {
+      background: #2563eb;
+      color: #fff;
+    }
+    .btn-primary:hover:not(:disabled) { background: #1d4ed8; }
+    .btn-success {
+      background: #16a34a;
+      color: #fff;
+    }
+    .btn-success:hover:not(:disabled) { background: #15803d; }
+    .btn-danger {
+      background: #dc2626;
+      color: #fff;
+    }
+    .btn-danger:hover:not(:disabled) { background: #b91c1c; }
+    .btn-outline {
+      background: #fff;
+      color: #374151;
+      border: 1px solid #d1d5db;
+    }
+    .btn-outline:hover { background: #f9fafb; }
+    .post-list {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .post-item {
+      display: flex;
+      align-items: center;
+      padding: 14px 18px;
+      border-bottom: 1px solid #f3f4f6;
+      transition: background 0.1s;
+      cursor: pointer;
+    }
+    .post-item:last-child { border-bottom: none; }
+    .post-item:hover { background: #fafafa; }
+    .post-item.selected { background: #fffbeb; }
+    .post-item.selected:hover { background: #fef3c7; }
+    .post-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-right: 14px;
+      accent-color: #f59e0b;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .post-info { flex: 1; min-width: 0; }
+    .post-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1a1a1a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .post-meta {
+      font-size: 12px;
+      color: #999;
+      margin-top: 3px;
+      display: flex;
+      gap: 10px;
+    }
+    .post-cat {
+      background: #f0f4ff;
+      color: #2563eb;
+      padding: 1px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .post-order {
+      width: 28px;
+      height: 28px;
+      background: #f59e0b;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      margin-left: 10px;
+      flex-shrink: 0;
+    }
+    .output-section {
+      margin-top: 24px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 18px;
+    }
+    .output-section h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .output-section pre {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.6;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .output-section .hint {
+      font-size: 12px;
+      color: #888;
+      margin-top: 10px;
+    }
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #1e293b;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #999;
+    }
+    .empty-hint {
+      text-align: center;
+      padding: 30px;
+      color: #aaa;
+      font-size: 14px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #2563eb;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+    .back-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back-link">&larr; 返回首页</a>
+    <h1><span class="icon">&#9733;</span> 精选文章管理</h1>
+    <p class="subtitle">选择最多 4 篇文章作为精选展示在首页顶部，选择后点击导出配置。</p>
+
+    <div class="status-bar">
+      <span class="count">已选择 <strong id="selectedCount">0</strong> / 4 篇</span>
+      <div class="btn-group">
+        <button class="btn btn-danger" id="btnClear" disabled onclick="clearSelection()">清空选择</button>
+        <button class="btn btn-primary" id="btnExport" disabled onclick="exportConfig()">导出配置</button>
+      </div>
+    </div>
+
+    <div class="post-list" id="postList">
+      <div class="loading">加载文章列表中...</div>
+    </div>
+
+    <div class="output-section" id="outputSection" style="display:none">
+      <h3>&#128196; 配置文件内容 (featured.json)</h3>
+      <pre id="outputPre"></pre>
+      <p class="hint">
+        请将上方内容保存到项目根目录的 <code>source/_data/featured.json</code> 文件中，
+        然后运行 <code>hexo generate</code> 重新构建站点。
+      </p>
+      <div style="margin-top:12px">
+        <button class="btn btn-success" onclick="copyOutput()">复制到剪贴板</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    var MAX_FEATURED = 4;
+    var STORAGE_KEY = 'hexo_featured_posts';
+    var allPosts = [];
+    var selectedPaths = [];
+
+    // Load saved selection from localStorage
+    function loadSelection() {
+      try {
+        var saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          selectedPaths = JSON.parse(saved);
+          if (!Array.isArray(selectedPaths)) selectedPaths = [];
+        }
+      } catch (e) {
+        selectedPaths = [];
+      }
+    }
+
+    // Save selection to localStorage
+    function saveSelection() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(selectedPaths));
+    }
+
+    // Show toast notification
+    function showToast(msg) {
+      var t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(function () { t.classList.remove('show'); }, 2000);
+    }
+
+    // Update UI state
+    function updateUI() {
+      document.getElementById('selectedCount').textContent = selectedPaths.length;
+      document.getElementById('btnClear').disabled = selectedPaths.length === 0;
+      document.getElementById('btnExport').disabled = selectedPaths.length === 0;
+
+      // Update checkboxes and order numbers
+      var items = document.querySelectorAll('.post-item');
+      items.forEach(function (item) {
+        var path = item.dataset.path;
+        var cb = item.querySelector('input[type="checkbox"]');
+        var idx = selectedPaths.indexOf(path);
+        var orderEl = item.querySelector('.post-order');
+
+        if (idx !== -1) {
+          cb.checked = true;
+          item.classList.add('selected');
+          orderEl.textContent = idx + 1;
+          orderEl.style.display = 'flex';
+        } else {
+          cb.checked = false;
+          item.classList.remove('selected');
+          orderEl.style.display = 'none';
+        }
+      });
+
+      // Update output section
+      if (selectedPaths.length > 0) {
+        document.getElementById('outputSection').style.display = 'block';
+        document.getElementById('outputPre').textContent = JSON.stringify({ posts: selectedPaths }, null, 2);
+      } else {
+        document.getElementById('outputSection').style.display = 'none';
+      }
+    }
+
+    // Toggle post selection
+    function togglePost(path) {
+      var idx = selectedPaths.indexOf(path);
+      if (idx !== -1) {
+        // Deselect
+        selectedPaths.splice(idx, 1);
+      } else {
+        // Select (max 4)
+        if (selectedPaths.length >= MAX_FEATURED) {
+          showToast('最多只能选择 ' + MAX_FEATURED + ' 篇精选文章');
+          return;
+        }
+        selectedPaths.push(path);
+      }
+      saveSelection();
+      updateUI();
+    }
+
+    // Clear all selections
+    function clearSelection() {
+      if (!confirm('确定清空所有精选文章选择？')) return;
+      selectedPaths = [];
+      saveSelection();
+      updateUI();
+      showToast('已清空选择');
+    }
+
+    // Export config
+    function exportConfig() {
+      updateUI();
+      showToast('配置已生成，请复制下方内容');
+    }
+
+    // Copy output to clipboard
+    function copyOutput() {
+      var text = document.getElementById('outputPre').textContent;
+      navigator.clipboard.writeText(text).then(function () {
+        showToast('已复制到剪贴板');
+      }).catch(function () {
+        // Fallback
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('已复制到剪贴板');
+      });
+    }
+
+    // Render post list
+    function renderPosts(posts) {
+      var container = document.getElementById('postList');
+      if (posts.length === 0) {
+        container.innerHTML = '<div class="empty-hint">没有找到文章</div>';
+        return;
+      }
+
+      var html = '';
+      posts.forEach(function (post) {
+        var isSelected = selectedPaths.indexOf(post.url) !== -1;
+        var orderIdx = selectedPaths.indexOf(post.url);
+        var cats = (post.categories || []).map(function (c) {
+          return '<span class="post-cat">' + c + '</span>';
+        }).join(' ');
+
+        html += '<div class="post-item' + (isSelected ? ' selected' : '') + '" data-path="' + post.url + '" onclick="togglePost(\'' + post.url.replace(/'/g, "\\'") + '\')">';
+        html += '<input type="checkbox"' + (isSelected ? ' checked' : '') + ' onclick="event.stopPropagation(); togglePost(\'' + post.url.replace(/'/g, "\\'") + '\')">';
+        html += '<div class="post-info">';
+        html += '<div class="post-title">' + post.title + '</div>';
+        html += '<div class="post-meta">' + cats + '</div>';
+        html += '</div>';
+        html += '<div class="post-order" style="' + (isSelected ? 'display:flex' : 'display:none') + '">' + (orderIdx + 1) + '</div>';
+        html += '</div>';
+      });
+
+      container.innerHTML = html;
+    }
+
+    // Fetch posts from search.json
+    function loadPosts() {
+      fetch('/search.json')
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          allPosts = data;
+          renderPosts(allPosts);
+          updateUI();
+        })
+        .catch(function () {
+          document.getElementById('postList').innerHTML =
+            '<div class="empty-hint">无法加载文章列表。请先运行 <code>hexo generate</code> 生成站点。</div>';
+        });
+    }
+
+    // Initialize
+    loadSelection();
+    loadPosts();
+  </script>
+</body>
+</html>
