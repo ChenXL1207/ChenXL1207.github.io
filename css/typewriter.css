@@ -1,0 +1,24 @@
+/* Typewriter Effect - 打字机效果 */
+.tw-container {
+  display: inline-block;
+  position: relative;
+}
+
+.tw-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: currentColor;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: tw-blink 0.8s step-end infinite;
+}
+
+@keyframes tw-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+[data-theme="dark"] .tw-cursor {
+  background: #e6edf3;
+}

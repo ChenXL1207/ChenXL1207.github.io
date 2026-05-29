@@ -119,11 +119,17 @@
 <link rel="stylesheet" href="/css/animations.css">
 <link rel="stylesheet" href="/css/featured-posts.css">
 <link rel="stylesheet" href="/css/sidebar-weather.css">
+<link rel="stylesheet" href="/css/click-effects.css">
+<link rel="stylesheet" href="/css/typewriter.css">
+<link rel="stylesheet" href="/css/github-calendar.css">
 <script src="/js/category-names.js" defer></script>
 <script src="/js/sidebar-stats.js" defer></script>
 <script src="/js/modern-blog.js" defer></script>
 <script src="/js/category-page-bridge.js" defer></script>
 <script src="/js/sidebar-weather.js" defer></script>
+<script src="/js/click-effects.js" defer></script>
+<script src="/js/typewriter.js" defer></script>
+<script src="/js/github-calendar.js" defer></script>
 <style>
 /* Header language switch button */
 .header-lang-switch {
@@ -349,6 +355,32 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+
+<div class="widget-wrap" id="github-calendar-wrap">
+  <div class="widget-header">
+    <h3 class="widget-title"><i class="fa-solid fa-code-commit" style="color:#c71d23;"></i> Gitee 活跃度</h3>
+  </div>
+  <div class="gc-body">
+    <div class="gc-loading" id="gc-loading">
+      <i class="fa fa-spinner fa-spin"></i> 加载中...
+    </div>
+    <div class="gc-grid" id="gc-grid"></div>
+    <div class="gc-stats">
+      <span class="gc-total" id="gc-total"></span>
+      <div class="gc-legend">
+        <span>Less</span>
+        <div class="gc-legend-cell" data-level="0"></div>
+        <div class="gc-legend-cell" data-level="1"></div>
+        <div class="gc-legend-cell" data-level="2"></div>
+        <div class="gc-legend-cell" data-level="3"></div>
+        <div class="gc-legend-cell" data-level="4"></div>
+        <span>More</span>
+      </div>
+    </div>
+    <a class="gc-user" href="https://gitee.com/ChenXL3508" target="_blank">@ChenXL3508</a>
   </div>
 </div>
 
@@ -1021,6 +1053,7 @@
     }
   })();
 </script>
+<script src="/js/live2d-drag.js" defer></script>
 
 </body>
 </html>
