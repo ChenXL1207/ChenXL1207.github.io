@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
   <link rel="stylesheet" href="/lib/@fancyapps/ui/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"chenxl1207.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"night-owl","dark":"night-owl"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"language":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chenxl1207.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"github","dark":"github"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"language":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
     <meta name="description" content="Fundamentals, learning path, and practical experience in Linux embedded development">
 <meta property="og:type" content="website">
@@ -108,10 +108,12 @@
 <link rel="stylesheet" href="/css/code-highlight.css">
 <link rel="stylesheet" href="/css/animations.css">
 <link rel="stylesheet" href="/css/featured-posts.css">
+<link rel="stylesheet" href="/css/sidebar-weather.css">
 <script src="/js/category-names.js" defer></script>
 <script src="/js/sidebar-stats.js" defer></script>
 <script src="/js/modern-blog.js" defer></script>
 <script src="/js/category-page-bridge.js" defer></script>
+<script src="/js/sidebar-weather.js" defer></script>
 <style>
 /* Header language switch button */
 .header-lang-switch {
@@ -284,10 +286,59 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
+</div>
+
+<div class="widget-wrap" id="weather-widget-wrap">
+  <div class="widget-header">
+    <h3 class="widget-title"><i class="fa fa-cloud-sun"></i> 实时信息</h3>
+  </div>
+  <div class="widget-body">
+    <!-- 实时时钟 -->
+    <div class="ww-clock">
+      <div class="ww-clock-time" id="ww-clock-time">--:--:--</div>
+      <div class="ww-clock-date" id="ww-clock-date">加载中...</div>
+    </div>
+    <!-- 定位 & 天气 -->
+    <div class="ww-weather" id="ww-weather">
+      <div class="ww-loading" id="ww-loading">
+        <i class="fa fa-spinner fa-spin"></i> 正在获取天气...
+      </div>
+      <div class="ww-info" id="ww-info" style="display:none;">
+        <div class="ww-location">
+          <i class="fa fa-map-marker-alt"></i>
+          <span id="ww-city">--</span>
+        </div>
+        <div class="ww-main">
+          <div class="ww-icon-temp">
+            <span class="ww-icon" id="ww-icon">☀️</span>
+            <span class="ww-temp" id="ww-temp">--°C</span>
+          </div>
+          <div class="ww-desc" id="ww-desc">--</div>
+        </div>
+        <div class="ww-details">
+          <div class="ww-detail">
+            <i class="fa fa-tint"></i>
+            <span id="ww-humidity">--%</span>
+            <small>湿度</small>
+          </div>
+          <div class="ww-detail">
+            <i class="fa fa-wind"></i>
+            <span id="ww-wind">-- km/h</span>
+            <small>风速</small>
+          </div>
+          <div class="ww-detail">
+            <i class="fa fa-temperature-half"></i>
+            <span id="ww-feels">--°C</span>
+            <small>体感</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
         </div>

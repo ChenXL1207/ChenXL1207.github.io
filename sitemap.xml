@@ -479,7 +479,14 @@
   </url>
   
   <url>
-    <loc>https://chenxl1207.github.io/tags/Redis/</loc>
+    <loc>https://chenxl1207.github.io/tags/redis/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://chenxl1207.github.io/tags/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -600,7 +607,7 @@
   </url>
   
   <url>
-    <loc>https://chenxl1207.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <loc>https://chenxl1207.github.io/categories/redis/</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

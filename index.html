@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
   <link rel="stylesheet" href="/lib/@fancyapps/ui/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"chenxl1207.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"night-owl","dark":"night-owl"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"language":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chenxl1207.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"github","dark":"github"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"language":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
     <meta name="description" content="记录思想，分享知识，思考人生">
 <meta property="og:type" content="website">
@@ -103,10 +103,12 @@
 <link rel="stylesheet" href="/css/code-highlight.css">
 <link rel="stylesheet" href="/css/animations.css">
 <link rel="stylesheet" href="/css/featured-posts.css">
+<link rel="stylesheet" href="/css/sidebar-weather.css">
 <script src="/js/category-names.js" defer></script>
 <script src="/js/sidebar-stats.js" defer></script>
 <script src="/js/modern-blog.js" defer></script>
 <script src="/js/category-page-bridge.js" defer></script>
+<script src="/js/sidebar-weather.js" defer></script>
 <style>
 /* Header language switch button */
 .header-lang-switch {
@@ -279,10 +281,59 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
+</div>
+
+<div class="widget-wrap" id="weather-widget-wrap">
+  <div class="widget-header">
+    <h3 class="widget-title"><i class="fa fa-cloud-sun"></i> 实时信息</h3>
+  </div>
+  <div class="widget-body">
+    <!-- 实时时钟 -->
+    <div class="ww-clock">
+      <div class="ww-clock-time" id="ww-clock-time">--:--:--</div>
+      <div class="ww-clock-date" id="ww-clock-date">加载中...</div>
+    </div>
+    <!-- 定位 & 天气 -->
+    <div class="ww-weather" id="ww-weather">
+      <div class="ww-loading" id="ww-loading">
+        <i class="fa fa-spinner fa-spin"></i> 正在获取天气...
+      </div>
+      <div class="ww-info" id="ww-info" style="display:none;">
+        <div class="ww-location">
+          <i class="fa fa-map-marker-alt"></i>
+          <span id="ww-city">--</span>
+        </div>
+        <div class="ww-main">
+          <div class="ww-icon-temp">
+            <span class="ww-icon" id="ww-icon">☀️</span>
+            <span class="ww-temp" id="ww-temp">--°C</span>
+          </div>
+          <div class="ww-desc" id="ww-desc">--</div>
+        </div>
+        <div class="ww-details">
+          <div class="ww-detail">
+            <i class="fa fa-tint"></i>
+            <span id="ww-humidity">--%</span>
+            <small>湿度</small>
+          </div>
+          <div class="ww-detail">
+            <i class="fa fa-wind"></i>
+            <span id="ww-wind">-- km/h</span>
+            <small>风速</small>
+          </div>
+          <div class="ww-detail">
+            <i class="fa fa-temperature-half"></i>
+            <span id="ww-feels">--°C</span>
+            <small>体感</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
         </div>
@@ -650,14 +701,15 @@
             
               <span class="post-categories">
                 <i class="fa fa-folder"></i>
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                  <a href="/categories/redis/">redis</a>
               </span>
             <span class="post-meta-item">
               <i class="fa fa-calendar"></i>
-              <time datetime="2026-05-29T00:00:00+08:00" itemprop="datePublished">2026-05-29   <span style="font-size: 12px; color: #999;">Time:00:00</span></time>
+              <time datetime="2026-05-29T12:00:00+08:00" itemprop="datePublished">2026-05-29   <span style="font-size: 12px; color: #999;">Time:12:00</span></time>
             </span>
               <span class="post-meta-tags">
-                  <a href="/tags/Redis/" class="post-tag-link" rel="tag">#Redis</a>
+                  <a href="/tags/redis/" class="post-tag-link" rel="tag">#redis</a>
+                  <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/" class="post-tag-link" rel="tag">#软件开发</a>
               </span>
 
           
@@ -668,731 +720,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="Redis-详解-——-从入门到实战"><a href="#Redis-详解-——-从入门到实战" class="headerlink" title="Redis 详解 —— 从入门到实战"></a>Redis 详解 —— 从入门到实战</h1><blockquote>
-<p>本文面向初学者，从”是什么、为什么、怎么用”三个角度系统讲解 Redis。</p>
-</blockquote>
-<hr>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
-<li><a href="#1-redis-%E6%98%AF%E4%BB%80%E4%B9%88">Redis 是什么</a></li>
-<li><a href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8-redis">为什么用 Redis</a></li>
-<li><a href="#3-redis-%E5%AE%89%E8%A3%85%E4%B8%8E%E5%90%AF%E5%8A%A8">Redis 安装与启动</a></li>
-<li><a href="#4-redis-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5">Redis 基本概念</a></li>
-<li><a href="#5-%E4%BA%94%E5%A4%A7%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">五大基本数据类型</a><ul>
-<li>5.1 <a href="#51-string-%E5%AD%97%E7%AC%A6%E4%B8%B2">String 字符串</a></li>
-<li>5.2 <a href="#52-list-%E5%88%97%E8%A1%A8">List 列表</a></li>
-<li>5.3 <a href="#53-hash-%E5%93%88%E5%B8%8C">Hash 哈希</a></li>
-<li>5.4 <a href="#54-set-%E9%9B%86%E5%90%88">Set 集合</a></li>
-<li>5.5 <a href="#55-sorted-set-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88">Sorted Set 有序集合</a></li>
-</ul>
-</li>
-<li><a href="#6-%E7%89%B9%E6%AE%8A%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">特殊数据类型</a><ul>
-<li>6.1 <a href="#61-bitmap-%E4%BD%8D%E5%9B%BE">Bitmap 位图</a></li>
-<li>6.2 <a href="#62-hyperloglog-%E5%9F%BA%E6%95%B0%E7%BB%9F%E8%AE%A1">HyperLogLog 基数统计</a></li>
-<li>6.3 <a href="#63-stream-%E6%B5%81">Stream 流</a></li>
-</ul>
-</li>
-<li><a href="#7-%E9%94%AEkey%E7%AE%A1%E7%90%86">键（Key）管理</a></li>
-<li><a href="#8-%E8%BF%87%E6%9C%9F%E7%AD%96%E7%95%A5%E4%B8%8E%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0">过期策略与内存淘汰</a></li>
-<li><a href="#9-%E6%8C%81%E4%B9%85%E5%8C%96%E6%9C%BA%E5%88%B6">持久化机制</a><ul>
-<li>9.1 <a href="#91-rdb-%E5%BF%AB%E7%85%A7">RDB 快照</a></li>
-<li>9.2 <a href="#92-aof-%E6%97%A5%E5%BF%97">AOF 日志</a></li>
-<li>9.3 <a href="#93-%E6%B7%B7%E5%90%88%E6%8C%81%E4%B9%85%E5%8C%96">混合持久化</a></li>
-</ul>
-</li>
-<li><a href="#10-%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85pubsub">发布&#x2F;订阅（Pub&#x2F;Sub）</a></li>
-<li><a href="#11-%E4%BA%8B%E5%8A%A1transaction">事务（Transaction）</a></li>
-<li><a href="#12-lua-%E8%84%9A%E6%9C%AC">Lua 脚本</a></li>
-<li><a href="#13-%E7%AE%A1%E9%81%93pipeline">管道（Pipeline）</a></li>
-<li><a href="#14-%E9%AB%98%E5%8F%AF%E7%94%A8%E4%B8%8E%E9%9B%86%E7%BE%A4">高可用与集群</a><ul>
-<li>14.1 <a href="#141-%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6">主从复制</a></li>
-<li>14.2 <a href="#142-sentinel-%E5%93%A8%E5%85%B5">Sentinel 哨兵</a></li>
-<li>14.3 <a href="#143-cluster-%E9%9B%86%E7%BE%A4">Cluster 集群</a></li>
-</ul>
-</li>
-<li><a href="#15-%E5%B8%B8%E8%A7%81%E5%AE%9E%E6%88%98%E5%9C%BA%E6%99%AF">常见实战场景</a></li>
-<li><a href="#16-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E8%A6%81%E7%82%B9">性能优化要点</a></li>
-<li><a href="#17-%E5%AE%89%E5%85%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">安全注意事项</a></li>
-<li><a href="#18-%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98">常见面试问题</a></li>
-<li><a href="#19-%E5%8F%82%E8%80%83%E8%B5%84%E6%BA%90">参考资源</a></li>
-</ol>
-<hr>
-<h2 id="1-Redis-是什么"><a href="#1-Redis-是什么" class="headerlink" title="1. Redis 是什么"></a>1. Redis 是什么</h2><p><strong>Redis</strong>（Remote Dictionary Server，远程字典服务）是一个开源的、基于<strong>内存</strong>的高性能键值存储系统。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">┌──────────────────────────────────────────────┐</span><br><span class="line">│                  应用程序                      │</span><br><span class="line">│                    │                          │</span><br><span class="line">│              redis client                     │</span><br><span class="line">│                    │  TCP 协议                 │</span><br><span class="line">│          ┌─────────▼──────────┐              │</span><br><span class="line">│          │     Redis Server    │              │</span><br><span class="line">│          │  ┌───────────────┐  │              │</span><br><span class="line">│          │  │  内存数据存储   │  │              │</span><br><span class="line">│          │  └───────┬───────┘  │              │</span><br><span class="line">│          │          │          │              │</span><br><span class="line">│          │  ┌───────▼───────┐  │              │</span><br><span class="line">│          │  │  磁盘持久化    │  │              │</span><br><span class="line">│          │  │ (RDB / AOF)   │  │              │</span><br><span class="line">│          │  └───────────────┘  │              │</span><br><span class="line">│          └────────────────────┘              │</span><br><span class="line">└──────────────────────────────────────────────┘</span><br></pre></td></tr></table></figure>
-
-<p><strong>核心特点：</strong></p>
-<table>
-<thead>
-<tr>
-<th>特点</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>基于内存</strong></td>
-<td>数据存储在 RAM 中，读写速度极快（10万+ QPS）</td>
-</tr>
-<tr>
-<td><strong>键值存储</strong></td>
-<td>以 key-value 的形式组织数据，key 是字符串，value 支持多种类型</td>
-</tr>
-<tr>
-<td><strong>单线程模型</strong></td>
-<td>命令执行是单线程的，避免了锁竞争，保证了原子性</td>
-</tr>
-<tr>
-<td><strong>IO 多路复用</strong></td>
-<td>使用 epoll&#x2F;kqueue 实现高并发连接处理</td>
-</tr>
-<tr>
-<td><strong>可持久化</strong></td>
-<td>支持将内存数据落盘，防止重启后数据丢失</td>
-</tr>
-<tr>
-<td><strong>支持丰富数据结构</strong></td>
-<td>不仅仅是简单的 key-value，还支持 List、Hash、Set 等</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="2-为什么用-Redis"><a href="#2-为什么用-Redis" class="headerlink" title="2. 为什么用 Redis"></a>2. 为什么用 Redis</h2><h3 id="2-1-传统数据库的瓶颈"><a href="#2-1-传统数据库的瓶颈" class="headerlink" title="2.1 传统数据库的瓶颈"></a>2.1 传统数据库的瓶颈</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">用户请求 → 应用服务器 → 数据库（MySQL/PostgreSQL）</span><br><span class="line">                         │</span><br><span class="line">                    磁盘 I/O（慢！）</span><br></pre></td></tr></table></figure>
-
-<p>传统数据库的数据存储在磁盘上，每次读写都需要磁盘 I&#x2F;O，即使有索引优化，在高并发场景下仍然会成为瓶颈。</p>
-<h3 id="2-2-Redis-的解决思路"><a href="#2-2-Redis-的解决思路" class="headerlink" title="2.2 Redis 的解决思路"></a>2.2 Redis 的解决思路</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">用户请求 → 应用服务器 → Redis（内存，极快）</span><br><span class="line">                         │ 缓存未命中时</span><br><span class="line">                         ▼</span><br><span class="line">                      数据库（磁盘）</span><br></pre></td></tr></table></figure>
-
-<p>将热点数据放入 Redis（内存），应用优先从 Redis 读取，大幅降低数据库压力。</p>
-<h3 id="2-3-适用场景"><a href="#2-3-适用场景" class="headerlink" title="2.3 适用场景"></a>2.3 适用场景</h3><table>
-<thead>
-<tr>
-<th>场景</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>缓存</strong></td>
-<td>最常见的用法，缓存数据库查询结果、页面、Session 等</td>
-</tr>
-<tr>
-<td><strong>计数器</strong></td>
-<td>文章阅读量、点赞数，利用 Redis 原子自增操作</td>
-</tr>
-<tr>
-<td><strong>排行榜</strong></td>
-<td>利用 Sorted Set 实时排序</td>
-</tr>
-<tr>
-<td><strong>分布式锁</strong></td>
-<td>利用 <code>SETNX</code> &#x2F; <code>SET ... NX EX</code> 实现跨进程互斥</td>
-</tr>
-<tr>
-<td><strong>消息队列</strong></td>
-<td>利用 List（BRPOP）或 Stream 实现简单的消息传递</td>
-</tr>
-<tr>
-<td><strong>限流</strong></td>
-<td>利用计数器 + 过期时间实现接口限流</td>
-</tr>
-<tr>
-<td><strong>会话存储</strong></td>
-<td>分布式环境下共享用户 Session</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="3-Redis-安装与启动"><a href="#3-Redis-安装与启动" class="headerlink" title="3. Redis 安装与启动"></a>3. Redis 安装与启动</h2><h3 id="3-1-Windows"><a href="#3-1-Windows" class="headerlink" title="3.1 Windows"></a>3.1 Windows</h3><p>Windows 官方不直接支持 Redis，推荐使用以下方式：</p>
-<ul>
-<li><strong>WSL2</strong>（推荐）：在 WSL 中安装 Linux 版本</li>
-<li><strong>Memurai</strong>：Windows 原生的 Redis 兼容版本</li>
-<li><strong>Docker</strong>：</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name redis -p 6379:6379 redis:latest</span><br><span class="line">docker run -d --name redis -p 6380:6379 redis:latest redis-server --requirepass <span class="string">&quot;你的密码&quot;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="3-2-Linux（Ubuntu-Debian）"><a href="#3-2-Linux（Ubuntu-Debian）" class="headerlink" title="3.2 Linux（Ubuntu&#x2F;Debian）"></a>3.2 Linux（Ubuntu&#x2F;Debian）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install redis-server</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动服务</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl start redis-server</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置开机自启</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> redis-server</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-3-macOS"><a href="#3-3-macOS" class="headerlink" title="3.3 macOS"></a>3.3 macOS</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install redis</span><br><span class="line">brew services start redis</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-4-连接-Redis"><a href="#3-4-连接-Redis" class="headerlink" title="3.4 连接 Redis"></a>3.4 连接 Redis</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基本连接</span></span><br><span class="line">redis-cli</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定主机和端口</span></span><br><span class="line">redis-cli -h 127.0.0.1 -p 6379</span><br><span class="line"></span><br><span class="line"><span class="comment"># 带密码连接</span></span><br><span class="line">redis-cli -h 127.0.0.1 -p 6380 -a <span class="string">&quot;你的密码&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>连接成功后看到：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
-
-<p>输入 <code>PING</code> 测试连接：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; PING</span><br><span class="line">PONG</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="4-Redis-基本概念"><a href="#4-Redis-基本概念" class="headerlink" title="4. Redis 基本概念"></a>4. Redis 基本概念</h2><h3 id="4-1-键（Key）"><a href="#4-1-键（Key）" class="headerlink" title="4.1 键（Key）"></a>4.1 键（Key）</h3><p>Redis 中每一条数据都由一个 <strong>键（Key）</strong> 和对应的 <strong>值（Value）</strong> 组成。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Key ──────────► Value</span><br><span class="line">&quot;user:1001&quot;  →  &#123; &quot;name&quot;: &quot;张三&quot;, &quot;age&quot;: 25 &#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>Key 的命名规范：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;业务&gt;:&lt;对象&gt;:&lt;ID&gt;:&lt;字段&gt;</span><br><span class="line"></span><br><span class="line">示例：</span><br><span class="line">  user:1001:name        → 用户 1001 的姓名</span><br><span class="line">  order:2024001:status  → 订单 2024001 的状态</span><br><span class="line">  cache:homepage        → 首页缓存</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><strong>提示：</strong> Key 应该具有可读性，用冒号 <code>:</code> 作为分隔符是社区约定俗成的做法。</p>
-</blockquote>
-<h3 id="4-2-数据库编号"><a href="#4-2-数据库编号" class="headerlink" title="4.2 数据库编号"></a>4.2 数据库编号</h3><p>Redis 默认提供 <strong>16 个数据库</strong>（编号 0~15），默认使用 0 号数据库。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SELECT 3    # 切换到第 3 号数据库</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379[3]&gt;          # 提示符变为 [3]，表示当前在 3 号数据库</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>实际生产中，通常只用 0 号数据库，通过不同的 Key 前缀来区分业务。</p>
-</blockquote>
-<hr>
-<h2 id="5-五大基本数据类型"><a href="#5-五大基本数据类型" class="headerlink" title="5. 五大基本数据类型"></a>5. 五大基本数据类型</h2><h3 id="5-1-String-字符串"><a href="#5-1-String-字符串" class="headerlink" title="5.1 String 字符串"></a>5.1 String 字符串</h3><blockquote>
-<p><strong>最基础的类型。</strong> Value 可以是字符串、数字、甚至序列化后的二进制数据（如图片、JSON）。</p>
-</blockquote>
-<p><strong>最大容量：</strong> 512 MB。</p>
-<h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置值</span></span><br><span class="line">SET key value</span><br><span class="line">SET user:1001:name <span class="string">&quot;张三&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取值</span></span><br><span class="line">GET user:1001:name</span><br><span class="line"><span class="comment"># 输出: &quot;张三&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 不存在才设置（分布式锁的关键命令）</span></span><br><span class="line">SET key value NX</span><br><span class="line">SET key value NX EX 30    <span class="comment"># NX + 设置 30 秒过期</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置值并指定过期时间（秒）</span></span><br><span class="line">SET key value EX 60       <span class="comment"># 60 秒后过期</span></span><br><span class="line">SETEX key 60 value        <span class="comment"># 等价写法</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 批量设置 / 获取</span></span><br><span class="line">MSET key1 val1 key2 val2 key3 val3</span><br><span class="line">MGET key1 key2 key3</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除</span></span><br><span class="line">DEL key</span><br><span class="line"></span><br><span class="line"><span class="comment"># 自增 / 自减（计数器场景）</span></span><br><span class="line">INCR counter              <span class="comment"># +1</span></span><br><span class="line">INCRBY counter 10         <span class="comment"># +10</span></span><br><span class="line">DECR counter              <span class="comment"># -1</span></span><br><span class="line">DECRBY counter 5          <span class="comment"># -5</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 追加字符串</span></span><br><span class="line">APPEND key <span class="string">&quot;world&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取字符串长度</span></span><br><span class="line">STRLEN key</span><br></pre></td></tr></table></figure>
-
-<h4 id="内部编码"><a href="#内部编码" class="headerlink" title="内部编码"></a>内部编码</h4><table>
-<thead>
-<tr>
-<th>条件</th>
-<th>编码</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>值是整数且 &lt;&#x3D; 2^63-1</td>
-<td><code>int</code></td>
-<td>直接存储整数，节省内存</td>
-</tr>
-<tr>
-<td>值是短字符串（&lt;&#x3D; 44 字节）</td>
-<td><code>embstr</code></td>
-<td>只分配一次内存，效率高</td>
-</tr>
-<tr>
-<td>值是长字符串（&gt; 44 字节）</td>
-<td><code>raw</code></td>
-<td>分配两次内存</td>
-</tr>
-</tbody></table>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; OBJECT ENCODING user:1001:name</span><br><span class="line">&quot;embstr&quot;</span><br><span class="line">127.0.0.1:6379&gt; OBJECT ENCODING counter</span><br><span class="line">&quot;int&quot;</span><br></pre></td></tr></table></figure>
-
-<h4 id="典型使用场景"><a href="#典型使用场景" class="headerlink" title="典型使用场景"></a>典型使用场景</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 缓存用户信息</span></span><br><span class="line">SET user:1001 <span class="string">&#x27;&#123;&quot;name&quot;:&quot;张三&quot;,&quot;age&quot;:25&#125;&#x27;</span> EX 3600</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 阅读量计数器</span></span><br><span class="line">INCR article:10086:views</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 分布式锁</span></span><br><span class="line">SET lock:order NX EX 10     <span class="comment"># 尝试加锁，10 秒自动释放</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 验证码存储</span></span><br><span class="line">SET verify:13800138000 <span class="string">&quot;5823&quot;</span> EX 300   <span class="comment"># 5 分钟内有效</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="5-2-List-列表"><a href="#5-2-List-列表" class="headerlink" title="5.2 List 列表"></a>5.2 List 列表</h3><blockquote>
-<p><strong>有序的字符串列表</strong>，支持从头尾两端插入和弹出，可以当作栈或队列使用。</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LPUSH ◄──── [ e1, e2, e3, e4 ] ────► RPUSH</span><br><span class="line">LPOP  ──►                        ◄── RPOP</span><br></pre></td></tr></table></figure>
-
-<h4 id="常用命令-1"><a href="#常用命令-1" class="headerlink" title="常用命令"></a>常用命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从左侧插入</span></span><br><span class="line">LPUSH mylist <span class="string">&quot;a&quot;</span> <span class="string">&quot;b&quot;</span> <span class="string">&quot;c&quot;</span>    <span class="comment"># 结果: [c, b, a]（注意顺序）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 从右侧插入</span></span><br><span class="line">RPUSH mylist <span class="string">&quot;d&quot;</span> <span class="string">&quot;e&quot;</span>        <span class="comment"># 结果: [c, b, a, d, e]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 从左侧弹出</span></span><br><span class="line">LPOP mylist                  <span class="comment"># 返回 &quot;c&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 从右侧弹出</span></span><br><span class="line">RPOP mylist                  <span class="comment"># 返回 &quot;e&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取指定范围的元素</span></span><br><span class="line">LRANGE mylist 0 -1           <span class="comment"># 获取所有元素</span></span><br><span class="line">LRANGE mylist 0 2            <span class="comment"># 获取前 3 个</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取列表长度</span></span><br><span class="line">LLEN mylist</span><br><span class="line"></span><br><span class="line"><span class="comment"># 按索引获取</span></span><br><span class="line">LINDEX mylist 0              <span class="comment"># 获取第 1 个元素</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 阻塞式弹出（消息队列的关键命令）</span></span><br><span class="line">BLPOP mylist 5               <span class="comment"># 阻塞等待，最多等 5 秒</span></span><br><span class="line">BRPOP mylist 0               <span class="comment"># 0 表示无限等待</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 裁剪列表（只保留指定范围）</span></span><br><span class="line">LTRIM mylist 0 99            <span class="comment"># 只保留前 100 个</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="内部编码-1"><a href="#内部编码-1" class="headerlink" title="内部编码"></a>内部编码</h4><table>
-<thead>
-<tr>
-<th>条件</th>
-<th>编码</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>元素少且每个元素短</td>
-<td><code>ziplist</code>（Redis 7+ 为 <code>listpack</code>）</td>
-</tr>
-<tr>
-<td>元素多或元素长</td>
-<td><code>linkedlist</code>（双向链表）</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>Redis 3.2+ 引入了 <code>quicklist</code>，结合了 ziplist 和 linkedlist 的优点。</p>
-</blockquote>
-<h4 id="典型使用场景-1"><a href="#典型使用场景-1" class="headerlink" title="典型使用场景"></a>典型使用场景</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 简易消息队列</span></span><br><span class="line">LPUSH task_queue <span class="string">&#x27;&#123;&quot;task&quot;:&quot;send_email&quot;,&quot;to&quot;:&quot;user@example.com&quot;&#125;&#x27;</span></span><br><span class="line">BRPOP task_queue 0          <span class="comment"># 消费者阻塞等待</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 最新消息 / 动态流</span></span><br><span class="line">LPUSH latest_news <span class="string">&quot;新闻标题1&quot;</span> <span class="string">&quot;新闻标题2&quot;</span></span><br><span class="line">LTRIM latest_news 0 9       <span class="comment"># 只保留最新的 10 条</span></span><br><span class="line">LRANGE latest_news 0 -1     <span class="comment"># 查看最新消息</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 栈（Last In First Out）</span></span><br><span class="line">LPUSH stack <span class="string">&quot;item&quot;</span></span><br><span class="line">LPOP stack</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="5-3-Hash-哈希"><a href="#5-3-Hash-哈希" class="headerlink" title="5.3 Hash 哈希"></a>5.3 Hash 哈希</h3><blockquote>
-<p><strong>键值对集合</strong>，适合存储对象。一个 Hash 可以包含多个 field-value 对。</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Key: user:1001</span><br><span class="line">┌──────────────────┐</span><br><span class="line">│ name  → 张三     │</span><br><span class="line">│ age   → 25       │</span><br><span class="line">│ email → xx@xx.com│</span><br><span class="line">└──────────────────┘</span><br></pre></td></tr></table></figure>
-
-<p>对比 String 存储对象：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 方式一：用 String 存 JSON（整体读写，不能单独修改某个字段）</span><br><span class="line">SET user:1001 &#x27;&#123;&quot;name&quot;:&quot;张三&quot;,&quot;age&quot;:25,&quot;email&quot;:&quot;xx@xx.com&quot;&#125;&#x27;</span><br><span class="line"></span><br><span class="line"># 方式二：用 Hash 存（可以单独读写每个字段）</span><br><span class="line">HSET user:1001 name &quot;张三&quot;</span><br><span class="line">HSET user:1001 age 25</span><br><span class="line">HSET user:1001 email &quot;xx@xx.com&quot;</span><br></pre></td></tr></table></figure>
-
-<h4 id="常用命令-2"><a href="#常用命令-2" class="headerlink" title="常用命令"></a>常用命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置单个字段</span></span><br><span class="line">HSET user:1001 name <span class="string">&quot;张三&quot;</span></span><br><span class="line">HSET user:1001 age 25</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置多个字段</span></span><br><span class="line">HMSET user:1001 name <span class="string">&quot;张三&quot;</span> age 25 email <span class="string">&quot;xx@xx.com&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取单个字段</span></span><br><span class="line">HGET user:1001 name          <span class="comment"># 返回 &quot;张三&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取多个字段</span></span><br><span class="line">HMGET user:1001 name age email</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取所有字段和值</span></span><br><span class="line">HGETALL user:1001</span><br><span class="line"></span><br><span class="line"><span class="comment"># 判断字段是否存在</span></span><br><span class="line">HEXISTS user:1001 name       <span class="comment"># 返回 1（存在）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除字段</span></span><br><span class="line">HDEL user:1001 email</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取所有字段名</span></span><br><span class="line">HKEYS user:1001</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取所有值</span></span><br><span class="line">HVALS user:1001</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取字段数量</span></span><br><span class="line">HLEN user:1001</span><br><span class="line"></span><br><span class="line"><span class="comment"># 字段值自增</span></span><br><span class="line">HINCRBY user:1001 age 1      <span class="comment"># age 变为 26</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="内部编码-2"><a href="#内部编码-2" class="headerlink" title="内部编码"></a>内部编码</h4><table>
-<thead>
-<tr>
-<th>条件</th>
-<th>编码</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>字段数量 &lt;&#x3D; 512 且每个值 &lt;&#x3D; 64 字节</td>
-<td><code>ziplist</code> &#x2F; <code>listpack</code></td>
-</tr>
-<tr>
-<td>超出上述条件</td>
-<td><code>hashtable</code></td>
-</tr>
-</tbody></table>
-<h4 id="典型使用场景-2"><a href="#典型使用场景-2" class="headerlink" title="典型使用场景"></a>典型使用场景</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 用户信息存储</span></span><br><span class="line">HSET user:1001 name <span class="string">&quot;张三&quot;</span> age 25 city <span class="string">&quot;北京&quot;</span></span><br><span class="line">HGET user:1001 name</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 购物车</span></span><br><span class="line">HSET cart:user1001 product:2001 3    <span class="comment"># 商品 2001 数量 3</span></span><br><span class="line">HSET cart:user1001 product:2002 1</span><br><span class="line">HINCRBY cart:user1001 product:2001 1  <span class="comment"># 商品 2001 数量 +1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 对象的部分更新</span></span><br><span class="line">HSET config:app theme <span class="string">&quot;dark&quot;</span>    <span class="comment"># 只改主题，不影响其他配置</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="5-4-Set-集合"><a href="#5-4-Set-集合" class="headerlink" title="5.4 Set 集合"></a>5.4 Set 集合</h3><blockquote>
-<p><strong>无序的字符串集合</strong>，元素唯一（自动去重），支持集合运算。</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Set A: &#123;a, b, c, d&#125;</span><br><span class="line">Set B: &#123;c, d, e, f&#125;</span><br><span class="line"></span><br><span class="line">交集 A∩B: &#123;c, d&#125;</span><br><span class="line">并集 A∪B: &#123;a, b, c, d, e, f&#125;</span><br><span class="line">差集 A-B: &#123;a, b&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="常用命令-3"><a href="#常用命令-3" class="headerlink" title="常用命令"></a>常用命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加元素</span></span><br><span class="line">SADD myset <span class="string">&quot;a&quot;</span> <span class="string">&quot;b&quot;</span> <span class="string">&quot;c&quot;</span> <span class="string">&quot;d&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取所有元素</span></span><br><span class="line">SMEMBERS myset</span><br><span class="line"></span><br><span class="line"><span class="comment"># 判断元素是否存在</span></span><br><span class="line">SISMEMBER myset <span class="string">&quot;a&quot;</span>          <span class="comment"># 返回 1（存在）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取集合大小</span></span><br><span class="line">SCARD myset</span><br><span class="line"></span><br><span class="line"><span class="comment"># 随机获取元素</span></span><br><span class="line">SRANDMEMBER myset 2          <span class="comment"># 随机取 2 个，不删除</span></span><br><span class="line">SPOP myset 2                 <span class="comment"># 随机取 2 个，并从集合中移除</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除元素</span></span><br><span class="line">SREM myset <span class="string">&quot;d&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ===== 集合运算 =====</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 交集</span></span><br><span class="line">SINTER setA setB</span><br><span class="line"></span><br><span class="line"><span class="comment"># 并集</span></span><br><span class="line">SUNION setA setB</span><br><span class="line"></span><br><span class="line"><span class="comment"># 差集（在 setA 中但不在 setB 中）</span></span><br><span class="line">SDIFF setA setB</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将运算结果存到新集合</span></span><br><span class="line">SINTERSTORE result setA setB</span><br></pre></td></tr></table></figure>
-
-<h4 id="内部编码-3"><a href="#内部编码-3" class="headerlink" title="内部编码"></a>内部编码</h4><table>
-<thead>
-<tr>
-<th>条件</th>
-<th>编码</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>元素都是整数且不超过 512 个</td>
-<td><code>intset</code></td>
-</tr>
-<tr>
-<td>其他情况</td>
-<td><code>hashtable</code></td>
-</tr>
-</tbody></table>
-<h4 id="典型使用场景-3"><a href="#典型使用场景-3" class="headerlink" title="典型使用场景"></a>典型使用场景</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 标签系统</span></span><br><span class="line">SADD user:1001:tags <span class="string">&quot;Java&quot;</span> <span class="string">&quot;Redis&quot;</span> <span class="string">&quot;后端&quot;</span></span><br><span class="line">SADD user:1002:tags <span class="string">&quot;Python&quot;</span> <span class="string">&quot;Redis&quot;</span> <span class="string">&quot;AI&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查找共同兴趣（交集）</span></span><br><span class="line">SINTER user:1001:tags user:1002:tags</span><br><span class="line"><span class="comment"># 输出: &quot;Redis&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 共同好友</span></span><br><span class="line">SADD user:1001:friends <span class="string">&quot;1002&quot;</span> <span class="string">&quot;1003&quot;</span> <span class="string">&quot;1004&quot;</span></span><br><span class="line">SADD user:1002:friends <span class="string">&quot;1001&quot;</span> <span class="string">&quot;1003&quot;</span> <span class="string">&quot;1005&quot;</span></span><br><span class="line">SINTER user:1001:friends user:1002:friends</span><br><span class="line"><span class="comment"># 输出: &quot;1001&quot;, &quot;1003&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 抽奖 / 随机推荐</span></span><br><span class="line">SADD lottery_pool <span class="string">&quot;user1&quot;</span> <span class="string">&quot;user2&quot;</span> <span class="string">&quot;user3&quot;</span> ... <span class="string">&quot;user100&quot;</span></span><br><span class="line">SRANDMEMBER lottery_pool 3   <span class="comment"># 随机抽 3 个幸运用户</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 去重</span></span><br><span class="line">SADD ip_blacklist <span class="string">&quot;192.168.1.100&quot;</span></span><br><span class="line">SISMEMBER ip_blacklist <span class="string">&quot;192.168.1.100&quot;</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="5-5-Sorted-Set-有序集合"><a href="#5-5-Sorted-Set-有序集合" class="headerlink" title="5.5 Sorted Set 有序集合"></a>5.5 Sorted Set 有序集合</h3><blockquote>
-<p><strong>有序的字符串集合</strong>，每个元素关联一个 <strong>分数（score）</strong>，按分数从小到大排列。元素唯一，分数可以重复。</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">leaderboard:</span><br><span class="line">  score=100  &quot;张三&quot;</span><br><span class="line">  score=200  &quot;李四&quot;</span><br><span class="line">  score=150  &quot;王五&quot;</span><br><span class="line"></span><br><span class="line">按分数排序后:</span><br><span class="line">  [200]李四 → [150]王五 → [100]张三</span><br></pre></td></tr></table></figure>
-
-<h4 id="常用命令-4"><a href="#常用命令-4" class="headerlink" title="常用命令"></a>常用命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加元素（分数 成员）</span></span><br><span class="line">ZADD leaderboard 100 <span class="string">&quot;张三&quot;</span></span><br><span class="line">ZADD leaderboard 200 <span class="string">&quot;李四&quot;</span></span><br><span class="line">ZADD leaderboard 150 <span class="string">&quot;王五&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 批量添加</span></span><br><span class="line">ZADD leaderboard 300 <span class="string">&quot;赵六&quot;</span> 50 <span class="string">&quot;钱七&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取排名（从 0 开始，分数从低到高）</span></span><br><span class="line">ZRANK leaderboard <span class="string">&quot;张三&quot;</span>        <span class="comment"># 返回排名</span></span><br><span class="line">ZREVRANK leaderboard <span class="string">&quot;张三&quot;</span>     <span class="comment"># 分数从高到低的排名</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取分数</span></span><br><span class="line">ZSCORE leaderboard <span class="string">&quot;张三&quot;</span>       <span class="comment"># 返回 &quot;100&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取指定排名范围的元素</span></span><br><span class="line">ZRANGE leaderboard 0 -1         <span class="comment"># 全部（低→高）</span></span><br><span class="line">ZREVRANGE leaderboard 0 2       <span class="comment"># 前 3 名（高→低）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取指定分数范围的元素</span></span><br><span class="line">ZRANGEBYSCORE leaderboard 100 200             <span class="comment"># 分数 100~200</span></span><br><span class="line">ZRANGEBYSCORE leaderboard 100 200 WITHSCORES  <span class="comment"># 带分数返回</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 统计分数范围内的元素数量</span></span><br><span class="line">ZCOUNT leaderboard 100 200</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取集合大小</span></span><br><span class="line">ZCARD leaderboard</span><br><span class="line"></span><br><span class="line"><span class="comment"># 给元素加分</span></span><br><span class="line">ZINCRBY leaderboard 50 <span class="string">&quot;张三&quot;</span>   <span class="comment"># 张三分数 +50</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除元素</span></span><br><span class="line">ZREM leaderboard <span class="string">&quot;钱七&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取指定分数范围内的元素数量</span></span><br><span class="line">ZCOUNT leaderboard 0 200</span><br></pre></td></tr></table></figure>
-
-<h4 id="内部编码-4"><a href="#内部编码-4" class="headerlink" title="内部编码"></a>内部编码</h4><table>
-<thead>
-<tr>
-<th>条件</th>
-<th>编码</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>元素 &lt;&#x3D; 128 且每个值 &lt;&#x3D; 64 字节</td>
-<td><code>ziplist</code> &#x2F; <code>listpack</code></td>
-</tr>
-<tr>
-<td>其他情况</td>
-<td><code>skiplist</code>（跳跃表）</td>
-</tr>
-</tbody></table>
-<h4 id="跳跃表（Skip-List）简介"><a href="#跳跃表（Skip-List）简介" class="headerlink" title="跳跃表（Skip List）简介"></a>跳跃表（Skip List）简介</h4><p>跳跃表是 Sorted Set 的核心数据结构，它在有序链表的基础上增加了多层索引，实现类似二分查找的效果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Level 3:  1 ────────────────────────────────► 9</span><br><span class="line">Level 2:  1 ───────────► 5 ──────────────────► 9</span><br><span class="line">Level 1:  1 ──► 3 ──► 5 ──► 7 ──────────────► 9</span><br><span class="line">Level 0:  1 ──► 3 ──► 5 ──► 7 ──► 8 ──► 9</span><br></pre></td></tr></table></figure>
-
-<p>查找时从最高层开始，逐层向下，时间复杂度为 <strong>O(log N)</strong>。</p>
-<h4 id="典型使用场景-4"><a href="#典型使用场景-4" class="headerlink" title="典型使用场景"></a>典型使用场景</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 排行榜</span></span><br><span class="line">ZADD game:rank 9500 <span class="string">&quot;player1&quot;</span></span><br><span class="line">ZADD game:rank 8700 <span class="string">&quot;player2&quot;</span></span><br><span class="line">ZADD game:rank 9900 <span class="string">&quot;player3&quot;</span></span><br><span class="line">ZREVRANGE game:rank 0 9 WITHSCORES   <span class="comment"># Top 10</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 带权重的消息队列（优先队列）</span></span><br><span class="line">ZADD task_queue 1 <span class="string">&quot;低优先级任务&quot;</span></span><br><span class="line">ZADD task_queue 10 <span class="string">&quot;高优先级任务&quot;</span></span><br><span class="line">ZPOPMIN task_queue                   <span class="comment"># 弹出分数最低（优先级最高）的任务</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 延迟队列（按执行时间排序）</span></span><br><span class="line">ZADD delay_queue 1700000000 <span class="string">&quot;task1&quot;</span>   <span class="comment"># score = 执行时间戳</span></span><br><span class="line">ZADD delay_queue 1700000060 <span class="string">&quot;task2&quot;</span></span><br><span class="line">ZRANGEBYSCORE delay_queue 0 &lt;当前时间戳&gt;  <span class="comment"># 取出到期任务</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 时间线（score 为时间戳）</span></span><br><span class="line">ZADD timeline 1700000001 <span class="string">&quot;post:1001&quot;</span></span><br><span class="line">ZADD timeline 1700000002 <span class="string">&quot;post:1002&quot;</span></span><br><span class="line">ZREVRANGE timeline 0 19              <span class="comment"># 最新 20 条</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="6-特殊数据类型"><a href="#6-特殊数据类型" class="headerlink" title="6. 特殊数据类型"></a>6. 特殊数据类型</h2><h3 id="6-1-Bitmap-位图"><a href="#6-1-Bitmap-位图" class="headerlink" title="6.1 Bitmap 位图"></a>6.1 Bitmap 位图</h3><blockquote>
-<p>本质上是 String 类型，但可以按 <strong>位（bit）</strong> 操作。每个 bit 只有 0 或 1，适合表示布尔状态。</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置某一位</span></span><br><span class="line">SETBIT sign:user1001:202401 0 1     <span class="comment"># 第 0 天签到</span></span><br><span class="line">SETBIT sign:user1001:202401 1 1     <span class="comment"># 第 1 天签到</span></span><br><span class="line">SETBIT sign:user1001:202401 5 1     <span class="comment"># 第 5 天签到</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取某一位</span></span><br><span class="line">GETBIT sign:user1001:202401 5       <span class="comment"># 返回 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 统计值为 1 的位数</span></span><br><span class="line">BITCOUNT sign:user1001:202401       <span class="comment"># 返回 3（签到 3 天）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 位运算（AND / OR / XOR / NOT）</span></span><br><span class="line">BITOP AND result key1 key2</span><br></pre></td></tr></table></figure>
-
-<p><strong>使用场景：</strong> 用户签到、在线状态、布隆过滤器底层。</p>
-<h3 id="6-2-HyperLogLog-基数统计"><a href="#6-2-HyperLogLog-基数统计" class="headerlink" title="6.2 HyperLogLog 基数统计"></a>6.2 HyperLogLog 基数统计</h3><blockquote>
-<p>用于统计集合中 <strong>不重复元素的数量</strong>（基数），误差约 0.81%，但只需 12KB 内存。</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加元素</span></span><br><span class="line">PFADD uv:20240101 <span class="string">&quot;user1&quot;</span> <span class="string">&quot;user2&quot;</span> <span class="string">&quot;user3&quot;</span> <span class="string">&quot;user2&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取基数估算值</span></span><br><span class="line">PFCOUNT uv:20240101     <span class="comment"># 返回 3</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 合并多个 HyperLogLog</span></span><br><span class="line">PFMERGE uv:total uv:day1 uv:day2</span><br></pre></td></tr></table></figure>
-
-<p><strong>使用场景：</strong> 网站 UV（独立访客数）统计。</p>
-<h3 id="6-3-Stream-流"><a href="#6-3-Stream-流" class="headerlink" title="6.3 Stream 流"></a>6.3 Stream 流</h3><blockquote>
-<p>Redis 5.0 引入，专为消息队列设计，支持消费者组，弥补了 List 作为消息队列的不足。</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生产消息</span></span><br><span class="line">XADD mystream * name <span class="string">&quot;张三&quot;</span> action <span class="string">&quot;login&quot;</span></span><br><span class="line"><span class="comment"># 返回: &quot;1700000000000-0&quot;（消息 ID）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取消息</span></span><br><span class="line">XREAD COUNT 10 STREAMS mystream 0           <span class="comment"># 从头读取 10 条</span></span><br><span class="line">XREAD BLOCK 5000 STREAMS mystream $         <span class="comment"># 阻塞等待新消息</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建消费者组</span></span><br><span class="line">XGROUP CREATE mystream group1 0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 消费者组消费</span></span><br><span class="line">XREADGROUP GROUP group1 consumer1 COUNT 1 STREAMS mystream &gt;</span><br><span class="line">XACK mystream group1 &lt;message-id&gt;           <span class="comment"># 确认消费</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>使用场景：</strong> 需要持久化、消费者组、消息确认的正式消息队列场景。</p>
-<hr>
-<h2 id="7-键（Key）管理"><a href="#7-键（Key）管理" class="headerlink" title="7. 键（Key）管理"></a>7. 键（Key）管理</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看所有键（生产环境慎用！）</span></span><br><span class="line">KEYS *                    <span class="comment"># ⚠️ 会阻塞 Redis，线上禁止使用</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 模糊查找（推荐，不会阻塞）</span></span><br><span class="line">SCAN 0 MATCH user:* COUNT 100</span><br><span class="line"></span><br><span class="line"><span class="comment"># 判断键是否存在</span></span><br><span class="line">EXISTS key</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置过期时间</span></span><br><span class="line">EXPIRE key 60             <span class="comment"># 60 秒后过期</span></span><br><span class="line">EXPIREAT key 1700000000   <span class="comment"># 在指定时间戳过期</span></span><br><span class="line">PEXPIRE key 60000         <span class="comment"># 60000 毫秒后过期</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看剩余过期时间</span></span><br><span class="line">TTL key                   <span class="comment"># 返回剩余秒数，-1 表示永不过期，-2 表示键不存在</span></span><br><span class="line">PTTL key                  <span class="comment"># 返回剩余毫秒数</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 取消过期时间</span></span><br><span class="line">PERSIST key</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重命名键</span></span><br><span class="line">RENAME old_key new_key</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看键的数据类型</span></span><br><span class="line">TYPE key                  <span class="comment"># 返回 string / list / hash / set / zset</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="8-过期策略与内存淘汰"><a href="#8-过期策略与内存淘汰" class="headerlink" title="8. 过期策略与内存淘汰"></a>8. 过期策略与内存淘汰</h2><h3 id="8-1-过期删除策略"><a href="#8-1-过期删除策略" class="headerlink" title="8.1 过期删除策略"></a>8.1 过期删除策略</h3><p>Redis 中设置了过期时间的键不会在到期时立即被删除，而是采用两种策略结合：</p>
-<table>
-<thead>
-<tr>
-<th>策略</th>
-<th>机制</th>
-<th>特点</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>惰性删除</strong></td>
-<td>每次访问键时检查是否过期，过期则删除</td>
-<td>对 CPU 友好，但可能有大量过期键未被访问而占用内存</td>
-</tr>
-<tr>
-<td><strong>定期删除</strong></td>
-<td>每隔一段时间随机检查一批键，删除其中过期的</td>
-<td>折中方案，不会太频繁也不会漏太多</td>
-</tr>
-</tbody></table>
-<h3 id="8-2-内存淘汰策略"><a href="#8-2-内存淘汰策略" class="headerlink" title="8.2 内存淘汰策略"></a>8.2 内存淘汰策略</h3><p>当 Redis 内存达到上限（<code>maxmemory</code>）时，需要淘汰一些数据来腾出空间：</p>
-<table>
-<thead>
-<tr>
-<th>策略</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>noeviction</code></td>
-<td>不淘汰，写命令直接报错（默认）</td>
-</tr>
-<tr>
-<td><code>allkeys-lru</code></td>
-<td>从所有键中淘汰最近最少使用的</td>
-</tr>
-<tr>
-<td><code>volatile-lru</code></td>
-<td>从设置了过期时间的键中淘汰最近最少使用的</td>
-</tr>
-<tr>
-<td><code>allkeys-lfu</code></td>
-<td>从所有键中淘汰使用频率最低的（Redis 4.0+）</td>
-</tr>
-<tr>
-<td><code>volatile-lfu</code></td>
-<td>从设置了过期时间的键中淘汰使用频率最低的</td>
-</tr>
-<tr>
-<td><code>allkeys-random</code></td>
-<td>随机淘汰</td>
-</tr>
-<tr>
-<td><code>volatile-random</code></td>
-<td>从设置了过期时间的键中随机淘汰</td>
-</tr>
-<tr>
-<td><code>volatile-ttl</code></td>
-<td>优先淘汰即将过期的键</td>
-</tr>
-</tbody></table>
-<p><strong>推荐：</strong> 大多数场景使用 <code>allkeys-lru</code>。</p>
-<p>配置方式（<code>redis.conf</code>）：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">maxmemory 1gb</span><br><span class="line">maxmemory-policy allkeys-lru</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="9-持久化机制"><a href="#9-持久化机制" class="headerlink" title="9. 持久化机制"></a>9. 持久化机制</h2><p>Redis 的数据在内存中，如果进程崩溃或重启，数据会丢失。持久化机制就是将内存数据写入磁盘。</p>
-<h3 id="9-1-RDB-快照"><a href="#9-1-RDB-快照" class="headerlink" title="9.1 RDB 快照"></a>9.1 RDB 快照</h3><blockquote>
-<p>在指定时间间隔内，将内存中的数据快照写入磁盘文件（<code>dump.rdb</code>）。</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">时间线 ─────────────────────────────────────►</span><br><span class="line">        │           │           │</span><br><span class="line">      快照1       快照2       快照3</span><br><span class="line">   (全量数据)   (全量数据)   (全量数据)</span><br></pre></td></tr></table></figure>
-
-<p><strong>配置（<code>redis.conf</code>）：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 900秒内有1次写操作，就保存快照</span><br><span class="line">save 900 1</span><br><span class="line"># 300秒内有10次写操作</span><br><span class="line">save 300 10</span><br><span class="line"># 60秒内有10000次写操作</span><br><span class="line">save 60 10000</span><br><span class="line"></span><br><span class="line"># 快照文件名</span><br><span class="line">dbfilename dump.rdb</span><br><span class="line"></span><br><span class="line"># 快照文件存放目录</span><br><span class="line">dir /var/lib/redis/</span><br></pre></td></tr></table></figure>
-
-<p><strong>优点：</strong></p>
-<ul>
-<li>文件紧凑，适合备份和恢复</li>
-<li>恢复大数据集时速度比 AOF 快</li>
-</ul>
-<p><strong>缺点：</strong></p>
-<ul>
-<li>可能丢失最后一次快照之后的数据</li>
-<li>快照时如果数据量大，<code>fork()</code> 子进程可能耗时较长</li>
-</ul>
-<h3 id="9-2-AOF-日志"><a href="#9-2-AOF-日志" class="headerlink" title="9.2 AOF 日志"></a>9.2 AOF 日志</h3><blockquote>
-<p>将每次写操作追加到日志文件（<code>appendonly.aof</code>），重启时重新执行日志恢复数据。</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">写操作序列:</span><br><span class="line">  SET key1 &quot;a&quot;</span><br><span class="line">  LPUSH mylist &quot;b&quot;</span><br><span class="line">  INCR counter</span><br><span class="line"></span><br><span class="line">AOF 文件内容:</span><br><span class="line">  *3\r\n$3\r\nSET\r\n$4\r\nkey1\r\n$1\r\na\r\n</span><br><span class="line">  *3\r\n$5\r\nLPUSH\r\n$6\r\nmylist\r\n$1\r\nb\r\n</span><br><span class="line">  *2\r\n$4\r\nINCR\r\n$7\r\ncounter\r\n</span><br></pre></td></tr></table></figure>
-
-<p><strong>配置（<code>redis.conf</code>）：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 开启 AOF</span><br><span class="line">appendonly yes</span><br><span class="line"></span><br><span class="line"># AOF 文件名</span><br><span class="line">appendfilename &quot;appendonly.aof&quot;</span><br><span class="line"></span><br><span class="line"># 同步策略</span><br><span class="line"># always  —— 每次写操作都同步（最安全，最慢）</span><br><span class="line"># everysec —— 每秒同步一次（推荐，平衡性能和安全）</span><br><span class="line"># no      —— 由操作系统决定（最快，最不安全）</span><br><span class="line">appendfsync everysec</span><br><span class="line"></span><br><span class="line"># AOF 重写（压缩日志文件）</span><br><span class="line">auto-aof-rewrite-percentage 100</span><br><span class="line">auto-aof-rewrite-min-size 64mb</span><br></pre></td></tr></table></figure>
-
-<p><strong>AOF 重写：</strong> 当 AOF 文件过大时，Redis 会根据当前内存数据重新生成一份精简的 AOF 文件。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">重写前: SET k1 v1; SET k1 v2; SET k1 v3; DEL k1; SET k1 v4</span><br><span class="line">重写后: SET k1 v4                                          ← 只保留最终状态</span><br></pre></td></tr></table></figure>
-
-<p><strong>优点：</strong></p>
-<ul>
-<li>数据安全性更高（最多丢失 1 秒数据）</li>
-<li>AOF 文件可读，便于理解和修复</li>
-</ul>
-<p><strong>缺点：</strong></p>
-<ul>
-<li>文件通常比 RDB 大</li>
-<li>恢复速度比 RDB 慢</li>
-</ul>
-<h3 id="9-3-混合持久化"><a href="#9-3-混合持久化" class="headerlink" title="9.3 混合持久化"></a>9.3 混合持久化</h3><blockquote>
-<p>Redis 4.0+ 支持，在 AOF 重写时，将 RDB 格式的数据和 AOF 增量命令混合写入同一个文件。</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aof-use-rdb-preamble yes</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">AOF 文件结构:</span><br><span class="line">┌─────────────────────┬───────────────────────┐</span><br><span class="line">│   RDB 格式的数据     │   AOF 格式的增量命令     │</span><br><span class="line">│   (恢复速度快)        │   (数据丢失少)          │</span><br><span class="line">└─────────────────────┴───────────────────────┘</span><br></pre></td></tr></table></figure>
-
-<p><strong>推荐：同时开启 RDB 和 AOF（混合持久化），兼顾恢复速度和数据安全。</strong></p>
-<hr>
-<h2 id="10-发布-订阅（Pub-Sub）"><a href="#10-发布-订阅（Pub-Sub）" class="headerlink" title="10. 发布&#x2F;订阅（Pub&#x2F;Sub）"></a>10. 发布&#x2F;订阅（Pub&#x2F;Sub）</h2><blockquote>
-<p>Redis 提供的发布&#x2F;订阅模式，Publisher 向 Channel 发布消息，Subscriber 订阅 Channel 收取消息。</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Publisher                  Redis                    Subscriber</span><br><span class="line">    │                        │                          │</span><br><span class="line">    │── PUBLISH ch &quot;hello&quot; ─►│                          │</span><br><span class="line">    │                        │──── &quot;hello&quot; ────────────►│</span><br><span class="line">    │                        │                          │</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 终端1：订阅频道</span></span><br><span class="line">SUBSCRIBE news</span><br><span class="line">PSUBSCRIBE news:*            <span class="comment"># 订阅匹配模式</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 终端2：发布消息</span></span><br><span class="line">PUBLISH news <span class="string">&quot;今天的新闻标题&quot;</span></span><br><span class="line">PUBLISH news:sports <span class="string">&quot;体育新闻&quot;</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>⚠️ <strong>注意：</strong> Pub&#x2F;Sub 的消息不会持久化，也没有消费者确认机制。如果需要可靠消息，请使用 <strong>Stream</strong>。</p>
-</blockquote>
-<hr>
-<h2 id="11-事务（Transaction）"><a href="#11-事务（Transaction）" class="headerlink" title="11. 事务（Transaction）"></a>11. 事务（Transaction）</h2><blockquote>
-<p>Redis 的事务将多个命令打包，按顺序执行，期间不会被其他命令插入。</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开始事务</span></span><br><span class="line">MULTI</span><br><span class="line"></span><br><span class="line"><span class="comment"># 入队命令（不会立即执行）</span></span><br><span class="line">SET key1 <span class="string">&quot;a&quot;</span></span><br><span class="line">SET key2 <span class="string">&quot;b&quot;</span></span><br><span class="line">INCR counter</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行事务</span></span><br><span class="line">EXEC</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者取消事务</span></span><br><span class="line">DISCARD</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MULTI           ← 开启事务</span><br><span class="line">  SET k1 v1     ← 入队</span><br><span class="line">  SET k2 v2     ← 入队</span><br><span class="line">  INCR counter  ← 入队</span><br><span class="line">EXEC            ← 批量执行以上命令</span><br></pre></td></tr></table></figure>
-
-<p><strong>重要特性：</strong></p>
-<table>
-<thead>
-<tr>
-<th>特性</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>命令入队</td>
-<td><code>MULTI</code> 之后的命令不会执行，而是进入队列</td>
-</tr>
-<tr>
-<td>原子性</td>
-<td><code>EXEC</code> 时所有命令一次性执行，不会被其他客户端的命令打断</td>
-</tr>
-<tr>
-<td>不支持回滚</td>
-<td>如果某条命令执行失败，<strong>其他命令仍然会执行</strong>，不会回滚</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>Redis 的事务和关系数据库的事务不同，没有 <code>ROLLBACK</code> 机制。Redis 认为语法错误应该在开发阶段就发现。</p>
-</blockquote>
-<p><strong>WATCH（乐观锁）：</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">WATCH balance           <span class="comment"># 监视 balance 键</span></span><br><span class="line">MULTI</span><br><span class="line">DECRBY balance 100</span><br><span class="line">INCRBY other_balance 100</span><br><span class="line">EXEC</span><br><span class="line"><span class="comment"># 如果在 WATCH 和 EXEC 之间 balance 被其他客户端修改，EXEC 返回 nil，事务不执行</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="12-Lua-脚本"><a href="#12-Lua-脚本" class="headerlink" title="12. Lua 脚本"></a>12. Lua 脚本</h2><blockquote>
-<p>Redis 支持在服务器端执行 Lua 脚本，保证脚本内的操作原子执行，且可以减少网络往返。</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 执行 Lua 脚本</span></span><br><span class="line">EVAL <span class="string">&quot;return redis.call(&#x27;SET&#x27;, KEYS[1], ARGV[1])&quot;</span> 1 mykey myvalue</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解释：</span></span><br><span class="line"><span class="comment"># KEYS[1] = &quot;mykey&quot;    （第 1 个参数作为 key）</span></span><br><span class="line"><span class="comment"># ARGV[1] = &quot;myvalue&quot;  （第 2 个参数作为 value）</span></span><br><span class="line"><span class="comment"># 1 表示有 1 个 key 参数</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 先加载脚本（返回 SHA1 摘要）</span></span><br><span class="line">SCRIPT LOAD <span class="string">&quot;return redis.call(&#x27;GET&#x27;, KEYS[1])&quot;</span></span><br><span class="line"><span class="comment"># 返回: &quot;6b1bf444...&quot;（脚本的 SHA1 值）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用 SHA1 执行</span></span><br><span class="line">EVALSHA <span class="string">&quot;6b1bf444...&quot;</span> 1 mykey</span><br></pre></td></tr></table></figure>
-
-<p><strong>典型用法：分布式锁的释放</strong></p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 只有持有锁的线程才能释放锁</span></span><br><span class="line"><span class="keyword">if</span> redis.call(<span class="string">&quot;GET&quot;</span>, KEYS[<span class="number">1</span>]) == ARGV[<span class="number">1</span>] <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">return</span> redis.call(<span class="string">&quot;DEL&quot;</span>, KEYS[<span class="number">1</span>])</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EVAL <span class="string">&quot;if redis.call(&#x27;GET&#x27;,KEYS[1]) == ARGV[1] then return redis.call(&#x27;DEL&#x27;,KEYS[1]) else return 0 end&quot;</span> 1 lock:order <span class="string">&quot;uuid-1234&quot;</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="13-管道（Pipeline）"><a href="#13-管道（Pipeline）" class="headerlink" title="13. 管道（Pipeline）"></a>13. 管道（Pipeline）</h2><blockquote>
-<p>将多个命令一次性发送给 Redis，减少网络往返次数（RTT），显著提升批量操作性能。</p>
-</blockquote>
-<p><strong>不使用 Pipeline（N 次网络往返）：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Client                          Server</span><br><span class="line">  │── SET k1 v1 ───────────────►│</span><br><span class="line">  │◄────── OK ──────────────────│   ← RTT 1</span><br><span class="line">  │── SET k2 v2 ───────────────►│</span><br><span class="line">  │◄────── OK ──────────────────│   ← RTT 2</span><br><span class="line">  │── SET k3 v3 ───────────────►│</span><br><span class="line">  │◄────── OK ──────────────────│   ← RTT 3</span><br></pre></td></tr></table></figure>
-
-<p><strong>使用 Pipeline（1 次网络往返）：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Client                          Server</span><br><span class="line">  │── SET k1 v1 ─┐              │</span><br><span class="line">  │── SET k2 v2 ─┤ 一次性发送    │</span><br><span class="line">  │── SET k3 v3 ─┘─────────────►│</span><br><span class="line">  │◄── OK ─┐                    │</span><br><span class="line">  │◄── OK ─┤ 一次性返回          │</span><br><span class="line">  │◄── OK ─┘                    │   ← 只有 1 次 RTT</span><br></pre></td></tr></table></figure>
-
-<p><strong>代码示例（hiredis C 语言）：</strong></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">redisAppendCommand(context, <span class="string">&quot;SET k1 v1&quot;</span>);</span><br><span class="line">redisAppendCommand(context, <span class="string">&quot;SET k2 v2&quot;</span>);</span><br><span class="line">redisAppendCommand(context, <span class="string">&quot;SET k3 v3&quot;</span>);</span><br><span class="line"></span><br><span class="line">redisReply* reply1;</span><br><span class="line">redisReply* reply2;</span><br><span class="line">redisReply* reply3;</span><br><span class="line"></span><br><span class="line">redisGetReply(context, (<span class="type">void</span>**)&amp;reply1);</span><br><span class="line">redisGetReply(context, (<span class="type">void</span>**)&amp;reply2);</span><br><span class="line">redisGetReply(context, (<span class="type">void</span>**)&amp;reply3);</span><br><span class="line"></span><br><span class="line">freeReplyObject(reply1);</span><br><span class="line">freeReplyObject(reply2);</span><br><span class="line">freeReplyObject(reply3);</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><strong>注意：</strong> Pipeline 中的命令不保证原子性（与事务不同），只是批量发送。</p>
-</blockquote>
-<hr>
-<h2 id="14-高可用与集群"><a href="#14-高可用与集群" class="headerlink" title="14. 高可用与集群"></a>14. 高可用与集群</h2><h3 id="14-1-主从复制"><a href="#14-1-主从复制" class="headerlink" title="14.1 主从复制"></a>14.1 主从复制</h3><blockquote>
-<p>一个 Master 节点可以有多个 Slave（Replica）节点。Slave 自动同步 Master 的数据。</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">    ┌──────────┐</span><br><span class="line">    │  Master   │  ← 写操作</span><br><span class="line">    │ (读+写)   │</span><br><span class="line">    └────┬─────┘</span><br><span class="line">         │ 数据同步</span><br><span class="line">    ┌────┼────┐</span><br><span class="line">    ▼    ▼    ▼</span><br><span class="line">┌──────┐┌──────┐┌──────┐</span><br><span class="line">│Slave1││Slave2││Slave3│  ← 读操作</span><br><span class="line">│ (读) ││ (读) ││ (读) │</span><br><span class="line">└──────┘└──────┘└──────┘</span><br></pre></td></tr></table></figure>
-
-<p><strong>配置（Slave 节点的 <code>redis.conf</code>）：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 指定 Master 的地址</span><br><span class="line">replicaof 192.168.1.100 6379</span><br><span class="line"></span><br><span class="line"># 如果 Master 有密码</span><br><span class="line">masterauth &quot;password&quot;</span><br></pre></td></tr></table></figure>
-
-<p><strong>同步过程：</strong></p>
-<ol>
-<li>Slave 连接 Master，发送 <code>PSYNC</code> 命令</li>
-<li>Master 执行 <code>BGSAVE</code> 生成 RDB 快照，发送给 Slave</li>
-<li>Slave 加载 RDB 文件</li>
-<li>Master 将之后的写命令通过 replication buffer 发送给 Slave（增量同步）</li>
-</ol>
-<p><strong>优点：</strong> 读写分离，扩展读性能；数据冗余，提高可用性。</p>
-<p><strong>缺点：</strong> Master 宕机需要手动切换；写操作无法扩展。</p>
-<h3 id="14-2-Sentinel-哨兵"><a href="#14-2-Sentinel-哨兵" class="headerlink" title="14.2 Sentinel 哨兵"></a>14.2 Sentinel 哨兵</h3><blockquote>
-<p>在主从复制的基础上，增加 Sentinel 进程来<strong>自动监控和故障转移</strong>。</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">┌────────────┐  ┌────────────┐  ┌────────────┐</span><br><span class="line">│ Sentinel 1 │  │ Sentinel 2 │  │ Sentinel 3 │   ← 监控进程</span><br><span class="line">└──────┬─────┘  └──────┬─────┘  └──────┬─────┘</span><br><span class="line">       │               │               │</span><br><span class="line">       └───────────┬───┴───────────────┘</span><br><span class="line">                   │ 监控</span><br><span class="line">                   ▼</span><br><span class="line">           ┌──────────────┐</span><br><span class="line">           │    Master     │</span><br><span class="line">           └──────┬───────┘</span><br><span class="line">              ┌───┼───┐</span><br><span class="line">              ▼   ▼   ▼</span><br><span class="line">           Slave Slave Slave</span><br></pre></td></tr></table></figure>
-
-<p><strong>Sentinel 的职责：</strong></p>
-<table>
-<thead>
-<tr>
-<th>任务</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>监控</strong></td>
-<td>不断检查 Master 和 Slave 是否正常运行</td>
-</tr>
-<tr>
-<td><strong>通知</strong></td>
-<td>当某个节点出现故障时，通过 API 通知管理员</td>
-</tr>
-<tr>
-<td><strong>自动故障转移</strong></td>
-<td>Master 宕机时，自动将一个 Slave 提升为新 Master</td>
-</tr>
-<tr>
-<td><strong>配置提供</strong></td>
-<td>客户端连接时，可以向 Sentinel 询问当前的 Master 地址</td>
-</tr>
-</tbody></table>
-<p><strong>配置示例（<code>sentinel.conf</code>）：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sentinel monitor mymaster 192.168.1.100 6379 2</span><br><span class="line">sentinel auth-pass mymaster &quot;password&quot;</span><br><span class="line">sentinel down-after-milliseconds mymaster 5000</span><br><span class="line">sentinel failover-timeout mymaster 60000</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>其中 <code>2</code> 表示至少需要 2 个 Sentinel 同意 Master 已下线，才会触发故障转移。</p>
-</blockquote>
-<h3 id="14-3-Cluster-集群"><a href="#14-3-Cluster-集群" class="headerlink" title="14.3 Cluster 集群"></a>14.3 Cluster 集群</h3><blockquote>
-<p>Redis 3.0+ 官方的分布式方案，通过<strong>数据分片</strong>将数据分布在多个节点上，支持水平扩展。</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">┌─────────────────────────────┐</span><br><span class="line">│         Redis Cluster        │</span><br><span class="line">│                              │</span><br><span class="line">│  Node1       Node2       Node3│</span><br><span class="line">│ slots:     slots:       slots:│</span><br><span class="line">│ 0-5460    5461-10922  10923-  │</span><br><span class="line">│                              │</span><br><span class="line">│  Node4       Node5       Node6│</span><br><span class="line">│ (Slave)     (Slave)    (Slave)│</span><br><span class="line">└─────────────────────────────┘</span><br></pre></td></tr></table></figure>
-
-<p><strong>核心概念：</strong></p>
-<table>
-<thead>
-<tr>
-<th>概念</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>哈希槽（Hash Slot）</strong></td>
-<td>总共 16384 个槽，每个 key 通过 <code>CRC16(key) % 16384</code> 计算出槽位号</td>
-</tr>
-<tr>
-<td><strong>节点</strong></td>
-<td>每个节点负责一部分槽位</td>
-</tr>
-<tr>
-<td><strong>分片</strong></td>
-<td>数据根据槽位号分布到不同节点</td>
-</tr>
-<tr>
-<td><strong>副本</strong></td>
-<td>每个主节点可以有从节点，用于高可用</td>
-</tr>
-</tbody></table>
-<p><strong>使用方式：</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 redis-cli 连接集群</span></span><br><span class="line">redis-cli -c -h 192.168.1.100 -p 6379</span><br><span class="line"></span><br><span class="line"><span class="comment"># 存入数据</span></span><br><span class="line">SET user:1001 <span class="string">&quot;张三&quot;</span></span><br><span class="line"><span class="comment"># 输出: -&gt; Redirected to slot [12345] located at 192.168.1.102:6379</span></span><br><span class="line"><span class="comment">#       OK</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><code>-c</code> 参数表示以集群模式连接，自动处理槽位重定向。</p>
-</blockquote>
-<p><strong>三种方案对比：</strong></p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>主从复制</th>
-<th>Sentinel</th>
-<th>Cluster</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>数据分片</td>
-<td>✗</td>
-<td>✗</td>
-<td>✓</td>
-</tr>
-<tr>
-<td>自动故障转移</td>
-<td>✗</td>
-<td>✓</td>
-<td>✓</td>
-</tr>
-<tr>
-<td>写扩展</td>
-<td>✗</td>
-<td>✗</td>
-<td>✓</td>
-</tr>
-<tr>
-<td>复杂度</td>
-<td>低</td>
-<td>中</td>
-<td>高</td>
-</tr>
-<tr>
-<td>适用场景</td>
-<td>读多写少</td>
-<td>中小规模</td>
-<td>大规模</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="15-常见实战场景"><a href="#15-常见实战场景" class="headerlink" title="15. 常见实战场景"></a>15. 常见实战场景</h2><h3 id="15-1-缓存穿透"><a href="#15-1-缓存穿透" class="headerlink" title="15.1 缓存穿透"></a>15.1 缓存穿透</h3><p><strong>问题：</strong> 查询一个数据库中不存在的数据，缓存中也没有，每次请求都打到数据库。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">请求 → Redis（未命中）→ 数据库（不存在）→ 返回空</span><br><span class="line">  ↑                                          │</span><br><span class="line">  └──────── 每次都这样，缓存失效 ─────────────┘</span><br></pre></td></tr></table></figure>
-
-<p><strong>解决方案：</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方案1：缓存空值</span></span><br><span class="line">GET user:99999              <span class="comment"># 查询不存在的用户</span></span><br><span class="line"><span class="comment"># 数据库返回空，仍然缓存一个空字符串，设短过期时间</span></span><br><span class="line">SET user:99999 <span class="string">&quot;&quot;</span> EX 300</span><br><span class="line"></span><br><span class="line"><span class="comment"># 方案2：布隆过滤器（推荐）</span></span><br><span class="line"><span class="comment"># 在 Redis 前加一个布隆过滤器，如果 key 不存在于过滤器中，直接返回</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="15-2-缓存击穿"><a href="#15-2-缓存击穿" class="headerlink" title="15.2 缓存击穿"></a>15.2 缓存击穿</h3><p><strong>问题：</strong> 某个热点 key 过期的瞬间，大量请求同时打到数据库。</p>
-<p><strong>解决方案：</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 互斥锁：只有一个请求去查数据库，其他请求等待</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_data</span>(<span class="params">key</span>):</span><br><span class="line">    data = redis.get(key)</span><br><span class="line">    <span class="keyword">if</span> data:</span><br><span class="line">        <span class="keyword">return</span> data</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 尝试获取锁</span></span><br><span class="line">    <span class="keyword">if</span> redis.<span class="built_in">set</span>(<span class="string">&quot;lock:&quot;</span> + key, <span class="string">&quot;1&quot;</span>, NX=<span class="literal">True</span>, EX=<span class="number">10</span>):</span><br><span class="line">        data = db.query(key)</span><br><span class="line">        redis.<span class="built_in">set</span>(key, data, EX=<span class="number">3600</span>)</span><br><span class="line">        redis.delete(<span class="string">&quot;lock:&quot;</span> + key)</span><br><span class="line">        <span class="keyword">return</span> data</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        time.sleep(<span class="number">0.1</span>)</span><br><span class="line">        <span class="keyword">return</span> get_data(key)  <span class="comment"># 重试</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="15-3-缓存雪崩"><a href="#15-3-缓存雪崩" class="headerlink" title="15.3 缓存雪崩"></a>15.3 缓存雪崩</h3><p><strong>问题：</strong> 大量 key 同时过期，导致请求全部打到数据库。</p>
-<p><strong>解决方案：</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 给过期时间加随机值</span></span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line">redis.<span class="built_in">set</span>(key, value, EX=<span class="number">3600</span> + random.randint(<span class="number">0</span>, <span class="number">300</span>))  <span class="comment"># 3600~3900 秒随机过期</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="15-4-分布式锁"><a href="#15-4-分布式锁" class="headerlink" title="15.4 分布式锁"></a>15.4 分布式锁</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 加锁（原子操作）</span></span><br><span class="line">SET lock:order:1001 <span class="string">&quot;uuid-1234&quot;</span> NX EX 30</span><br><span class="line"><span class="comment"># NX = 不存在才设置（互斥）</span></span><br><span class="line"><span class="comment"># EX 30 = 30 秒自动过期（防止死锁）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 解锁（用 Lua 脚本保证原子性）</span></span><br><span class="line">EVAL <span class="string">&quot;if redis.call(&#x27;GET&#x27;,KEYS[1]) == ARGV[1] then return redis.call(&#x27;DEL&#x27;,KEYS[1]) else return 0 end&quot;</span> 1 lock:order:1001 <span class="string">&quot;uuid-1234&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 续期（看门狗机制）</span></span><br><span class="line">EXPIRE lock:order:1001 30    <span class="comment"># 业务未完成时延长过期时间</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="16-性能优化要点"><a href="#16-性能优化要点" class="headerlink" title="16. 性能优化要点"></a>16. 性能优化要点</h2><h3 id="16-1-避免大-Key"><a href="#16-1-避免大-Key" class="headerlink" title="16.1 避免大 Key"></a>16.1 避免大 Key</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">⚠️ 大 Key 的危害：</span><br><span class="line">  - 读写耗时长，阻塞其他命令</span><br><span class="line">  - 网络传输慢</span><br><span class="line">  - 内存分布不均</span><br></pre></td></tr></table></figure>
-
-<p><strong>标准：</strong></p>
-<ul>
-<li>String 类型的 value &gt; 10 KB</li>
-<li>Hash&#x2F;List&#x2F;Set&#x2F;ZSet 的元素个数 &gt; 5000</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查找大 Key</span></span><br><span class="line">redis-cli --bigkeys</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看某个 Key 占用的内存</span></span><br><span class="line">MEMORY USAGE mykey</span><br></pre></td></tr></table></figure>
-
-<h3 id="16-2-避免热-Key"><a href="#16-2-避免热-Key" class="headerlink" title="16.2 避免热 Key"></a>16.2 避免热 Key</h3><blockquote>
-<p>单个 Key 的 QPS 过高，集中在同一个节点上。</p>
-</blockquote>
-<p><strong>解决方案：</strong></p>
-<ul>
-<li>拆分成多个子 Key：<code>hot_key:0</code>、<code>hot_key:1</code>、… <code>hot_key:9</code></li>
-<li>本地缓存（Caffeine &#x2F; Guava Cache）</li>
-<li>读写分离</li>
-</ul>
-<h3 id="16-3-使用-Pipeline-批量操作"><a href="#16-3-使用-Pipeline-批量操作" class="headerlink" title="16.3 使用 Pipeline 批量操作"></a>16.3 使用 Pipeline 批量操作</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不好：1000 次 GET = 1000 次网络往返</span></span><br><span class="line">GET key1</span><br><span class="line">GET key2</span><br><span class="line">...</span><br><span class="line">GET key1000</span><br><span class="line"></span><br><span class="line"><span class="comment"># 好：Pipeline 一次发送 = 1 次网络往返</span></span><br><span class="line">MGET key1 key2 ... key1000</span><br><span class="line"><span class="comment"># 或使用 Pipeline</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="16-4-选择合适的数据结构"><a href="#16-4-选择合适的数据结构" class="headerlink" title="16.4 选择合适的数据结构"></a>16.4 选择合适的数据结构</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">存储对象：</span><br><span class="line">  字段少、整体读写 → String（JSON）</span><br><span class="line">  字段多、经常单独修改 → Hash</span><br><span class="line"></span><br><span class="line">计数：</span><br><span class="line">  单个计数器 → String + INCR</span><br><span class="line">  多维度计数 → Hash + HINCRBY</span><br><span class="line"></span><br><span class="line">排行榜：</span><br><span class="line">  → Sorted Set</span><br><span class="line"></span><br><span class="line">去重：</span><br><span class="line">  → Set</span><br></pre></td></tr></table></figure>
-
-<h3 id="16-5-连接池"><a href="#16-5-连接池" class="headerlink" title="16.5 连接池"></a>16.5 连接池</h3><blockquote>
-<p>频繁创建和销毁 Redis 连接会消耗大量资源，应使用连接池复用连接。</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">连接池工作原理：</span><br><span class="line">  ┌──────────────────────────┐</span><br><span class="line">  │       RedisConPool        │</span><br><span class="line">  │  ┌────┐┌────┐┌────┐     │</span><br><span class="line">  │  │conn││conn││conn│ ...  │  ← 预创建 N 条连接</span><br><span class="line">  │  └────┘└────┘└────┘     │</span><br><span class="line">  │       ▲          │        │</span><br><span class="line">  │  returnConn  getConn     │</span><br><span class="line">  │       │          ▲        │</span><br><span class="line">  └───────┼──────────┼────────┘</span><br><span class="line">          │          │</span><br><span class="line">       线程1      线程2</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="17-安全注意事项"><a href="#17-安全注意事项" class="headerlink" title="17. 安全注意事项"></a>17. 安全注意事项</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 1. 设置密码</span><br><span class="line">requirepass &quot;your_strong_password&quot;</span><br><span class="line"></span><br><span class="line"># 2. 绑定 IP（只允许内网访问）</span><br><span class="line">bind 127.0.0.1 192.168.1.100</span><br><span class="line"></span><br><span class="line"># 3. 修改默认端口</span><br><span class="line">port 6380</span><br><span class="line"></span><br><span class="line"># 4. 禁用危险命令（或重命名为空字符串）</span><br><span class="line">rename-command FLUSHDB &quot;&quot;</span><br><span class="line">rename-command FLUSHALL &quot;&quot;</span><br><span class="line">rename-command DEBUG &quot;&quot;</span><br><span class="line"></span><br><span class="line"># 5. 禁止公网暴露</span><br><span class="line"># 不要把 6379 端口暴露到公网，或者用防火墙限制访问</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="18-常见面试问题"><a href="#18-常见面试问题" class="headerlink" title="18. 常见面试问题"></a>18. 常见面试问题</h2><h3 id="Q1-Redis-为什么这么快？"><a href="#Q1-Redis-为什么这么快？" class="headerlink" title="Q1: Redis 为什么这么快？"></a>Q1: Redis 为什么这么快？</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. 基于内存：数据在 RAM 中，访问速度是纳秒级</span><br><span class="line">2. 单线程模型：避免了线程切换和锁竞争的开销</span><br><span class="line">3. IO 多路复用：用 epoll 同时处理大量连接</span><br><span class="line">4. 高效数据结构：跳跃表、ziplist 等针对 Redis 场景优化的数据结构</span><br><span class="line">5. 非阻塞 I/O：命令执行不等待 I/O 完成</span><br></pre></td></tr></table></figure>
-
-<h3 id="Q2-Redis-单线程为什么还能利用多核？"><a href="#Q2-Redis-单线程为什么还能利用多核？" class="headerlink" title="Q2: Redis 单线程为什么还能利用多核？"></a>Q2: Redis 单线程为什么还能利用多核？</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Redis 6.0+ 引入了多线程 I/O：</span><br><span class="line">  - 命令执行仍然是单线程</span><br><span class="line">  - 网络数据的读写（read/write）使用多线程</span><br><span class="line">  - 这样可以在保持单线程简单性的同时，利用多核提升网络吞吐</span><br></pre></td></tr></table></figure>
-
-<h3 id="Q3-如何保证缓存与数据库的一致性？"><a href="#Q3-如何保证缓存与数据库的一致性？" class="headerlink" title="Q3: 如何保证缓存与数据库的一致性？"></a>Q3: 如何保证缓存与数据库的一致性？</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">常见策略：</span><br><span class="line">  1. Cache Aside（旁路缓存）：</span><br><span class="line">     - 读：先读缓存，未命中再读数据库，然后写入缓存</span><br><span class="line">     - 写：先更新数据库，再删除缓存（不是更新缓存）</span><br><span class="line"></span><br><span class="line">  2. 延迟双删：</span><br><span class="line">     - 先删缓存 → 更新数据库 → 延迟一段时间后再删缓存</span><br><span class="line"></span><br><span class="line">  3. 订阅数据库 binlog（Canal）：</span><br><span class="line">     - 数据库变更自动同步到 Redis</span><br></pre></td></tr></table></figure>
-
-<h3 id="Q4-Redis-的内存满了会怎样？"><a href="#Q4-Redis-的内存满了会怎样？" class="headerlink" title="Q4: Redis 的内存满了会怎样？"></a>Q4: Redis 的内存满了会怎样？</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">取决于 maxmemory-policy 配置：</span><br><span class="line">  - noeviction（默认）：写命令直接报错</span><br><span class="line">  - allkeys-lru / allkeys-lfu：淘汰旧数据腾出空间</span><br><span class="line">  - volatile-lru：只淘汰设置了过期时间的 key</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="19-参考资源"><a href="#19-参考资源" class="headerlink" title="19. 参考资源"></a>19. 参考资源</h2><ul>
-<li><strong>官方文档：</strong> <a target="_blank" rel="noopener" href="https://redis.io/documentation">https://redis.io/documentation</a></li>
-<li><strong>中文文档：</strong> <a target="_blank" rel="noopener" href="http://www.redis.cn/documentation">http://www.redis.cn/documentation</a></li>
-<li><strong>《Redis 设计与实现》</strong> —— 黄健宏著，深入理解 Redis 内部原理</li>
-<li><strong>《Redis 深度历险》</strong> —— 钱文品著，实战场景丰富</li>
-<li><strong>Redis 命令参考：</strong> <a target="_blank" rel="noopener" href="http://www.redis.cn/commands.html">http://www.redis.cn/commands.html</a></li>
-<li><strong>Try Redis（在线体验）：</strong> <a target="_blank" rel="noopener" href="https://try.redis.io/">https://try.redis.io</a></li>
-</ul>
-<hr>
-<blockquote>
-<p><strong>最后的建议：</strong> Redis 的学习路径应该是 <strong>先学会用命令 → 理解数据结构的应用场景 → 深入理解底层原理</strong>。打开 <code>redis-cli</code> 边学边练，是最快的方式。</p>
-</blockquote>
-
+          Redis（Remote Dictionary Server，远程字典服务）是一个开源的、基于**内存**的高性能键值存储系统。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/05/29/redis/Redis%E8%AF%A6%E8%A7%A3/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
