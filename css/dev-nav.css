@@ -1,0 +1,155 @@
+/* Dev Nav Page - 程序员导航页面 */
+.dev-nav-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 搜索栏 */
+.dev-nav-search {
+  margin-bottom: 28px;
+  text-align: center;
+  width: 100%;
+}
+
+.dev-nav-search input {
+  width: 100%;
+  max-width: 520px;
+  padding: 14px 24px;
+  font-size: 16px;
+  border: 2px solid #d0d7de;
+  border-radius: 12px;
+  background: var(--content-bg-color, #fff);
+  color: var(--text-color, #24292f);
+  outline: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.dev-nav-search input:focus {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.15);
+}
+
+.dev-nav-search input::placeholder {
+  color: #8b949e;
+}
+
+/* 卡片网格 */
+.dev-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+/* 卡片 */
+.dev-nav-card {
+  background: var(--content-bg-color, #fff);
+  border: 1px solid #d0d7de;
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.dev-nav-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  border-color: #0969da;
+}
+
+.dev-nav-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-color, #24292f);
+  margin: 0 0 14px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #f0f2f5;
+}
+
+/* 链接列表 */
+.dev-nav-links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.dev-nav-links a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  font-size: 14px;
+  color: var(--text-color, #24292f);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.15s ease;
+}
+
+.dev-nav-links a:hover {
+  background: #f6f8fa;
+  color: #0969da;
+}
+
+.dev-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+  width: 22px;
+  text-align: center;
+}
+
+/* 暗色模式 */
+[data-theme="dark"] .dev-nav-card {
+  background: #161b22;
+  border-color: #30363d;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .dev-nav-card:hover {
+  border-color: #58a6ff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .dev-nav-card h3 {
+  color: #e6edf3;
+  border-color: #21262d;
+}
+
+[data-theme="dark"] .dev-nav-links a {
+  color: #c9d1d9;
+}
+
+[data-theme="dark"] .dev-nav-links a:hover {
+  background: #21262d;
+  color: #58a6ff;
+}
+
+[data-theme="dark"] .dev-nav-search input {
+  background: #0d1117;
+  border-color: #30363d;
+  color: #e6edf3;
+}
+
+[data-theme="dark"] .dev-nav-search input:focus {
+  border-color: #58a6ff;
+  box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
+}
+
+/* 响应式 */
+@media (max-width: 767px) {
+  .dev-nav-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dev-nav-links {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .dev-nav-container {
+    padding: 10px;
+  }
+}

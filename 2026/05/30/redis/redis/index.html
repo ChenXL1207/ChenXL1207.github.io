@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/ui/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chenxl1207.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"github","dark":"github"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"language":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="Redis（Remote Dictionary Server，远程字典服务）是一个开源的、基于**内存**的高性能键值存储系统。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis">
+<meta property="og:url" content="https://chenxl1207.github.io/2026/05/30/redis/redis/index.html">
+<meta property="og:site_name" content="ChenXuanliang Blog">
+<meta property="og:description" content="Redis（Remote Dictionary Server，远程字典服务）是一个开源的、基于**内存**的高性能键值存储系统。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chenxl1207.github.io/images/redis/image.png">
+<meta property="og:image" content="https://chenxl1207.github.io/images/redis/image-2.png">
+<meta property="article:published_time" content="2026-05-30T04:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-30T13:51:40.410Z">
+<meta property="article:author" content="Chen Xuanliang">
+<meta property="article:tag" content="redis">
+<meta property="article:tag" content="软件开发">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chenxl1207.github.io/images/redis/image.png">
+
+
+<link rel="canonical" href="https://chenxl1207.github.io/2026/05/30/redis/redis/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://chenxl1207.github.io/2026/05/30/redis/redis/","path":"2026/05/30/redis/redis/","title":"Redis"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Redis | ChenXuanliang Blog</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="/lib/@fancyapps/ui/dist/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script><script src="/js/bookmark.js" defer></script>
+
+  <script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><link rel="stylesheet" href="/lib/katex/dist/katex.min.css" integrity="sha256-UF1fgpAiu3tPJN/uCqEUHNe7pnr+QR0SQDNfgglgtcM=" crossorigin="anonymous">
+  <script class="next-config" data-name="katex" type="application/json">{"copy_tex_js":{"url":"/lib/katex/dist/contrib/copy-tex.min.js","integrity":"sha256-Us54+rSGDSTvIhKKUs4kygE2ipA0RXpWWh0/zLqw3bs="}}</script>
+  <script src="/js/third-party/math/katex.js" defer></script>
+
+
+  <script src="/lib/quicklink/dist/quicklink.umd.js" integrity="sha256-44BednzIpUeQJcY8qtLyarFu0UCCTbgmWOvaoehiFQQ=" crossorigin="anonymous" defer></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://chenxl1207.github.io/2026/05/30/redis/redis/"}</script>
+  <script src="/js/third-party/quicklink.js" defer></script>
+
+<style id="anti-fouc">
+  html { opacity: 0; }
+</style>
+<script>
+  (function () {
+    function revealPage() {
+      document.documentElement.style.opacity = "1";
+      var s = document.getElementById("anti-fouc");
+      if (s) s.remove();
+    }
+    window.addEventListener("load", revealPage, { once: true });
+    window.addEventListener("pageshow", revealPage, { once: true });
+    setTimeout(revealPage, 1800);
+  })();
+</script>
+<link rel="stylesheet" href="/css/variables.css">
+<link rel="stylesheet" href="/css/index-card.css">
+<link rel="stylesheet" href="/css/category-tag-style.css">
+<link rel="stylesheet" href="/css/sidebar-stats.css">
+<link rel="stylesheet" href="/css/modern-blog-upgrade.css">
+<link rel="stylesheet" href="/css/code-highlight.css">
+<link rel="stylesheet" href="/css/animations.css">
+<link rel="stylesheet" href="/css/featured-posts.css">
+<link rel="stylesheet" href="/css/sidebar-weather.css">
+<link rel="stylesheet" href="/css/click-effects.css">
+<link rel="stylesheet" href="/css/typewriter.css">
+<link rel="stylesheet" href="/css/github-calendar.css">
+<link rel="stylesheet" href="/css/mouse-trail.css">
+<link rel="stylesheet" href="/css/dev-nav.css">
+<link rel="stylesheet" href="/css/page-center.css">
+<script src="/js/category-names.js" defer></script>
+<script src="/js/sidebar-stats.js" defer></script>
+<script src="/js/modern-blog.js" defer></script>
+<script src="/js/category-page-bridge.js" defer></script>
+<script src="/js/sidebar-weather.js" defer></script>
+<script src="/js/click-effects.js" defer></script>
+<script src="/js/typewriter.js" defer></script>
+<script src="/js/github-calendar.js" defer></script>
+<script src="/js/github-contrib.js" defer></script>
+<script src="/js/mouse-trail.js" defer></script>
+<style>
+/* Header language switch button */
+.header-lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: 16px;
+  background: #f4f4f5;
+  border-radius: 9999px;
+  padding: 2px;
+  vertical-align: middle;
+}
+.lang-btn {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #71717a;
+  transition: all 150ms ease;
+  line-height: 1.4;
+}
+.lang-btn:hover {
+  color: #18181b;
+  background: #e4e4e7;
+}
+.lang-btn-active {
+  color: #fafafa;
+  background: #2563eb;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.lang-btn-active:hover {
+  color: #fafafa;
+  background: #1d4ed8;
+}
+[data-theme="dark"] .header-lang-switch {
+  background: #27272a;
+}
+[data-theme="dark"] .lang-btn:hover {
+  background: #3f3f46;
+}
+@media (max-width: 767px) {
+  .header-lang-switch {
+    margin-left: 8px;
+    margin-top: 4px;
+  }
+  .lang-btn {
+    padding: 3px 8px;
+    font-size: 11px;
+  }
+}
+</style>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">ChenXuanliang Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Xdu teleCom student, software developer, blogger</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-folder-open fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-dev-nav"><a href="/dev-nav/" rel="section"><i class="fa fa-code fa-fw"></i>导航</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="header-lang-switch">
+  <a href="/2026/05/30/redis/redis/" class="lang-btn lang-btn-active" title="简体中文">CN</a>
+  <a href="/en/2026/05/30/redis/redis/" class="lang-btn" title="English">EN</a>
+</div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-Redis%EF%BC%9F"><span class="nav-text">什么是 Redis？</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chen Xuanliang</p>
+  <div class="site-description" itemprop="description">记录思想，分享知识，思考人生</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+<div class="widget-wrap" id="weather-widget-wrap">
+  <div class="widget-header">
+    <h3 class="widget-title"><i class="fa fa-cloud-sun"></i> 实时信息</h3>
+  </div>
+  <div class="widget-body">
+    <!-- 实时时钟 -->
+    <div class="ww-clock">
+      <div class="ww-clock-time" id="ww-clock-time">--:--:--</div>
+      <div class="ww-clock-date" id="ww-clock-date">加载中...</div>
+    </div>
+    <!-- 定位 & 天气 -->
+    <div class="ww-weather" id="ww-weather">
+      <div class="ww-loading" id="ww-loading">
+        <i class="fa fa-spinner fa-spin"></i> 正在获取天气...
+      </div>
+      <div class="ww-info" id="ww-info" style="display:none;">
+        <div class="ww-location">
+          <i class="fa fa-map-marker-alt"></i>
+          <span id="ww-city">--</span>
+        </div>
+        <div class="ww-main">
+          <div class="ww-icon-temp">
+            <span class="ww-icon" id="ww-icon">☀️</span>
+            <span class="ww-temp" id="ww-temp">--°C</span>
+          </div>
+          <div class="ww-desc" id="ww-desc">--</div>
+        </div>
+        <div class="ww-details">
+          <div class="ww-detail">
+            <i class="fa fa-tint"></i>
+            <span id="ww-humidity">--%</span>
+            <small>湿度</small>
+          </div>
+          <div class="ww-detail">
+            <i class="fa fa-wind"></i>
+            <span id="ww-wind">-- km/h</span>
+            <small>风速</small>
+          </div>
+          <div class="ww-detail">
+            <i class="fa fa-temperature-half"></i>
+            <span id="ww-feels">--°C</span>
+            <small>体感</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="widget-wrap" id="github-calendar-wrap">
+  <div class="widget-header">
+    <h3 class="widget-title"><i class="fa-solid fa-code-commit" style="color:#c71d23;"></i> Gitee 活跃度</h3>
+  </div>
+  <div class="gc-body">
+    <div class="gc-loading" id="gc-loading">
+      <i class="fa fa-spinner fa-spin"></i> 加载中...
+    </div>
+    <div class="gc-grid" id="gc-grid"></div>
+    <div class="gc-stats">
+      <span class="gc-total" id="gc-total"></span>
+      <div class="gc-legend">
+        <span>Less</span>
+        <div class="gc-legend-cell" data-level="0"></div>
+        <div class="gc-legend-cell" data-level="1"></div>
+        <div class="gc-legend-cell" data-level="2"></div>
+        <div class="gc-legend-cell" data-level="3"></div>
+        <div class="gc-legend-cell" data-level="4"></div>
+        <span>More</span>
+      </div>
+    </div>
+    <a class="gc-user" href="https://gitee.com/ChenXL3508" target="_blank">@ChenXL3508</a>
+  </div>
+</div>
+
+
+<div class="widget-wrap" id="github-calendar-wrap">
+  <div class="widget-header">
+    <h3 class="widget-title"><i class="fa-brands fa-github" style="color:#333;"></i> GitHub 活跃度</h3>
+  </div>
+  <div class="gc-body">
+    <div class="gc-loading" id="gh-loading">
+      <i class="fa fa-spinner fa-spin"></i> 加载中...
+    </div>
+    <div class="gc-grid" id="gh-grid"></div>
+    <div class="gc-stats">
+      <span class="gc-total" id="gh-total"></span>
+      <div class="gc-legend">
+        <span>Less</span>
+        <div class="gc-legend-cell" data-level="0"></div>
+        <div class="gc-legend-cell" data-level="1"></div>
+        <div class="gc-legend-cell" data-level="2"></div>
+        <div class="gc-legend-cell" data-level="3"></div>
+        <div class="gc-legend-cell" data-level="4"></div>
+        <span>More</span>
+      </div>
+    </div>
+    <a class="gc-user" href="https://github.com/ChenXL1207" target="_blank">@ChenXL1207</a>
+  </div>
+</div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/05/30/redis/redis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chen Xuanliang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChenXuanliang Blog">
+      <meta itemprop="description" content="记录思想，分享知识，思考人生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Redis | ChenXuanliang Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Redis
+        </h1>
+
+        <div class="post-meta-container">
+            
+            <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-05-30 12:00:00 / 修改时间：21:51:40" itemprop="dateCreated datePublished" datetime="2026-05-30T12:00:00+08:00">2026-05-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/redis/" itemprop="url" rel="index"><span itemprop="name">redis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+          
+            <div class="post-back-button" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee;">
+              <a href="/categories/redis/" class="back-btn" title="返回分类">
+                <i class="fa fa-arrow-left"></i> 返回分类
+              </a>
+            </div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="什么是-Redis？"><a href="#什么是-Redis？" class="headerlink" title="什么是 Redis？"></a>什么是 Redis？</h1><p>Redis（REmote DIctionary Service）是一个开源的键值对数据库服务器。</p>
+<p>Redis 更准确的描述是一个数据结构服务器。Redis 的这种特殊性质让它在开发人员中很受欢迎。</p>
+<p><img data-src="/../images/redis/image.png" alt="alt text"></p>
+<p>Redis不是通过迭代或者排序方式处理数据，而是一开始就按照数据结构方式组织。早期，它的使用很像 Memcached，但随着 Redis 的改进，它在许多其他用例中变得可行，包括<strong>发布-订阅机制、流（streaming）和队列</strong>。</p>
+<p><img data-src="/../images/redis/image-2.png" alt="alt text"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/redis/" rel="tag"># redis</a>
+              <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/" rel="tag"># 软件开发</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/29/redis/Redis%E8%AF%A6%E8%A7%A3/" rel="prev" title="Redis 详解 —— 从入门到实战">
+                  <i class="fa fa-angle-left"></i> Redis 详解 —— 从入门到实战
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+
+    
+      <div class="post-back-button">
+        <a href="/categories/redis/" class="back-btn" title="返回分类">
+          <i class="fa fa-arrow-left"></i> 返回分类：redis
+        </a>
+        <a href="/" class="back-btn" title="返回首页">
+          <i class="fa fa-home"></i> 返回首页
+        </a>
+      </div>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+  <div class="languages">
+    <label class="lang-select-label">
+      <i class="fa fa-language"></i>
+      <span>简体中文</span>
+      <i class="fa fa-angle-up" aria-hidden="true"></i>
+    </label>
+    <select class="lang-select" data-canonical="" aria-label="选择语言">
+      
+        <option value="zh-CN" data-href="/2026/05/30/redis/redis/" selected="">
+          简体中文
+        </option>
+      
+        <option value="en" data-href="/en/2026/05/30/redis/redis/" selected="">
+          English
+        </option>
+      
+    </select>
+  </div>
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Chen Blog 1.0</span>
+  </div>
+  <div class="powered-by">技术支持: <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+<script>
+  (function () {
+    function loadScript(src) {
+      return new Promise(function (resolve, reject) {
+        var s = document.createElement("script");
+        s.src = src;
+        s.async = true;
+        s.defer = true;
+        s.onload = resolve;
+        s.onerror = reject;
+        document.body.appendChild(s);
+      });
+    }
+
+    function initLive2D() {
+      if (window.innerWidth < 768) return;
+      loadScript("/js/live2d-widget/L2Dwidget.min.js")
+        .then(function () {
+          if (!window.L2Dwidget) return;
+          window.L2Dwidget.init({
+            model: {
+              jsonPath: "https://cdn.jsdelivr.net/npm/live2d-widget-model-koharu@1.0.5/assets/koharu.model.json",
+              scale: 0.9
+            },
+            display: {
+              position: "right",
+              width: 180,
+              height: 320,
+              hOffset: 0,
+              vOffset: 0
+            },
+            mobile: {
+              show: false
+            },
+            react: {
+              opacityDefault: 0.68,
+              opacityOnHover: 0.8
+            }
+          });
+        })
+        .catch(function () {
+          // 静默失败，避免影响页面主流程
+        });
+    }
+
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(initLive2D, { timeout: 2500 });
+    } else {
+      setTimeout(initLive2D, 1200);
+    }
+  })();
+</script>
+<script src="/js/live2d-drag.js" defer></script>
+
+</body>
+</html>

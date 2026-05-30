@@ -1,0 +1,74 @@
+/* Page Content Centering - 所有页面内容居中 */
+
+/* 文章/页面的主体内容区 */
+.post-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+  width: 100%;
+}
+
+/* 归档页面 */
+.archive {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.archive .collection-title,
+.archive .post-header,
+.archive .post-body {
+  width: 100%;
+  max-width: 780px;
+}
+
+/* 标签云 */
+.tag-cloud {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tag-cloud-tags {
+  text-align: center;
+}
+
+/* 分类页面 */
+.category-all {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.category-all .category-list {
+  width: 100%;
+  max-width: 780px;
+}
+
+/* 导航页面 */
+.dev-nav-container {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.dev-nav-search {
+  width: 100%;
+  text-align: center;
+}
+
+.dev-nav-grid {
+  width: 100%;
+}
+
+/* 通用 - 确保 flex 子元素不被压缩 */
+.post-body > *:not(.dev-nav-container) {
+  width: 100%;
+  max-width: 780px;
+}
