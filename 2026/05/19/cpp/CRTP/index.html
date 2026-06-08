@@ -83,18 +83,33 @@
   <script src="/js/third-party/quicklink.js" defer></script>
 
 <style id="anti-fouc">
-  html { opacity: 0; }
+  html {
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+  html.revealed {
+    opacity: 1;
+  }
 </style>
 <script>
   (function () {
     function revealPage() {
-      document.documentElement.style.opacity = "1";
-      var s = document.getElementById("anti-fouc");
-      if (s) s.remove();
+      // Use CSS class for smooth transition instead of inline style
+      document.documentElement.classList.add('revealed');
+      var s = document.getElementById('anti-fouc');
+      if (s) {
+        // Remove after transition completes
+        setTimeout(function() { if (s) s.remove(); }, 200);
+      }
     }
-    window.addEventListener("load", revealPage, { once: true });
-    window.addEventListener("pageshow", revealPage, { once: true });
-    setTimeout(revealPage, 1800);
+    // Only use 'load' event — 'pageshow' causes flash on bfcache restore
+    if (document.readyState === 'complete') {
+      revealPage();
+    } else {
+      window.addEventListener('load', revealPage, { once: true });
+    }
+    // Fallback: reveal after 600ms max, shorter than before
+    setTimeout(revealPage, 600);
   })();
 </script>
 <link rel="stylesheet" href="/css/variables.css">

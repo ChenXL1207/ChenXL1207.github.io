@@ -1,74 +1,228 @@
-/* Page Content Centering - 所有页面内容居中 */
+/* ============================================================
+   Page Content Centering — Unified System
+   All page types: home, post, archive, category, tag, about
 
-/* 文章/页面的主体内容区 */
-.post-body {
+   Strategy:
+   - .main-inner is centered by theme (main-container mixin)
+   - Every content block inside gets margin: 0 auto
+   - Appropriate max-width per content type
+   ============================================================ */
+
+/* ── Global: header / main / footer containers ─────────── */
+.header-inner,
+.main-inner,
+.footer-inner {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── All main content blocks — universal centering ─────── */
+.post-body,
+.post-header,
+.post-footer,
+.post-nav,
+.post-comments,
+.post-copyright,
+.pagination,
+.page-archive .archive,
+.page-categories .category-all-page,
+.page-tags .tag-cloud,
+.page-about .post-body {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── Post pages — optimal reading width ────────────────── */
+.page-post .post-body {
+  max-width: 750px;
+}
+
+.page-post .post-header {
+  max-width: 750px;
+}
+
+.page-post .post-meta {
+  text-align: center;
+}
+
+.page-post .post-title {
+  text-align: center;
+}
+
+.page-post .post-footer {
+  max-width: 750px;
+}
+
+.page-post .post-nav {
+  max-width: 750px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
+}
+
+.page-post .post-copyright {
+  max-width: 750px;
+}
+
+/* ── Home page — card list ─────────────────────────────── */
+.page-home .posts-expand {
+  max-width: 800px;
+}
+
+.page-home .index.posts-card {
+  max-width: 800px;
+}
+
+.page-home .pagination {
+  max-width: 800px;
+  text-align: center;
+}
+
+/* ── Archive page ──────────────────────────────────────── */
+.page-archive .archive {
+  max-width: 800px;
+}
+
+.page-archive .collection-title {
   text-align: left;
-  width: 100%;
 }
 
-/* 归档页面 */
-.archive {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.page-archive .post-header {
+  max-width: 100%;
 }
 
-.archive .collection-title,
-.archive .post-header,
-.archive .post-body {
-  width: 100%;
-  max-width: 780px;
+/* ── Category page ─────────────────────────────────────── */
+.page-categories .category-all-page {
+  max-width: 800px;
 }
 
-/* 标签云 */
-.tag-cloud {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.page-categories .category-all-title {
+  display: block;
+  text-align: left;
 }
 
-.tag-cloud-tags {
+/* ── Tag cloud page ────────────────────────────────────── */
+.page-tags .tag-cloud {
+  max-width: 800px;
+}
+
+.page-tags .tag-cloud-title {
+  display: block;
+  text-align: left;
+}
+
+.page-tags .tag-cloud-tags {
+  justify-content: center;
+}
+
+/* ── About page ────────────────────────────────────────── */
+.page-about .post-body {
+  max-width: 750px;
+}
+
+.page-about .post-header {
   text-align: center;
 }
 
-/* 分类页面 */
-.category-all {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.category-all .category-list {
-  width: 100%;
-  max-width: 780px;
-}
-
-/* 导航页面 */
-.dev-nav-container {
-  max-width: 1100px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-sizing: border-box;
-}
-
-.dev-nav-search {
-  width: 100%;
+/* ── Pagination (global) ───────────────────────────────── */
+.pagination {
   text-align: center;
+  padding: 24px 0;
 }
 
-.dev-nav-grid {
-  width: 100%;
+/* ── Post navigation (prev/next) ───────────────────────── */
+.post-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 0;
 }
 
-/* 通用 - 确保 flex 子元素不被压缩 */
-.post-body > *:not(.dev-nav-container) {
-  width: 100%;
-  max-width: 780px;
+.post-nav-item {
+  flex: 1;
+}
+
+/* ── Custom page types ─────────────────────────────────── */
+/* Navigation page — already self-contained, ensure centering */
+.page-dev-nav .dev-nav-wrapper {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── Post body inner elements ──────────────────────────── */
+.post-body > * {
+  max-width: 100%;
+}
+
+/* Tables, code blocks should stay within reading width */
+.page-post .post-body table,
+.page-post .post-body pre,
+.page-post .post-body .highlight {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* ── Blockquote ────────────────────────────────────────── */
+.page-post .post-body blockquote {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── Dark mode — no changes needed, variables handle it ── */
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .page-post .post-body,
+  .page-post .post-header,
+  .page-post .post-footer,
+  .page-post .post-nav,
+  .page-post .post-copyright {
+    max-width: 100%;
+  }
+
+  .page-home .posts-expand,
+  .page-home .index.posts-card,
+  .page-home .pagination,
+  .page-archive .archive,
+  .page-categories .category-all-page,
+  .page-tags .tag-cloud {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .main-inner {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .post-nav {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .post-title {
+    font-size: 1.4rem;
+  }
+
+  .pagination {
+    padding: 16px 0;
+  }
+}
+
+/* ── Accessibility: reduced motion ──────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .index.posts-card .post-block,
+  .post-body,
+  .post-header {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }

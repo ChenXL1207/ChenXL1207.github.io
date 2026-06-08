@@ -2,9 +2,10 @@
 
 /* Category page */
 .category-all-page {
-  margin: 20px 0;
+  margin: 20px auto;
   padding: 0;
   background: transparent;
+  max-width: 800px;
 }
 
 .category-all-title {
@@ -14,13 +15,15 @@
   margin-bottom: 20px;
   padding-bottom: 12px;
   border-bottom: 2px solid var(--border);
-  display: inline-block;
+  display: block;
+  text-align: center;
   letter-spacing: -0.01em;
 }
 
 .category-all {
   display: grid;
   gap: 0;
+  justify-content: center;
 }
 
 .category-list {
@@ -84,9 +87,10 @@
 
 /* Tag cloud page */
 .tag-cloud {
-  margin: 20px 0;
+  margin: 20px auto;
   padding: 0;
   background: transparent;
+  max-width: 800px;
 }
 
 .tag-cloud-title {
@@ -96,7 +100,8 @@
   margin-bottom: 20px;
   padding-bottom: 12px;
   border-bottom: 2px solid var(--border);
-  display: inline-block;
+  display: block;
+  text-align: center;
   letter-spacing: -0.01em;
 }
 
@@ -106,6 +111,7 @@
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 16px;
+  justify-content: center;
 }
 
 .tag-cloud-tags a {
@@ -142,7 +148,7 @@
 
 /* Page title for categories/tags */
 .page-title {
-  text-align: left;
+  text-align: center;
   margin-bottom: 24px;
   padding-bottom: 16px;
   border-bottom: 2px solid var(--border);

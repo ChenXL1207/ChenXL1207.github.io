@@ -20,15 +20,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"chenxl1207.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"github","dark":"github"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"language":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="🛠️ 开发工具        💙 VS Code     🧠 JetBrains     🐙 GitHub     🤶 Gitee     📦 Git     🐳 Docker          🌐 前端开发        📖 MDN 文档     💚 Vue.js     ⚛️ React     🔺 Angular     🎨 Tailw">
+    <meta name="description" content="⚡   开发者导航   精选优质开发资源，助你高效工作与学习            📂 分类 10     🔗 资源 60     ✨ 持续更新中          🔍           Ctrl K               全部 60           🛠️ 开发工具 6           🌐 前端开发 6           ⚙️ 后端开发 6">
 <meta property="og:type" content="website">
 <meta property="og:title" content="程序员导航">
 <meta property="og:url" content="https://chenxl1207.github.io/dev-nav/index.html">
 <meta property="og:site_name" content="ChenXuanliang Blog">
-<meta property="og:description" content="🛠️ 开发工具        💙 VS Code     🧠 JetBrains     🐙 GitHub     🤶 Gitee     📦 Git     🐳 Docker          🌐 前端开发        📖 MDN 文档     💚 Vue.js     ⚛️ React     🔺 Angular     🎨 Tailw">
+<meta property="og:description" content="⚡   开发者导航   精选优质开发资源，助你高效工作与学习            📂 分类 10     🔗 资源 60     ✨ 持续更新中          🔍           Ctrl K               全部 60           🛠️ 开发工具 6           🌐 前端开发 6           ⚙️ 后端开发 6">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-05-28T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-05-30T13:54:21.173Z">
+<meta property="article:modified_time" content="2026-06-02T08:42:59.372Z">
 <meta property="article:author" content="Chen Xuanliang">
 <meta property="article:tag" content="博客,技术,生活">
 <meta name="twitter:card" content="summary">
@@ -84,18 +84,33 @@
   <script src="/js/third-party/quicklink.js" defer></script>
 
 <style id="anti-fouc">
-  html { opacity: 0; }
+  html {
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+  html.revealed {
+    opacity: 1;
+  }
 </style>
 <script>
   (function () {
     function revealPage() {
-      document.documentElement.style.opacity = "1";
-      var s = document.getElementById("anti-fouc");
-      if (s) s.remove();
+      // Use CSS class for smooth transition instead of inline style
+      document.documentElement.classList.add('revealed');
+      var s = document.getElementById('anti-fouc');
+      if (s) {
+        // Remove after transition completes
+        setTimeout(function() { if (s) s.remove(); }, 200);
+      }
     }
-    window.addEventListener("load", revealPage, { once: true });
-    window.addEventListener("pageshow", revealPage, { once: true });
-    setTimeout(revealPage, 1800);
+    // Only use 'load' event — 'pageshow' causes flash on bfcache restore
+    if (document.readyState === 'complete') {
+      revealPage();
+    } else {
+      window.addEventListener('load', revealPage, { once: true });
+    }
+    // Fallback: reveal after 600ms max, shorter than before
+    setTimeout(revealPage, 600);
   })();
 </script>
 <link rel="stylesheet" href="/css/variables.css">
@@ -272,7 +287,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-text">🛠️ 开发工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-text">🌐 前端开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-text">⚙️ 后端开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-text">🗄️ 数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-text">🤖 AI &amp; 大模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-text">🔧 在线工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-text">📚 学习资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-text">🎨 设计资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-text">☁️ 云服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-text">⚡ 效率工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-text">⚡ 效率工具</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-text">开发者导航</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dev-nav-grid"><span class="nav-text">开发工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dev-nav-grid"><span class="nav-text">前端开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dev-nav-grid"><span class="nav-text">后端开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dev-nav-grid"><span class="nav-text">数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dev-nav-grid"><span class="nav-text">AI &amp; 大模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dev-nav-grid"><span class="nav-text">在线工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dev-nav-grid"><span class="nav-text">学习资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dev-nav-grid"><span class="nav-text">设计资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dev-nav-grid"><span class="nav-text">云服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dev-nav-grid"><span class="nav-text">效率工具</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -437,178 +452,562 @@
       
       
       <div class="post-body">
-          <div class="dev-nav-container">
+          <div class="dev-nav-wrapper">
 
-<!-- 搜索栏 -->
-<div class="dev-nav-search">
-  <input type="text" id="dev-nav-input" placeholder="🔍 搜索工具、网站、资源..." oninput="filterNav(this.value)">
-</div>
+<!-- ═══════════════════════════════════════════════════════════
+     HERO SECTION
+     ═══════════════════════════════════════════════════════════ -->
+<div class="dev-nav-hero">
+  <div class="dev-nav-hero-icon">⚡</div>
+  <h1>开发者导航</h1>
+  <p>精选优质开发资源，助你高效工作与学习</p>
 
-<!-- 分类导航 -->
-<div class="dev-nav-grid">
-
-<!-- ========== 开发工具 ========== -->
-<div class="dev-nav-card" data-keywords="vscode ide 编辑器 开发工具">
-  <h3>🛠️ 开发工具</h3>
-  <div class="dev-nav-links">
-    <a href="https://code.visualstudio.com/" target="_blank"><span class="dev-icon">💙</span> VS Code</a>
-    <a href="https://www.jetbrains.com/" target="_blank"><span class="dev-icon">🧠</span> JetBrains</a>
-    <a href="https://github.com/" target="_blank"><span class="dev-icon">🐙</span> GitHub</a>
-    <a href="https://gitee.com/" target="_blank"><span class="dev-icon">🤶</span> Gitee</a>
-    <a href="https://git-scm.com/" target="_blank"><span class="dev-icon">📦</span> Git</a>
-    <a href="https://www.docker.com/" target="_blank"><span class="dev-icon">🐳</span> Docker</a>
+  <!-- Stats bar -->
+  <div class="dev-nav-stats">
+    <div class="dev-nav-stat">📂 分类 <strong>10</strong></div>
+    <div class="dev-nav-stat">🔗 资源 <strong>60</strong></div>
+    <div class="dev-nav-stat">✨ 持续更新中</div>
   </div>
 </div>
 
-<!-- ========== 前端开发 ========== -->
-<div class="dev-nav-card" data-keywords="前端 vue react css javascript html">
-  <h3>🌐 前端开发</h3>
+<!-- ═══════════════════════════════════════════════════════════
+     SEARCH
+     ═══════════════════════════════════════════════════════════ -->
+<div class="dev-nav-search-wrap">
+  <span class="search-icon">🔍</span>
+  <input
+    type="text"
+    id="dev-nav-input"
+    placeholder="搜索工具、框架、资源..."
+    oninput="filterNav(this.value)"
+    autocomplete="off"
+  />
+  <span class="search-shortcut">
+    <kbd>Ctrl</kbd> <kbd>K</kbd>
+  </span>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FILTER CHIPS
+     ═══════════════════════════════════════════════════════════ -->
+<div class="dev-nav-filters" id="dev-nav-filters">
+  <button class="dev-nav-chip active" data-filter="all" onclick="filterByCategory('all', this)">
+    全部 <span class="chip-count">60</span>
+  </button>
+  <button class="dev-nav-chip chip-dev" data-filter="dev" onclick="filterByCategory('dev', this)">
+    🛠️ 开发工具 <span class="chip-count">6</span>
+  </button>
+  <button class="dev-nav-chip chip-frontend" data-filter="frontend" onclick="filterByCategory('frontend', this)">
+    🌐 前端开发 <span class="chip-count">6</span>
+  </button>
+  <button class="dev-nav-chip chip-backend" data-filter="backend" onclick="filterByCategory('backend', this)">
+    ⚙️ 后端开发 <span class="chip-count">6</span>
+  </button>
+  <button class="dev-nav-chip chip-database" data-filter="database" onclick="filterByCategory('database', this)">
+    🗄️ 数据库 <span class="chip-count">6</span>
+  </button>
+  <button class="dev-nav-chip chip-ai" data-filter="ai" onclick="filterByCategory('ai', this)">
+    🤖 AI & 大模型 <span class="chip-count">6</span>
+  </button>
+  <button class="dev-nav-chip chip-tools" data-filter="tools" onclick="filterByCategory('tools', this)">
+    🔧 在线工具 <span class="chip-count">6</span>
+  </button>
+  <button class="dev-nav-chip chip-learning" data-filter="learning" onclick="filterByCategory('learning', this)">
+    📚 学习资源 <span class="chip-count">6</span>
+  </button>
+  <button class="dev-nav-chip chip-design" data-filter="design" onclick="filterByCategory('design', this)">
+    🎨 设计资源 <span class="chip-count">6</span>
+  </button>
+  <button class="dev-nav-chip chip-cloud" data-filter="cloud" onclick="filterByCategory('cloud', this)">
+    ☁️ 云服务 <span class="chip-count">6</span>
+  </button>
+  <button class="dev-nav-chip chip-productivity" data-filter="productivity" onclick="filterByCategory('productivity', this)">
+    ⚡ 效率工具 <span class="chip-count">6</span>
+  </button>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     NO RESULTS
+     ═══════════════════════════════════════════════════════════ -->
+<div class="dev-nav-no-results" id="dev-nav-no-results">
+  <div class="no-results-icon">🔎</div>
+  <p>没有找到匹配的资源，试试其他关键词吧</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CARD GRID
+     ═══════════════════════════════════════════════════════════ -->
+<div class="dev-nav-grid" id="dev-nav-grid">
+
+<!-- ── 🛠️ 开发工具 ── -->
+<div class="dev-nav-card cat-dev" data-keywords="vscode ide 编辑器 开发工具 git docker postman terminal 版本控制">
+  <div class="dev-nav-card-header">
+    <span class="card-icon">🛠️</span>
+    <h3>开发工具</h3>
+    <span class="card-badge">6</span>
+  </div>
   <div class="dev-nav-links">
-    <a href="https://developer.mozilla.org/zh-CN/" target="_blank"><span class="dev-icon">📖</span> MDN 文档</a>
-    <a href="https://vuejs.org/" target="_blank"><span class="dev-icon">💚</span> Vue.js</a>
-    <a href="https://react.dev/" target="_blank"><span class="dev-icon">⚛️</span> React</a>
-    <a href="https://angular.dev/" target="_blank"><span class="dev-icon">🔺</span> Angular</a>
-    <a href="https://tailwindcss.com/" target="_blank"><span class="dev-icon">🎨</span> Tailwind CSS</a>
-    <a href="https://caniuse.com/" target="_blank"><span class="dev-icon">✅</span> Can I Use</a>
+    <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">
+      <span class="link-icon">💙</span>VS Code
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://www.jetbrains.com/" target="_blank" rel="noopener">
+      <span class="link-icon">🧠</span>JetBrains
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://github.com/" target="_blank" rel="noopener">
+      <span class="link-icon">🐙</span>GitHub
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://git-scm.com/" target="_blank" rel="noopener">
+      <span class="link-icon">📦</span>Git
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://www.docker.com/" target="_blank" rel="noopener">
+      <span class="link-icon">🐳</span>Docker
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://www.postman.com/" target="_blank" rel="noopener">
+      <span class="link-icon">📮</span>Postman
+      <span class="external-hint">↗</span>
+    </a>
   </div>
 </div>
 
-<!-- ========== 后端开发 ========== -->
-<div class="dev-nav-card" data-keywords="后端 java python go api 服务器">
-  <h3>⚙️ 后端开发</h3>
+<!-- ── 🌐 前端开发 ── -->
+<div class="dev-nav-card cat-frontend" data-keywords="前端 vue react css javascript html typescript web svelte tailwind nextjs nuxt">
+  <div class="dev-nav-card-header">
+    <span class="card-icon">🌐</span>
+    <h3>前端开发</h3>
+    <span class="card-badge">6</span>
+  </div>
   <div class="dev-nav-links">
-    <a href="https://spring.io/" target="_blank"><span class="dev-icon">🍃</span> Spring</a>
-    <a href="https://docs.python.org/" target="_blank"><span class="dev-icon">🐍</span> Python Docs</a>
-    <a href="https://go.dev/doc/" target="_blank"><span class="dev-icon">🐹</span> Go Docs</a>
-    <a href="https://nodejs.org/" target="_blank"><span class="dev-icon">🟢</span> Node.js</a>
-    <a href="https://expressjs.com/" target="_blank"><span class="dev-icon">🚂</span> Express</a>
-    <a href="https://fastapi.tiangolo.com/" target="_blank"><span class="dev-icon">⚡</span> FastAPI</a>
+    <a href="https://developer.mozilla.org/zh-CN/" target="_blank" rel="noopener">
+      <span class="link-icon">📖</span>MDN 文档
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://vuejs.org/" target="_blank" rel="noopener">
+      <span class="link-icon">💚</span>Vue.js
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://react.dev/" target="_blank" rel="noopener">
+      <span class="link-icon">⚛️</span>React
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://tailwindcss.com/" target="_blank" rel="noopener">
+      <span class="link-icon">🎨</span>Tailwind CSS
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://nextjs.org/" target="_blank" rel="noopener">
+      <span class="link-icon">▲</span>Next.js
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://www.typescriptlang.org/" target="_blank" rel="noopener">
+      <span class="link-icon">🔷</span>TypeScript
+      <span class="external-hint">↗</span>
+    </a>
   </div>
 </div>
 
-<!-- ========== 数据库 ========== -->
-<div class="dev-nav-card" data-keywords="数据库 mysql redis mongodb sql">
-  <h3>🗄️ 数据库</h3>
+<!-- ── ⚙️ 后端开发 ── -->
+<div class="dev-nav-card cat-backend" data-keywords="后端 java python go rust nodejs api 服务器 spring fastapi express">
+  <div class="dev-nav-card-header">
+    <span class="card-icon">⚙️</span>
+    <h3>后端开发</h3>
+    <span class="card-badge">6</span>
+  </div>
   <div class="dev-nav-links">
-    <a href="https://dev.mysql.com/doc/" target="_blank"><span class="dev-icon">🐬</span> MySQL</a>
-    <a href="https://redis.io/docs/" target="_blank"><span class="dev-icon">🔴</span> Redis</a>
-    <a href="https://www.mongodb.com/docs/" target="_blank"><span class="dev-icon">🍃</span> MongoDB</a>
-    <a href="https://www.postgresql.org/docs/" target="_blank"><span class="dev-icon">🐘</span> PostgreSQL</a>
-    <a href="https://sqlite.org/" target="_blank"><span class="dev-icon">💎</span> SQLite</a>
-    <a href="https://clickhouse.com/docs" target="_blank"><span class="dev-icon">⚡</span> ClickHouse</a>
+    <a href="https://spring.io/" target="_blank" rel="noopener">
+      <span class="link-icon">🍃</span>Spring
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://docs.python.org/zh-cn/3/" target="_blank" rel="noopener">
+      <span class="link-icon">🐍</span>Python
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://go.dev/doc/" target="_blank" rel="noopener">
+      <span class="link-icon">🐹</span>Go
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://nodejs.org/" target="_blank" rel="noopener">
+      <span class="link-icon">🟢</span>Node.js
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://fastapi.tiangolo.com/" target="_blank" rel="noopener">
+      <span class="link-icon">⚡</span>FastAPI
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://www.rust-lang.org/" target="_blank" rel="noopener">
+      <span class="link-icon">🦀</span>Rust
+      <span class="external-hint">↗</span>
+    </a>
   </div>
 </div>
 
-<!-- ========== AI & 大模型 ========== -->
-<div class="dev-nav-card" data-keywords="ai 人工智能 大模型 chatgpt 机器学习 深度学习">
-  <h3>🤖 AI & 大模型</h3>
+<!-- ── 🗄️ 数据库 ── -->
+<div class="dev-nav-card cat-database" data-keywords="数据库 mysql redis mongodb sql postgresql sqlite elasticsearch 缓存">
+  <div class="dev-nav-card-header">
+    <span class="card-icon">🗄️</span>
+    <h3>数据库</h3>
+    <span class="card-badge">6</span>
+  </div>
   <div class="dev-nav-links">
-    <a href="https://chat.openai.com/" target="_blank"><span class="dev-icon">💬</span> ChatGPT</a>
-    <a href="https://claude.ai/" target="_blank"><span class="dev-icon">🟠</span> Claude</a>
-    <a href="https://huggingface.co/" target="_blank"><span class="dev-icon">🤗</span> Hugging Face</a>
-    <a href="https://pytorch.org/" target="_blank"><span class="dev-icon">🔥</span> PyTorch</a>
-    <a href="https://tensorflow.google.cn/" target="_blank"><span class="dev-icon">🧠</span> TensorFlow</a>
-    <a href="https://openai.com/api/" target="_blank"><span class="dev-icon">🔑</span> OpenAI API</a>
+    <a href="https://dev.mysql.com/doc/" target="_blank" rel="noopener">
+      <span class="link-icon">🐬</span>MySQL
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://redis.io/docs/" target="_blank" rel="noopener">
+      <span class="link-icon">🔴</span>Redis
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://www.mongodb.com/docs/" target="_blank" rel="noopener">
+      <span class="link-icon">🍃</span>MongoDB
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://www.postgresql.org/docs/" target="_blank" rel="noopener">
+      <span class="link-icon">🐘</span>PostgreSQL
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://sqlite.org/" target="_blank" rel="noopener">
+      <span class="link-icon">💎</span>SQLite
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://clickhouse.com/docs" target="_blank" rel="noopener">
+      <span class="link-icon">⚡</span>ClickHouse
+      <span class="external-hint">↗</span>
+    </a>
   </div>
 </div>
 
-<!-- ========== 在线工具 ========== -->
-<div class="dev-nav-card" data-keywords="工具 在线 json 正则 测试 转换">
-  <h3>🔧 在线工具</h3>
+<!-- ── 🤖 AI & 大模型 ── -->
+<div class="dev-nav-card cat-ai" data-keywords="ai 人工智能 大模型 chatgpt 机器学习 深度学习 llm langchain pytorch tensorflow claude huggingface">
+  <div class="dev-nav-card-header">
+    <span class="card-icon">🤖</span>
+    <h3>AI & 大模型</h3>
+    <span class="card-badge">6</span>
+  </div>
   <div class="dev-nav-links">
-    <a href="https://www.json.cn/" target="_blank"><span class="dev-icon">📋</span> JSON 解析</a>
-    <a href="https://regex101.com/" target="_blank"><span class="dev-icon">🔍</span> 正则测试</a>
-    <a href="https://tool.lu/" target="_blank"><span class="dev-icon">🧰</span> 在线工具箱</a>
-    <a href="https://www.base64encode.org/" target="_blank"><span class="dev-icon">🔐</span> Base64</a>
-    <a href="https://cron-expression-generator.quuate.com/" target="_blank"><span class="dev-icon">⏰</span> Cron 生成器</a>
-    <a href="https://carbon.now.sh/" target="_blank"><span class="dev-icon">📸</span> 代码截图</a>
+    <a href="https://chat.openai.com/" target="_blank" rel="noopener">
+      <span class="link-icon">💬</span>ChatGPT
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://claude.ai/" target="_blank" rel="noopener">
+      <span class="link-icon">🟠</span>Claude
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://huggingface.co/" target="_blank" rel="noopener">
+      <span class="link-icon">🤗</span>Hugging Face
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://pytorch.org/" target="_blank" rel="noopener">
+      <span class="link-icon">🔥</span>PyTorch
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://www.langchain.com/" target="_blank" rel="noopener">
+      <span class="link-icon">🦜</span>LangChain
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://ollama.com/" target="_blank" rel="noopener">
+      <span class="link-icon">🦙</span>Ollama
+      <span class="external-hint">↗</span>
+    </a>
   </div>
 </div>
 
-<!-- ========== 学习资源 ========== -->
-<div class="dev-nav-card" data-keywords="学习 教程 视频 课程 面试">
-  <h3>📚 学习资源</h3>
+<!-- ── 🔧 在线工具 ── -->
+<div class="dev-nav-card cat-tools" data-keywords="工具 在线 json 正则 测试 转换 格式化 编码 加解密">
+  <div class="dev-nav-card-header">
+    <span class="card-icon">🔧</span>
+    <h3>在线工具</h3>
+    <span class="card-badge">6</span>
+  </div>
   <div class="dev-nav-links">
-    <a href="https://leetcode.cn/" target="_blank"><span class="dev-icon">💻</span> LeetCode</a>
-    <a href="https://www.nowcoder.com/" target="_blank"><span class="dev-icon">🐂</span> 牛客网</a>
-    <a href="https://www.runoob.com/" target="_blank"><span class="dev-icon">📖</span> 菜鸟教程</a>
-    <a href="https://juejin.cn/" target="_blank"><span class="dev-icon">💎</span> 掘金</a>
-    <a href="https://www.bilibili.com/" target="_blank"><span class="dev-icon">📺</span> B 站</a>
-    <a href="https://roadmap.sh/" target="_blank"><span class="dev-icon">🗺️</span> 学习路线图</a>
+    <a href="https://www.json.cn/" target="_blank" rel="noopener">
+      <span class="link-icon">📋</span>JSON 解析
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://regex101.com/" target="_blank" rel="noopener">
+      <span class="link-icon">🔍</span>正则测试
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://tool.lu/" target="_blank" rel="noopener">
+      <span class="link-icon">🧰</span>在线工具箱
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://carbon.now.sh/" target="_blank" rel="noopener">
+      <span class="link-icon">📸</span>代码截图
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://it-tools.tech/" target="_blank" rel="noopener">
+      <span class="link-icon">🛠️</span>IT-Tools
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://excalidraw.com/" target="_blank" rel="noopener">
+      <span class="link-icon">✏️</span>Excalidraw
+      <span class="external-hint">↗</span>
+    </a>
   </div>
 </div>
 
-<!-- ========== 设计资源 ========== -->
-<div class="dev-nav-card" data-keywords="设计 图标 配色 ui ux 素材">
-  <h3>🎨 设计资源</h3>
+<!-- ── 📚 学习资源 ── -->
+<div class="dev-nav-card cat-learning" data-keywords="学习 教程 视频 课程 面试 算法 刷题 博客 社区">
+  <div class="dev-nav-card-header">
+    <span class="card-icon">📚</span>
+    <h3>学习资源</h3>
+    <span class="card-badge">6</span>
+  </div>
   <div class="dev-nav-links">
-    <a href="https://www.iconfont.cn/" target="_blank"><span class="dev-icon">✨</span> Iconfont</a>
-    <a href="https://fonts.google.com/" target="_blank"><span class="dev-icon">🔤</span> Google Fonts</a>
-    <a href="https://colorhunt.co/" target="_blank"><span class="dev-icon">🎨</span> Color Hunt</a>
-    <a href="https://www.figma.com/" target="_blank"><span class="dev-icon">🖌️</span> Figma</a>
-    <a href="https://unsplash.com/" target="_blank"><span class="dev-icon">📷</span> Unsplash</a>
-    <a href="https://coolors.co/" target="_blank"><span class="dev-icon">🌈</span> Coolors</a>
+    <a href="https://leetcode.cn/" target="_blank" rel="noopener">
+      <span class="link-icon">💻</span>LeetCode
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://www.nowcoder.com/" target="_blank" rel="noopener">
+      <span class="link-icon">🐂</span>牛客网
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://www.runoob.com/" target="_blank" rel="noopener">
+      <span class="link-icon">📖</span>菜鸟教程
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://juejin.cn/" target="_blank" rel="noopener">
+      <span class="link-icon">💎</span>掘金
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://roadmap.sh/" target="_blank" rel="noopener">
+      <span class="link-icon">🗺️</span>学习路线
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://xiaolincoding.com/" target="_blank" rel="noopener">
+      <span class="link-icon">📘</span>小林Coding
+      <span class="external-hint">↗</span>
+    </a>
   </div>
 </div>
 
-<!-- ========== 云服务 ========== -->
-<div class="dev-nav-card" data-keywords="云服务 服务器 部署 域名 cdn">
-  <h3>☁️ 云服务</h3>
+<!-- ── 🎨 设计资源 ── -->
+<div class="dev-nav-card cat-design" data-keywords="设计 图标 配色 ui ux 素材 字体 插画 原型">
+  <div class="dev-nav-card-header">
+    <span class="card-icon">🎨</span>
+    <h3>设计资源</h3>
+    <span class="card-badge">6</span>
+  </div>
   <div class="dev-nav-links">
-    <a href="https://cloud.tencent.com/" target="_blank"><span class="dev-icon">☁️</span> 腾讯云</a>
-    <a href="https://www.aliyun.com/" target="_blank"><span class="dev-icon">🔶</span> 阿里云</a>
-    <a href="https://vercel.com/" target="_blank"><span class="dev-icon">▲</span> Vercel</a>
-    <a href="https://netlify.com/" target="_blank"><span class="dev-icon">🔷</span> Netlify</a>
-    <a href="https://pages.cloudflare.com/" target="_blank"><span class="dev-icon">🛡️</span> Cloudflare Pages</a>
-    <a href="https://aws.amazon.com/" target="_blank"><span class="dev-icon">🟧</span> AWS</a>
+    <a href="https://www.iconfont.cn/" target="_blank" rel="noopener">
+      <span class="link-icon">✨</span>Iconfont
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://fonts.google.com/" target="_blank" rel="noopener">
+      <span class="link-icon">🔤</span>Google Fonts
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://colorhunt.co/" target="_blank" rel="noopener">
+      <span class="link-icon">🎨</span>Color Hunt
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://www.figma.com/" target="_blank" rel="noopener">
+      <span class="link-icon">🖌️</span>Figma
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://unsplash.com/" target="_blank" rel="noopener">
+      <span class="link-icon">📷</span>Unsplash
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://coolors.co/" target="_blank" rel="noopener">
+      <span class="link-icon">🌈</span>Coolors
+      <span class="external-hint">↗</span>
+    </a>
   </div>
 </div>
 
-<!-- ========== 效率工具 ========== -->
-<div class="dev-nav-card" data-keywords="效率 笔记 文档 协作 管理">
-  <h3>⚡ 效率工具</h3>
+<!-- ── ☁️ 云服务 ── -->
+<div class="dev-nav-card cat-cloud" data-keywords="云服务 服务器 部署 域名 cdn serverless hosting paas">
+  <div class="dev-nav-card-header">
+    <span class="card-icon">☁️</span>
+    <h3>云服务</h3>
+    <span class="card-badge">6</span>
+  </div>
   <div class="dev-nav-links">
-    <a href="https://notion.so/" target="_blank"><span class="dev-icon">📓</span> Notion</a>
-    <a href="https://www.yuque.com/" target="_blank"><span class="dev-icon">🐦</span> 语雀</a>
-    <a href="https://postman.com/" target="_blank"><span class="dev-icon">📮</span> Postman</a>
-    <a href="https://draw.io/" target="_blank"><span class="dev-icon">📊</span> Draw.io</a>
-    <a href="https://trello.com/" target="_blank"><span class="dev-icon">📋</span> Trello</a>
-    <a href="https://obsidian.md/" target="_blank"><span class="dev-icon">💎</span> Obsidian</a>
+    <a href="https://cloud.tencent.com/" target="_blank" rel="noopener">
+      <span class="link-icon">☁️</span>腾讯云
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://www.aliyun.com/" target="_blank" rel="noopener">
+      <span class="link-icon">🔶</span>阿里云
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://vercel.com/" target="_blank" rel="noopener">
+      <span class="link-icon">▲</span>Vercel
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://www.netlify.com/" target="_blank" rel="noopener">
+      <span class="link-icon">🔷</span>Netlify
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://pages.cloudflare.com/" target="_blank" rel="noopener">
+      <span class="link-icon">🛡️</span>Cloudflare
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://supabase.com/" target="_blank" rel="noopener">
+      <span class="link-icon">⚡</span>Supabase
+      <span class="external-hint">↗</span>
+    </a>
   </div>
 </div>
 
-<!-- ========== 其他工具 ========== -->
-<div class="dev-nav-card" data-keywords="效率 笔记 文档 协作 管理">
-  <h3>⚡ 效率工具</h3>
+<!-- ── ⚡ 效率工具 ── -->
+<div class="dev-nav-card cat-productivity" data-keywords="效率 笔记 文档 协作 管理 知识库 项目管理 写作">
+  <div class="dev-nav-card-header">
+    <span class="card-icon">⚡</span>
+    <h3>效率工具</h3>
+    <span class="card-badge">6</span>
+  </div>
   <div class="dev-nav-links">
-    <a href="https://llfc.club/" target="_blank"><span class="dev-icon">| 恋恋风辰 |</a>
-    <a href="xiaolincoding.com" target="_blank"><span class="dev-icon">小林coding |</a>
-    <a href="https://postman.com/" target="_blank"><span class="dev-icon">📮</span> Postman</a>
-    <a href="https://draw.io/" target="_blank"><span class="dev-icon">📊</span> Draw.io</a>
-    <a href="https://trello.com/" target="_blank"><span class="dev-icon">📋</span> Trello</a>
-    <a href="https://obsidian.md/" target="_blank"><span class="dev-icon">💎</span> Obsidian</a>
+    <a href="https://www.notion.so/" target="_blank" rel="noopener">
+      <span class="link-icon">📓</span>Notion
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://www.yuque.com/" target="_blank" rel="noopener">
+      <span class="link-icon">🐦</span>语雀
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://draw.io/" target="_blank" rel="noopener">
+      <span class="link-icon">📊</span>Draw.io
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://obsidian.md/" target="_blank" rel="noopener">
+      <span class="link-icon">💎</span>Obsidian
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://linear.app/" target="_blank" rel="noopener">
+      <span class="link-icon">📐</span>Linear
+      <span class="external-hint">↗</span>
+    </a>
+    <a href="https://tldraw.com/" target="_blank" rel="noopener">
+      <span class="link-icon">✍️</span>tldraw
+      <span class="external-hint">↗</span>
+    </a>
   </div>
 </div>
 
+</div><!-- /dev-nav-grid -->
 
-
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════════════════ -->
+<div class="dev-nav-footer">
+  <p>💡 发现好工具？欢迎 <a href="https://github.com/ChenXL1207/ChenXL1207.github.io" target="_blank">提交 PR</a> 一起维护这个导航站</p>
+  <span>— END —</span>
 </div>
-</div>
 
+</div><!-- /dev-nav-wrapper -->
+
+<!-- ═══════════════════════════════════════════════════════════
+     SCRIPTS
+     ═══════════════════════════════════════════════════════════ -->
 <script>
-function filterNav(keyword) {
-  keyword = keyword.toLowerCase();
-  var cards = document.querySelectorAll('.dev-nav-card');
-  cards.forEach(function(card) {
-    var text = card.textContent.toLowerCase();
-    var kw = card.dataset.keywords || '';
-    if (text.indexOf(keyword) !== -1 || kw.indexOf(keyword) !== -1) {
-      card.style.display = '';
-    } else {
-      card.style.display = 'none';
+(function() {
+  var currentFilter = 'all';
+  var searchTerm = '';
+
+  /* ── Search filter ───────────────────────────────────── */
+  window.filterNav = function(keyword) {
+    searchTerm = keyword.toLowerCase().trim();
+    applyFilters();
+  };
+
+  /* ── Category filter ─────────────────────────────────── */
+  window.filterByCategory = function(category, btn) {
+    currentFilter = category;
+
+    // Update chip active state
+    var chips = document.querySelectorAll('.dev-nav-chip');
+    chips.forEach(function(c) { c.classList.remove('active'); });
+    btn.classList.add('active');
+
+    // Clear search when switching category
+    var input = document.getElementById('dev-nav-input');
+    if (input && category !== 'all') {
+      input.value = '';
+      searchTerm = '';
+    }
+
+    applyFilters();
+  };
+
+  /* ── Apply combined filters ──────────────────────────── */
+  function applyFilters() {
+    var cards = document.querySelectorAll('.dev-nav-card');
+    var noResults = document.getElementById('dev-nav-no-results');
+    var visibleCount = 0;
+
+    cards.forEach(function(card) {
+      var matchCategory = (currentFilter === 'all') ||
+        card.classList.contains('cat-' + currentFilter);
+
+      var text = card.textContent.toLowerCase();
+      var keywords = (card.dataset.keywords || '').toLowerCase();
+      var matchSearch = !searchTerm ||
+        text.indexOf(searchTerm) !== -1 ||
+        keywords.indexOf(searchTerm) !== -1;
+
+      if (matchCategory && matchSearch) {
+        card.classList.remove('filtered-out', 'filter-fading');
+        visibleCount++;
+        // Reset animation for staggered re-entrance
+        card.style.animation = 'none';
+        card.offsetHeight; // trigger reflow
+        card.style.animation = '';
+      } else {
+        card.classList.add('filter-fading');
+        // Add display:none after transition
+        setTimeout(function(c) {
+          if (c.classList.contains('filter-fading')) {
+            c.classList.add('filtered-out');
+          }
+        }, 200, card);
+      }
+    });
+
+    // Show/hide no-results
+    if (noResults) {
+      if (visibleCount === 0) {
+        noResults.classList.add('show');
+      } else {
+        noResults.classList.remove('show');
+      }
+    }
+  }
+
+  /* ── Keyboard shortcut: Ctrl+K / Cmd+K to focus search ─ */
+  document.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      var input = document.getElementById('dev-nav-input');
+      if (input) { input.focus(); input.select(); }
+    }
+    // Escape to clear
+    if (e.key === 'Escape') {
+      var input = document.getElementById('dev-nav-input');
+      if (input && document.activeElement === input) {
+        input.value = '';
+        searchTerm = '';
+        applyFilters();
+        input.blur();
+      }
     }
   });
-}
+
+  /* ── Filter chip horizontal scroll with mouse wheel ──── */
+  var filterBar = document.getElementById('dev-nav-filters');
+  if (filterBar) {
+    filterBar.addEventListener('wheel', function(e) {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        filterBar.scrollLeft += e.deltaY;
+      }
+    }, { passive: false });
+  }
+})();
 </script>
 
       </div>
