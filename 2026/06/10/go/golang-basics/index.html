@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/ui/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chenxl1207.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"github","dark":"github"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"language":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="从零开始学习 Go 语言，涵盖基本变量、常量、数组、切片、Map 以及 Cobra 命令行库的使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go 语言入门教程 —— 从基本语法到高级数据结构">
+<meta property="og:url" content="https://chenxl1207.github.io/2026/06/10/go/golang-basics/index.html">
+<meta property="og:site_name" content="ChenXuanliang Blog">
+<meta property="og:description" content="从零开始学习 Go 语言，涵盖基本变量、常量、数组、切片、Map 以及 Cobra 命令行库的使用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-06-10T04:00:00.000Z">
+<meta property="article:modified_time" content="2026-06-10T05:25:05.814Z">
+<meta property="article:author" content="Chen Xuanliang">
+<meta property="article:tag" content="Go">
+<meta property="article:tag" content="Golang">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="编程入门">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://chenxl1207.github.io/2026/06/10/go/golang-basics/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://chenxl1207.github.io/2026/06/10/go/golang-basics/","path":"2026/06/10/go/golang-basics/","title":"Go 语言入门教程 —— 从基本语法到高级数据结构"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Go 语言入门教程 —— 从基本语法到高级数据结构 | ChenXuanliang Blog</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="/lib/@fancyapps/ui/dist/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script><script src="/js/bookmark.js" defer></script>
+
+  <script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><link rel="stylesheet" href="/lib/katex/dist/katex.min.css" integrity="sha256-UF1fgpAiu3tPJN/uCqEUHNe7pnr+QR0SQDNfgglgtcM=" crossorigin="anonymous">
+  <script class="next-config" data-name="katex" type="application/json">{"copy_tex_js":{"url":"/lib/katex/dist/contrib/copy-tex.min.js","integrity":"sha256-Us54+rSGDSTvIhKKUs4kygE2ipA0RXpWWh0/zLqw3bs="}}</script>
+  <script src="/js/third-party/math/katex.js" defer></script>
+
+
+  <script src="/lib/quicklink/dist/quicklink.umd.js" integrity="sha256-44BednzIpUeQJcY8qtLyarFu0UCCTbgmWOvaoehiFQQ=" crossorigin="anonymous" defer></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://chenxl1207.github.io/2026/06/10/go/golang-basics/"}</script>
+  <script src="/js/third-party/quicklink.js" defer></script>
+
+<style id="anti-fouc">
+  html {
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+  html.revealed {
+    opacity: 1;
+  }
+</style>
+<script>
+  (function () {
+    function revealPage() {
+      // Use CSS class for smooth transition instead of inline style
+      document.documentElement.classList.add('revealed');
+      var s = document.getElementById('anti-fouc');
+      if (s) {
+        // Remove after transition completes
+        setTimeout(function() { if (s) s.remove(); }, 200);
+      }
+    }
+    // Only use 'load' event — 'pageshow' causes flash on bfcache restore
+    if (document.readyState === 'complete') {
+      revealPage();
+    } else {
+      window.addEventListener('load', revealPage, { once: true });
+    }
+    // Fallback: reveal after 600ms max, shorter than before
+    setTimeout(revealPage, 600);
+  })();
+</script>
+<link rel="stylesheet" href="/css/variables.css">
+<link rel="stylesheet" href="/css/index-card.css">
+<link rel="stylesheet" href="/css/category-tag-style.css">
+<link rel="stylesheet" href="/css/sidebar-stats.css">
+<link rel="stylesheet" href="/css/modern-blog-upgrade.css">
+<link rel="stylesheet" href="/css/code-highlight.css">
+<link rel="stylesheet" href="/css/animations.css">
+<link rel="stylesheet" href="/css/featured-posts.css">
+<link rel="stylesheet" href="/css/sidebar-weather.css">
+<link rel="stylesheet" href="/css/click-effects.css">
+<link rel="stylesheet" href="/css/typewriter.css">
+<link rel="stylesheet" href="/css/github-calendar.css">
+<link rel="stylesheet" href="/css/mouse-trail.css">
+<link rel="stylesheet" href="/css/dev-nav.css">
+<link rel="stylesheet" href="/css/page-center.css">
+<script src="/js/category-names.js" defer></script>
+<script src="/js/sidebar-stats.js" defer></script>
+<script src="/js/modern-blog.js" defer></script>
+<script src="/js/category-page-bridge.js" defer></script>
+<script src="/js/sidebar-weather.js" defer></script>
+<script src="/js/click-effects.js" defer></script>
+<script src="/js/typewriter.js" defer></script>
+<script src="/js/github-calendar.js" defer></script>
+<script src="/js/github-contrib.js" defer></script>
+<script src="/js/mouse-trail.js" defer></script>
+<style>
+/* Header language switch button */
+.header-lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: 16px;
+  background: #f4f4f5;
+  border-radius: 9999px;
+  padding: 2px;
+  vertical-align: middle;
+}
+.lang-btn {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #71717a;
+  transition: all 150ms ease;
+  line-height: 1.4;
+}
+.lang-btn:hover {
+  color: #18181b;
+  background: #e4e4e7;
+}
+.lang-btn-active {
+  color: #fafafa;
+  background: #2563eb;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.lang-btn-active:hover {
+  color: #fafafa;
+  background: #1d4ed8;
+}
+[data-theme="dark"] .header-lang-switch {
+  background: #27272a;
+}
+[data-theme="dark"] .lang-btn:hover {
+  background: #3f3f46;
+}
+@media (max-width: 767px) {
+  .header-lang-switch {
+    margin-left: 8px;
+    margin-top: 4px;
+  }
+  .lang-btn {
+    padding: 3px 8px;
+    font-size: 11px;
+  }
+}
+</style>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">ChenXuanliang Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Xdu teleCom student, software developer, blogger</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-folder-open fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-dev-nav"><a href="/dev-nav/" rel="section"><i class="fa fa-code fa-fw"></i>导航</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="header-lang-switch">
+  <a href="/2026/06/10/go/golang-basics/" class="lang-btn lang-btn-active" title="简体中文">CN</a>
+  <a href="/en/2026/06/10/go/golang-basics/" class="lang-btn" title="English">EN</a>
+</div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Go-%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B-%E2%80%94%E2%80%94-%E4%BB%8E%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%E5%88%B0%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-text">Go 语言入门教程 —— 从基本语法到高级数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Go-%E8%AF%AD%E8%A8%80%E7%AE%80%E4%BB%8B"><span class="nav-text">1. Go 语言简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Go"><span class="nav-text">安装 Go</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%9F%BA%E6%9C%AC%E5%8F%98%E9%87%8F%E5%92%8C%E7%B1%BB%E5%9E%8B"><span class="nav-text">2. 基本变量和类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E7%AC%AC%E4%B8%80%E4%B8%AA-Go-%E7%A8%8B%E5%BA%8F"><span class="nav-text">3. 第一个 Go 程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%84%E8%A1%8C%E5%90%AB%E4%B9%89%E8%AF%B4%E6%98%8E"><span class="nav-text">各行含义说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%AD%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="nav-text">短变量声明 :&#x3D;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BF%E5%90%8D%E5%8F%98%E9%87%8F"><span class="nav-text">匿名变量 _</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%B8%B8%E9%87%8F%E5%92%8C-iota"><span class="nav-text">4. 常量和 iota</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F%E5%AE%9A%E4%B9%89"><span class="nav-text">常量定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iota-%E2%80%94%E2%80%94-%E5%B8%B8%E9%87%8F%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="nav-text">iota —— 常量计数器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-text">5. 布尔类型与字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B"><span class="nav-text">布尔类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%81%8D%E5%8E%86%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-text">字符串遍历的两种方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E5%80%BC%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="nav-text">6. 值类型与引用类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%80%BC%E7%B1%BB%E5%9E%8B%EF%BC%88%E5%86%85%E7%BD%AE%E7%B1%BB%E5%9E%8B%EF%BC%89"><span class="nav-text">值类型（内置类型）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="nav-text">引用类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-%E5%87%BD%E6%95%B0%E4%BC%A0%E5%8F%82-%E2%80%94%E2%80%94-%E5%8F%AA%E6%9C%89%E5%80%BC%E4%BC%A0%E9%80%92"><span class="nav-text">Go 函数传参 —— 只有值传递</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E6%95%B0%E7%BB%84"><span class="nav-text">7. 数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E5%A3%B0%E6%98%8E"><span class="nav-text">数组的声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%A4%E7%A7%8D%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F"><span class="nav-text">数组的两种遍历方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%98%AF%E5%80%BC%E7%B1%BB%E5%9E%8B-%E2%80%94%E2%80%94-%E5%87%BD%E6%95%B0%E5%86%85%E4%BF%AE%E6%94%B9%E4%B8%8D%E5%BD%B1%E5%93%8D%E5%8E%9F%E6%95%B0%E7%BB%84"><span class="nav-text">数组是值类型 —— 函数内修改不影响原数组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-%E5%88%87%E7%89%87-Slice"><span class="nav-text">8. 切片 Slice</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%88%87%E7%89%87%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-text">创建切片的三种方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%87%E7%89%87%E9%81%8D%E5%8E%86"><span class="nav-text">切片遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E9%87%8F-vs-%E9%95%BF%E5%BA%A6"><span class="nav-text">容量 vs 长度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%87%E7%89%87%E8%BF%BD%E5%8A%A0%E5%85%83%E7%B4%A0"><span class="nav-text">切片追加元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%87%E7%89%87%E5%88%A0%E9%99%A4%E5%85%83%E7%B4%A0"><span class="nav-text">切片删除元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%87%E7%89%87%E7%9A%84%E5%BA%95%E5%B1%82%E7%BB%93%E6%9E%84"><span class="nav-text">切片的底层结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%85%E6%8B%B7%E8%B4%9D-vs-%E6%B7%B1%E6%8B%B7%E8%B4%9D"><span class="nav-text">浅拷贝 vs 深拷贝</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-Map"><span class="nav-text">9. Map</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Map-%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E5%92%8C%E6%8F%92%E5%85%A5"><span class="nav-text">Map 的初始化和插入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map-%E7%9A%84%E6%9F%A5%E6%89%BE"><span class="nav-text">Map 的查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map-%E7%9A%84%E6%98%BE%E7%A4%BA%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text">Map 的显示初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map-%E6%98%AF%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B-%E2%80%94%E2%80%94-%E5%87%BD%E6%95%B0%E5%86%85%E4%BF%AE%E6%94%B9%E4%BC%9A%E5%BD%B1%E5%93%8D%E5%A4%96%E9%83%A8"><span class="nav-text">Map 是引用类型 —— 函数内修改会影响外部</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map-%E7%9A%84%E9%81%8D%E5%8E%86"><span class="nav-text">Map 的遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map-%E6%8C%89%E9%94%AE%E6%8E%92%E5%BA%8F%E8%BE%93%E5%87%BA"><span class="nav-text">Map 按键排序输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4-Map"><span class="nav-text">二维 Map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Slice-%E4%B8%AD%E5%AD%98%E5%82%A8-Map"><span class="nav-text">Slice 中存储 Map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map-%E5%8F%8D%E8%BD%AC%EF%BC%88Key-Value-%E4%BA%92%E6%8D%A2%EF%BC%89"><span class="nav-text">Map 反转（Key-Value 互换）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-Cobra-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0%E5%BA%93"><span class="nav-text">10. Cobra 命令行参数库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Cobra"><span class="nav-text">安装 Cobra</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="nav-text">创建项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%AD%90%E5%91%BD%E4%BB%A4"><span class="nav-text">添加子命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%8B%E5%8A%A8%E6%B7%BB%E5%8A%A0%E6%9B%B4%E6%B7%B1%E5%B1%82%E7%BA%A7%E7%9A%84%E5%AD%90%E5%91%BD%E4%BB%A4"><span class="nav-text">手动添加更深层级的子命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0"><span class="nav-text">添加命令行参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%8F%82%E6%95%B0%E5%80%BC"><span class="nav-text">获取参数值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cobra-%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B"><span class="nav-text">Cobra 常用参数类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chen Xuanliang</p>
+  <div class="site-description" itemprop="description">记录思想，分享知识，思考人生</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+<div class="widget-wrap" id="weather-widget-wrap">
+  <div class="widget-header">
+    <h3 class="widget-title"><i class="fa fa-cloud-sun"></i> 实时信息</h3>
+  </div>
+  <div class="widget-body">
+    <!-- 实时时钟 -->
+    <div class="ww-clock">
+      <div class="ww-clock-time" id="ww-clock-time">--:--:--</div>
+      <div class="ww-clock-date" id="ww-clock-date">加载中...</div>
+    </div>
+    <!-- 定位 & 天气 -->
+    <div class="ww-weather" id="ww-weather">
+      <div class="ww-loading" id="ww-loading">
+        <i class="fa fa-spinner fa-spin"></i> 正在获取天气...
+      </div>
+      <div class="ww-info" id="ww-info" style="display:none;">
+        <div class="ww-location">
+          <i class="fa fa-map-marker-alt"></i>
+          <span id="ww-city">--</span>
+        </div>
+        <div class="ww-main">
+          <div class="ww-icon-temp">
+            <span class="ww-icon" id="ww-icon">☀️</span>
+            <span class="ww-temp" id="ww-temp">--°C</span>
+          </div>
+          <div class="ww-desc" id="ww-desc">--</div>
+        </div>
+        <div class="ww-details">
+          <div class="ww-detail">
+            <i class="fa fa-tint"></i>
+            <span id="ww-humidity">--%</span>
+            <small>湿度</small>
+          </div>
+          <div class="ww-detail">
+            <i class="fa fa-wind"></i>
+            <span id="ww-wind">-- km/h</span>
+            <small>风速</small>
+          </div>
+          <div class="ww-detail">
+            <i class="fa fa-temperature-half"></i>
+            <span id="ww-feels">--°C</span>
+            <small>体感</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="widget-wrap" id="github-calendar-wrap">
+  <div class="widget-header">
+    <h3 class="widget-title"><i class="fa-solid fa-code-commit" style="color:#c71d23;"></i> Gitee 活跃度</h3>
+  </div>
+  <div class="gc-body">
+    <div class="gc-loading" id="gc-loading">
+      <i class="fa fa-spinner fa-spin"></i> 加载中...
+    </div>
+    <div class="gc-grid" id="gc-grid"></div>
+    <div class="gc-stats">
+      <span class="gc-total" id="gc-total"></span>
+      <div class="gc-legend">
+        <span>Less</span>
+        <div class="gc-legend-cell" data-level="0"></div>
+        <div class="gc-legend-cell" data-level="1"></div>
+        <div class="gc-legend-cell" data-level="2"></div>
+        <div class="gc-legend-cell" data-level="3"></div>
+        <div class="gc-legend-cell" data-level="4"></div>
+        <span>More</span>
+      </div>
+    </div>
+    <a class="gc-user" href="https://gitee.com/ChenXL3508" target="_blank">@ChenXL3508</a>
+  </div>
+</div>
+
+
+<div class="widget-wrap" id="github-calendar-wrap">
+  <div class="widget-header">
+    <h3 class="widget-title"><i class="fa-brands fa-github" style="color:#333;"></i> GitHub 活跃度</h3>
+  </div>
+  <div class="gc-body">
+    <div class="gc-loading" id="gh-loading">
+      <i class="fa fa-spinner fa-spin"></i> 加载中...
+    </div>
+    <div class="gc-grid" id="gh-grid"></div>
+    <div class="gc-stats">
+      <span class="gc-total" id="gh-total"></span>
+      <div class="gc-legend">
+        <span>Less</span>
+        <div class="gc-legend-cell" data-level="0"></div>
+        <div class="gc-legend-cell" data-level="1"></div>
+        <div class="gc-legend-cell" data-level="2"></div>
+        <div class="gc-legend-cell" data-level="3"></div>
+        <div class="gc-legend-cell" data-level="4"></div>
+        <span>More</span>
+      </div>
+    </div>
+    <a class="gc-user" href="https://github.com/ChenXL1207" target="_blank">@ChenXL1207</a>
+  </div>
+</div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://chenxl1207.github.io/2026/06/10/go/golang-basics/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chen Xuanliang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChenXuanliang Blog">
+      <meta itemprop="description" content="记录思想，分享知识，思考人生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Go 语言入门教程 —— 从基本语法到高级数据结构 | ChenXuanliang Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Go 语言入门教程 —— 从基本语法到高级数据结构
+        </h1>
+
+        <div class="post-meta-container">
+            
+            <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-06-10 12:00:00 / 修改时间：13:25:05" itemprop="dateCreated datePublished" datetime="2026-06-10T12:00:00+08:00">2026-06-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+          
+            <div class="post-back-button" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee;">
+              <a href="/categories/go/" class="back-btn" title="返回分类">
+                <i class="fa fa-arrow-left"></i> 返回分类
+              </a>
+            </div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="Go-语言入门教程-——-从基本语法到高级数据结构"><a href="#Go-语言入门教程-——-从基本语法到高级数据结构" class="headerlink" title="Go 语言入门教程 —— 从基本语法到高级数据结构"></a>Go 语言入门教程 —— 从基本语法到高级数据结构</h1><blockquote>
+<p><strong>致谢</strong>：本文内容参考了 <a target="_blank" rel="noopener" href="https://gitbookcpp.llfc.club/">恋恋风辰的编程笔记</a> 中 Go 语言系列教程，感谢恋恋风辰的精彩分享！以下是主要参考文章：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://gitbookcpp.llfc.club/sections/go/base/golang03.html">基本变量和 demo</a></li>
+<li><a target="_blank" rel="noopener" href="https://gitbookcpp.llfc.club/sections/go/base/golang04.html">Cobra 命令行参数库的使用</a></li>
+<li><a target="_blank" rel="noopener" href="https://gitbookcpp.llfc.club/sections/go/base/golang05.html">Slice 知识介绍和使用</a></li>
+<li><a target="_blank" rel="noopener" href="https://gitbookcpp.llfc.club/sections/go/base/golang06.html">Map 介绍</a></li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><a href="#1-go-%E8%AF%AD%E8%A8%80%E7%AE%80%E4%BB%8B">Go 语言简介</a></li>
+<li><a href="#2-%E5%9F%BA%E6%9C%AC%E5%8F%98%E9%87%8F%E5%92%8C%E7%B1%BB%E5%9E%8B">基本变量和类型</a></li>
+<li><a href="#3-%E7%AC%AC%E4%B8%80%E4%B8%AA-go-%E7%A8%8B%E5%BA%8F">第一个 Go 程序</a></li>
+<li><a href="#4-%E5%B8%B8%E9%87%8F%E5%92%8C-iota">常量和 iota</a></li>
+<li><a href="#5-%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%AD%97%E7%AC%A6%E4%B8%B2">布尔类型与字符串</a></li>
+<li><a href="#6-%E5%80%BC%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B">值类型与引用类型</a></li>
+<li><a href="#7-%E6%95%B0%E7%BB%84">数组</a></li>
+<li><a href="#8-%E5%88%87%E7%89%87-slice">切片 Slice</a></li>
+<li><a href="#9-map">Map</a></li>
+<li><a href="#10-cobra-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0%E5%BA%93">Cobra 命令行参数库</a></li>
+</ol>
+<hr>
+<h2 id="1-Go-语言简介"><a href="#1-Go-语言简介" class="headerlink" title="1. Go 语言简介"></a>1. Go 语言简介</h2><p>Go（又称 Golang）是 Google 开发的一种静态强类型、编译型、并发型编程语言。它具有简洁的语法、高效的编译速度和强大的并发支持，被广泛应用于后端开发、云原生、容器技术（如 Docker 和 Kubernetes）等领域。</p>
+<h3 id="安装-Go"><a href="#安装-Go" class="headerlink" title="安装 Go"></a>安装 Go</h3><p>从 <a target="_blank" rel="noopener" href="https://go.dev/dl/">Go 官方网站</a> 下载适合你操作系统的安装包进行安装。安装完成后，在终端中运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go version</span><br></pre></td></tr></table></figure>
+
+<p>如果能看到版本号输出，说明安装成功。</p>
+<hr>
+<h2 id="2-基本变量和类型"><a href="#2-基本变量和类型" class="headerlink" title="2. 基本变量和类型"></a>2. 基本变量和类型</h2><p>Go 语言拥有丰富的基本数据类型，以下是 Go 中声明各种类型变量的方式：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> v1 <span class="type">int</span>          <span class="comment">// 整型</span></span><br><span class="line"><span class="keyword">var</span> v2 <span class="type">string</span>       <span class="comment">// 字符串</span></span><br><span class="line"><span class="keyword">var</span> v3 [<span class="number">10</span>]<span class="type">int</span>      <span class="comment">// 数组</span></span><br><span class="line"><span class="keyword">var</span> v4 []<span class="type">int</span>        <span class="comment">// 切片（类似 C++ 的 vector，Python 的 list）</span></span><br><span class="line"><span class="keyword">var</span> v5 <span class="keyword">struct</span> &#123;     <span class="comment">// 结构体</span></span><br><span class="line">    f <span class="type">int</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> v6 *<span class="type">int</span>                         <span class="comment">// 指针</span></span><br><span class="line"><span class="keyword">var</span> v7 <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span>               <span class="comment">// map，key 为 string，value 为 int</span></span><br><span class="line"><span class="keyword">var</span> v8 <span class="function"><span class="keyword">func</span><span class="params">(a <span class="type">int</span>)</span></span> <span class="type">int</span>              <span class="comment">// 函数对象</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 可以用括号将多个变量括起来一起定义</span></span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">    v9  <span class="type">int</span></span><br><span class="line">    v10 <span class="type">string</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>提示</strong>：切片（slice）可以理解为动态数组，类似 C++ 的 <code>std::vector</code> 或 Python 的 <code>list</code>。</p>
+</blockquote>
+<hr>
+<h2 id="3-第一个-Go-程序"><a href="#3-第一个-Go-程序" class="headerlink" title="3. 第一个 Go 程序"></a>3. 第一个 Go 程序</h2><p>下面是一个完整的 Go 程序示例，展示了变量定义、赋值、初始化、交换以及常量的使用：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 整型</span></span><br><span class="line">    <span class="keyword">var</span> v1 <span class="type">int</span></span><br><span class="line">    <span class="comment">// 字符串</span></span><br><span class="line">    <span class="keyword">var</span> v2 <span class="type">string</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 变量赋值</span></span><br><span class="line">    v1 = <span class="number">10</span></span><br><span class="line">    v2 = <span class="string">&quot;hello&quot;</span></span><br><span class="line">    fmt.Println(<span class="string">&quot;v2:&quot;</span>, v2)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 变量初始化（短变量声明 := 直接定义并初始化）</span></span><br><span class="line">    v11 := <span class="string">&quot;day02&quot;</span></span><br><span class="line">    fmt.Println(<span class="string">&quot;v11:&quot;</span>, v11)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 第二种初始化方式</span></span><br><span class="line">    <span class="keyword">var</span> v12 <span class="type">int</span> = <span class="number">13</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 变量交换（Go 支持直接交换两个变量，无需临时变量）</span></span><br><span class="line">    v1, v12 = v12, v1</span><br><span class="line">    fmt.Printf(<span class="string">&quot;v1:%v, v12:%v\n&quot;</span>, v1, v12)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 多返回值函数调用</span></span><br><span class="line">    _, _, nickName := GetName()</span><br><span class="line">    fmt.Printf(<span class="string">&quot;nickName : %v\n&quot;</span>, nickName)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 常量</span></span><br><span class="line">    <span class="keyword">const</span> Pi <span class="type">float64</span> = <span class="number">3.141592653</span></span><br><span class="line">    <span class="keyword">const</span> zero = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">const</span> (</span><br><span class="line">        size <span class="type">int64</span> = <span class="number">1024</span></span><br><span class="line">        eof        = <span class="number">-1</span></span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">const</span> u, v <span class="type">float32</span> = <span class="number">0</span>, <span class="number">3</span></span><br><span class="line">    <span class="keyword">const</span> a, b, c = <span class="number">3</span>, <span class="number">4</span>, <span class="string">&quot;foo&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="各行含义说明"><a href="#各行含义说明" class="headerlink" title="各行含义说明"></a>各行含义说明</h3><table>
+<thead>
+<tr>
+<th>代码</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>package main</code></td>
+<td>表示该代码属于 <code>main</code> 包，可执行程序的入口包</td>
+</tr>
+<tr>
+<td><code>import &quot;fmt&quot;</code></td>
+<td>引入 <code>fmt</code> 包，提供格式化输入输出函数</td>
+</tr>
+<tr>
+<td><code>var v1 int</code></td>
+<td>定义一个 <code>int</code> 类型的变量 <code>v1</code></td>
+</tr>
+<tr>
+<td><code>v1 = 10</code></td>
+<td>将 <code>v1</code> 赋值为 10</td>
+</tr>
+<tr>
+<td><code>v2 := &quot;hello&quot;</code></td>
+<td>使用 <code>:=</code> 短变量声明，自动推断类型并初始化</td>
+</tr>
+<tr>
+<td><code>v11 := &quot;day02&quot;</code></td>
+<td>由于 <code>v11</code> 尚未定义，<code>:=</code> 直接定义并初始化</td>
+</tr>
+<tr>
+<td><code>var v12 int = 13</code></td>
+<td>完整的变量声明 + 初始化方式</td>
+</tr>
+<tr>
+<td><code>v1, v12 = v12, v1</code></td>
+<td>Go 允许多重赋值，可直接交换两个变量的值</td>
+</tr>
+<tr>
+<td><code>fmt.Println(...)</code></td>
+<td><code>fmt</code> 包提供的打印函数</td>
+</tr>
+<tr>
+<td><code>fmt.Printf(...)</code></td>
+<td>格式化打印，<code>%v</code> 表示输出变量的默认格式</td>
+</tr>
+</tbody></table>
+<h3 id="短变量声明"><a href="#短变量声明" class="headerlink" title="短变量声明 :="></a>短变量声明 <code>:=</code></h3><p><code>:=</code> 是 Go 中非常常用的语法糖，它等价于先声明再赋值：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这两种写法等价</span></span><br><span class="line">v11 := <span class="string">&quot;day02&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> v11 <span class="type">string</span></span><br><span class="line">v11 = <span class="string">&quot;day02&quot;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意</strong>：<code>:=</code> 只能在函数体内使用，包级别的变量声明必须使用 <code>var</code>。</p>
+</blockquote>
+<h3 id="匿名变量"><a href="#匿名变量" class="headerlink" title="匿名变量 _"></a>匿名变量 <code>_</code></h3><p>Go 语言中，如果函数返回了多个值但你不需要全部使用，可以用 <code>_</code>（下划线）来忽略不需要的返回值：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_, _, nickName := GetName()  <span class="comment">// 忽略前两个返回值，只接收第三个</span></span><br></pre></td></tr></table></figure>
+
+<p>这避免了”声明但未使用”的编译错误。</p>
+<hr>
+<h2 id="4-常量和-iota"><a href="#4-常量和-iota" class="headerlink" title="4. 常量和 iota"></a>4. 常量和 iota</h2><h3 id="常量定义"><a href="#常量定义" class="headerlink" title="常量定义"></a>常量定义</h3><p>定义变量用 <code>var</code>，定义常量用 <code>const</code>。常量同样可以放在 <code>()</code> 里一起定义和初始化：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Pi <span class="type">float64</span> = <span class="number">3.141592653</span></span><br><span class="line"><span class="keyword">const</span> zero = <span class="number">0.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 批量定义常量</span></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    size <span class="type">int64</span> = <span class="number">1024</span></span><br><span class="line">    eof        = <span class="number">-1</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> u, v <span class="type">float32</span> = <span class="number">0</span>, <span class="number">3</span></span><br><span class="line"><span class="keyword">const</span> a, b, c = <span class="number">3</span>, <span class="number">4</span>, <span class="string">&quot;foo&quot;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>以大写字母开头的常量在包外可见（类似 <code>public</code>），小写字母开头的常量则只能在包内访问（类似 <code>private</code>）。</p>
+</blockquote>
+<h3 id="iota-——-常量计数器"><a href="#iota-——-常量计数器" class="headerlink" title="iota —— 常量计数器"></a>iota —— 常量计数器</h3><p><code>iota</code> 是 Go 语言中一个特殊的常量计数器，在 <code>const</code> 块中出现时，第一次为 0，之后每次出现自动加 1：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基本用法：iota 从 0 开始，每次出现自增 1</span></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    c0 = <span class="literal">iota</span>  <span class="comment">// c0 == 0</span></span><br><span class="line">    c1 = <span class="literal">iota</span>  <span class="comment">// c1 == 1</span></span><br><span class="line">    c2 = <span class="literal">iota</span>  <span class="comment">// c2 == 2</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 位移运算配合 iota（常用于定义位掩码）</span></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    a1 = <span class="number">1</span> &lt;&lt; <span class="literal">iota</span>  <span class="comment">// 1 &lt;&lt; 0 = 1</span></span><br><span class="line">    b2 = <span class="number">1</span> &lt;&lt; <span class="literal">iota</span>  <span class="comment">// 1 &lt;&lt; 1 = 2</span></span><br><span class="line">    c3 = <span class="number">1</span> &lt;&lt; <span class="literal">iota</span>  <span class="comment">// 1 &lt;&lt; 2 = 4</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 简便写法：只写第一个 iota，后续省略</span></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    Sunday = <span class="literal">iota</span>    <span class="comment">// 0</span></span><br><span class="line">    Monday           <span class="comment">// 1</span></span><br><span class="line">    Tuesday          <span class="comment">// 2</span></span><br><span class="line">    Wednesday        <span class="comment">// 3</span></span><br><span class="line">    Thursday         <span class="comment">// 4</span></span><br><span class="line">    Friday           <span class="comment">// 5</span></span><br><span class="line">    Saturday         <span class="comment">// 6</span></span><br><span class="line">    numberOfDays     <span class="comment">// 7（这个常量没有导出）</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="5-布尔类型与字符串"><a href="#5-布尔类型与字符串" class="headerlink" title="5. 布尔类型与字符串"></a>5. 布尔类型与字符串</h2><h3 id="布尔类型"><a href="#布尔类型" class="headerlink" title="布尔类型"></a>布尔类型</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bvar <span class="type">bool</span></span><br><span class="line">bvar = <span class="literal">true</span></span><br><span class="line">bvar2 := (<span class="number">1</span> == <span class="number">2</span>)   <span class="comment">// bvar2 被推导为 bool 类型，值为 false</span></span><br><span class="line"></span><br><span class="line">fmt.Printf(<span class="string">&quot;bvar: %v, bvar2: %v\n&quot;</span>, bvar, bvar2)</span><br></pre></td></tr></table></figure>
+
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字符串基本操作</span></span><br><span class="line"><span class="keyword">var</span> str <span class="type">string</span></span><br><span class="line">str = <span class="string">&quot;Hello world&quot;</span></span><br><span class="line">ch := str[<span class="number">0</span>]   <span class="comment">// 获取第一个字符（byte 类型）</span></span><br><span class="line">fmt.Printf(<span class="string">&quot;The length of \&quot;%s\&quot; is %d \n&quot;</span>, str, <span class="built_in">len</span>(str))</span><br><span class="line">fmt.Printf(<span class="string">&quot;The first character of \&quot;%s\&quot; is %c.\n&quot;</span>, str, ch)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 字符串拼接</span></span><br><span class="line">str2 := <span class="string">&quot;,I&#x27;m mooncoder&quot;</span></span><br><span class="line">fmt.Println(str + str2)</span><br></pre></td></tr></table></figure>
+
+<h3 id="字符串遍历的两种方式"><a href="#字符串遍历的两种方式" class="headerlink" title="字符串遍历的两种方式"></a>字符串遍历的两种方式</h3><p>这是 Go 中一个非常重要的知识点——字符串的两种遍历方式会产生不同的结果：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">hellos := <span class="string">&quot;Hello,我是中国人&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 方式一：按字节遍历（UTF-8 编码，每个字符是 byte 类型，定长 1 字节）</span></span><br><span class="line"><span class="comment">// 中文等多字节字符会乱码！</span></span><br><span class="line"><span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(hellos); i++ &#123;</span><br><span class="line">    fmt.Printf(<span class="string">&quot;%c&quot;</span>, hellos[i])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方式二：按 Unicode 遍历（每个字符是 rune 类型，变长）</span></span><br><span class="line"><span class="comment">// 中文等 Unicode 字符正确显示</span></span><br><span class="line"><span class="keyword">for</span> i, ch := <span class="keyword">range</span> hellos &#123;</span><br><span class="line">    fmt.Printf(<span class="string">&quot;%c\t&quot;</span>, ch)   <span class="comment">// 正确输出每个字符</span></span><br><span class="line">    fmt.Printf(<span class="string">&quot;%d\n&quot;</span>, i)    <span class="comment">// 输出字符的起始字节索引</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>关键区别</strong>：</p>
+<ul>
+<li>按索引 <code>for i := 0; i &lt; len(s); i++</code> 遍历的是<strong>字节</strong>（<code>byte</code>），一个中文字符占 3 个字节，所以会乱码</li>
+<li>使用 <code>range</code> 遍历的是 <strong>Unicode 码点</strong>（<code>rune</code>），能正确处理多字节字符</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="6-值类型与引用类型"><a href="#6-值类型与引用类型" class="headerlink" title="6. 值类型与引用类型"></a>6. 值类型与引用类型</h2><p>Go 语言中的变量类型分为两大类：<strong>值类型</strong>和<strong>引用类型</strong>。</p>
+<h3 id="值类型（内置类型）"><a href="#值类型（内置类型）" class="headerlink" title="值类型（内置类型）"></a>值类型（内置类型）</h3><ul>
+<li><strong>特点</strong>：变量直接存储值，内存通常在<strong>栈</strong>中分配</li>
+<li><strong>包括</strong>：基本数据类型 <code>int</code>、<code>float</code>、<code>bool</code>、<code>string</code> 以及数组和 <code>struct</code></li>
+</ul>
+<h3 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h3><ul>
+<li><strong>特点</strong>：变量存储的是一个<strong>地址</strong>，这个地址指向最终的值。内存通常在<strong>堆</strong>上分配，通过 GC 回收</li>
+<li><strong>包括</strong>：指针（<code>*T</code>）、切片（<code>slice</code>）、映射（<code>map</code>）、通道（<code>chan</code>）等</li>
+<li><strong>重要</strong>：引用类型变量在使用前需要通过 <code>make</code> 进行初始化</li>
+</ul>
+<h3 id="Go-函数传参-——-只有值传递"><a href="#Go-函数传参-——-只有值传递" class="headerlink" title="Go 函数传参 —— 只有值传递"></a>Go 函数传参 —— 只有值传递</h3><p>Go 语言中<strong>函数传参只有值传递一种方式</strong>——也就是实参内容按值 copy 给形参。</p>
+<p>但是，当形参的类型为指针、slice、map、chan 等引用类型时，虽然实参和形参的地址不同，但它们内部指向了同一块数据，因此可以达到修改原数据的目的。这在后面的切片和 Map 部分会有具体演示。</p>
+<hr>
+<h2 id="7-数组"><a href="#7-数组" class="headerlink" title="7. 数组"></a>7. 数组</h2><h3 id="数组的声明"><a href="#数组的声明" class="headerlink" title="数组的声明"></a>数组的声明</h3><p>Go 语言中数组是<strong>值类型</strong>，声明方式为 <code>var 数组名 [数组长度] 元素类型</code>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 长度为 8 的字节数组</span></span><br><span class="line"><span class="keyword">var</span> bytearray [<span class="number">8</span>]<span class="type">byte</span></span><br><span class="line">fmt.Println(bytearray)   <span class="comment">// [0 0 0 0 0 0 0 0]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 指针数组</span></span><br><span class="line"><span class="keyword">var</span> pointarray [<span class="number">4</span>]*<span class="type">float64</span></span><br><span class="line">fmt.Println(pointarray)  <span class="comment">// [&lt;nil&gt; &lt;nil&gt; &lt;nil&gt; &lt;nil&gt;]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 多维数组</span></span><br><span class="line"><span class="keyword">var</span> mularray [<span class="number">3</span>][<span class="number">5</span>]<span class="type">int</span></span><br><span class="line">fmt.Println(mularray)    <span class="comment">// [[0 0 0 0 0] [0 0 0 0 0] [0 0 0 0 0]]</span></span><br><span class="line"></span><br><span class="line">fmt.Printf(<span class="string">&quot;pointarray len is %v\n&quot;</span>, <span class="built_in">len</span>(pointarray))</span><br></pre></td></tr></table></figure>
+
+<h3 id="数组的两种遍历方式"><a href="#数组的两种遍历方式" class="headerlink" title="数组的两种遍历方式"></a>数组的两种遍历方式</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方式一：索引遍历</span></span><br><span class="line"><span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(pointarray); i++ &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Element&quot;</span>, i, <span class="string">&quot;of array is&quot;</span>, pointarray[i])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方式二：range 遍历（推荐）</span></span><br><span class="line"><span class="keyword">for</span> i, v := <span class="keyword">range</span> pointarray &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Array element [&quot;</span>, i, <span class="string">&quot;]=&quot;</span>, v)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>int</code> 类型数组的初始值为 <code>0</code>，指针类型数组的初始值为 <code>nil</code>。</p>
+</blockquote>
+<h3 id="数组是值类型-——-函数内修改不影响原数组"><a href="#数组是值类型-——-函数内修改不影响原数组" class="headerlink" title="数组是值类型 —— 函数内修改不影响原数组"></a>数组是值类型 —— 函数内修改不影响原数组</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">modify</span><span class="params">(array [5]<span class="type">int</span>)</span></span> &#123;</span><br><span class="line">    array[<span class="number">0</span>] = <span class="number">200</span></span><br><span class="line">    fmt.Println(<span class="string">&quot;In modify(), array values:&quot;</span>, array)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    array := [<span class="number">5</span>]<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;</span><br><span class="line">    modify(array)</span><br><span class="line">    fmt.Println(<span class="string">&quot;In main(), array values:&quot;</span>, array)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出：</span></span><br><span class="line"><span class="comment">// In modify(), array values: [200 2 3 4 5]</span></span><br><span class="line"><span class="comment">// In main(), array values: [1 2 3 4 5]</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到，<code>modify</code> 函数内修改数组并没有影响到 <code>main</code> 中的原数组。这是因为数组是值类型，传递时会复制一份。</p>
+<blockquote>
+<p><strong>那如何通过函数修改外部数据呢？</strong> 答案是使用<strong>引用类型</strong>——如指针、slice、map、chan 等。下面通过 slice 来说明。</p>
+</blockquote>
+<hr>
+<h2 id="8-切片-Slice"><a href="#8-切片-Slice" class="headerlink" title="8. 切片 Slice"></a>8. 切片 Slice</h2><p>切片是 Go 中最常用的数据结构之一。与数组不同，切片是<strong>引用类型</strong>，长度可动态变化。</p>
+<h3 id="创建切片的三种方式"><a href="#创建切片的三种方式" class="headerlink" title="创建切片的三种方式"></a>创建切片的三种方式</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方式一：从数组截取生成切片</span></span><br><span class="line">array := [<span class="number">5</span>]<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;</span><br><span class="line"><span class="keyword">var</span> mySlice []<span class="type">int</span> = array[:<span class="number">3</span>]   <span class="comment">// 取前 3 个元素 [1, 2, 3]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 方式二：通过 make 创建</span></span><br><span class="line">mkslice := <span class="built_in">make</span>([]<span class="type">int</span>, <span class="number">5</span>)               <span class="comment">// 长度 5，初始值全为 0</span></span><br><span class="line">mkslice2 := <span class="built_in">make</span>([]<span class="type">int</span>, <span class="number">5</span>, <span class="number">10</span>)          <span class="comment">// 长度 5，容量 10（预分配空间）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 方式三：直接初始化</span></span><br><span class="line">mkslice3 := []<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="切片遍历"><a href="#切片遍历" class="headerlink" title="切片遍历"></a>切片遍历</h3><p>与数组类似，切片也支持索引遍历和 range 遍历：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 索引遍历</span></span><br><span class="line"><span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(mkslice3); i++ &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;mkslice3[&quot;</span>, i, <span class="string">&quot;] =&quot;</span>, mkslice3[i])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// range 遍历</span></span><br><span class="line"><span class="keyword">for</span> i, v := <span class="keyword">range</span> mkslice3 &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;mkslice3[&quot;</span>, i, <span class="string">&quot;] =&quot;</span>, v)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="容量-vs-长度"><a href="#容量-vs-长度" class="headerlink" title="容量 vs 长度"></a>容量 vs 长度</h3><ul>
+<li><code>len(slice)</code> —— 当前切片的<strong>长度</strong>（已存储的元素个数）</li>
+<li><code>cap(slice)</code> —— 当前切片的<strong>容量</strong>（底层数组实际分配的空间大小）</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkslice4 := <span class="built_in">make</span>([]<span class="type">int</span>, <span class="number">5</span>, <span class="number">10</span>)</span><br><span class="line">fmt.Println(<span class="string">&quot;len(mkslice4):&quot;</span>, <span class="built_in">len</span>(mkslice4))   <span class="comment">// 5</span></span><br><span class="line">fmt.Println(<span class="string">&quot;cap(mkslice4):&quot;</span>, <span class="built_in">cap</span>(mkslice4))   <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="切片追加元素"><a href="#切片追加元素" class="headerlink" title="切片追加元素"></a>切片追加元素</h3><p>使用 <code>append</code> 函数向切片末尾添加元素：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mkslice4 := <span class="built_in">make</span>([]<span class="type">int</span>, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加单个元素</span></span><br><span class="line">mkslice4 = <span class="built_in">append</span>(mkslice4, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">fmt.Println(<span class="string">&quot;mkslice4 is:&quot;</span>, mkslice4)   <span class="comment">// [1 2 3]</span></span><br><span class="line"></span><br><span class="line">mkslice3 := []<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 展开另一个切片并追加（slice... 表示将切片元素一一展开）</span></span><br><span class="line">mkslice4 = <span class="built_in">append</span>(mkslice4, mkslice3...)</span><br><span class="line">fmt.Println(<span class="string">&quot;mkslice4 is:&quot;</span>, mkslice4)   <span class="comment">// [1 2 3 1 2 3 4 5]</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>重要</strong>：<code>append</code> 返回新的切片，<strong>必须</strong>将返回值赋给原切片变量（或其他变量）才能保存结果。</p>
+</blockquote>
+<h3 id="切片删除元素"><a href="#切片删除元素" class="headerlink" title="切片删除元素"></a>切片删除元素</h3><p>Go 没有内置的删除切片元素函数。常见的做法是<strong>拼接要删除元素前后的两个子切片</strong>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 删除第 n 个元素（n 从 0 开始计数）：</span></span><br><span class="line"><span class="comment">// slice = append(slice[:n], slice[n+1:]...)</span></span><br><span class="line"></span><br><span class="line">mkslice4 := []<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>&#125;</span><br><span class="line"><span class="comment">// 删除第 4 个元素（索引 3，值为 4）</span></span><br><span class="line">mkslice4 = <span class="built_in">append</span>(mkslice4[:<span class="number">3</span>], mkslice4[<span class="number">4</span>:]...)</span><br><span class="line">fmt.Println(<span class="string">&quot;mkslice4 is:&quot;</span>, mkslice4)   <span class="comment">// [1 2 3 5 6 7 8]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="切片的底层结构"><a href="#切片的底层结构" class="headerlink" title="切片的底层结构"></a>切片的底层结构</h3><p>理解切片的底层实现是掌握切片行为的关键：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Slice <span class="keyword">struct</span> &#123;</span><br><span class="line">    ptr unsafe.Pointer  <span class="comment">// 指向底层数组首地址的指针</span></span><br><span class="line">    <span class="built_in">len</span> <span class="type">int</span>             <span class="comment">// 切片当前长度</span></span><br><span class="line">    <span class="built_in">cap</span> <span class="type">int</span>             <span class="comment">// 切片容量（底层数组实际大小）</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>切片变量本身存储的是这个结构体（值复制），但结构体中的 <code>ptr</code> 指针指向同一块底层数组内存。这就是为什么多个切片变量地址不同，却互相影响的原因。</p>
+</blockquote>
+<h3 id="浅拷贝-vs-深拷贝"><a href="#浅拷贝-vs-深拷贝" class="headerlink" title="浅拷贝 vs 深拷贝"></a>浅拷贝 vs 深拷贝</h3><p><strong>赋值操作（<code>=</code>）是浅拷贝</strong>，会共享底层数组：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">oldslice := []<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;</span><br><span class="line">newslice := oldslice[:<span class="number">3</span>]    <span class="comment">// 切片操作：共享底层数组</span></span><br><span class="line">newslice2 := oldslice        <span class="comment">// 赋值：共享底层数组</span></span><br><span class="line"></span><br><span class="line">oldslice[<span class="number">0</span>] = <span class="number">1024</span></span><br><span class="line">fmt.Println(<span class="string">&quot;newslice is :&quot;</span>, newslice)    <span class="comment">// [1024 2 3]</span></span><br><span class="line">fmt.Println(<span class="string">&quot;newslice2 is :&quot;</span>, newslice2)  <span class="comment">// [1024 2 3 4 5]</span></span><br><span class="line"><span class="comment">// 两个切片都受到了影响！</span></span><br></pre></td></tr></table></figure>
+
+<p><strong><code>copy</code> 函数是深拷贝</strong>，会复制数据到新的内存空间：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">slice1 := []<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;</span><br><span class="line">slice2 := []<span class="type">int</span>&#123;<span class="number">5</span>, <span class="number">4</span>, <span class="number">3</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">copy</span>(slice2, slice1)   <span class="comment">// 将 slice1 的元素复制到 slice2（以 slice2 的长度为准）</span></span><br><span class="line">fmt.Println(<span class="string">&quot;slice1:&quot;</span>, slice1)   <span class="comment">// [1 2 3 4 5]</span></span><br><span class="line">fmt.Println(<span class="string">&quot;slice2:&quot;</span>, slice2)   <span class="comment">// [1 2 3]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 修改 slice2 不影响 slice1（因为是深拷贝，各自有独立的内存）</span></span><br><span class="line">slice2[<span class="number">0</span>] = <span class="number">1024</span></span><br><span class="line">slice2[<span class="number">1</span>] = <span class="number">999</span></span><br><span class="line">slice2[<span class="number">2</span>] = <span class="number">1099</span></span><br><span class="line">fmt.Println(<span class="string">&quot;slice1:&quot;</span>, slice1)   <span class="comment">// [1 2 3 4 5]  ← 不受影响！</span></span><br><span class="line">fmt.Println(<span class="string">&quot;slice2:&quot;</span>, slice2)   <span class="comment">// [1024 999 1099]</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>copy(dest, src)</code> 的复制长度由 <code>dest</code> 的长度决定（取两者中较小的那个）。</p>
+</blockquote>
+<hr>
+<h2 id="9-Map"><a href="#9-Map" class="headerlink" title="9. Map"></a>9. Map</h2><p>Map 是 Go 中的键值对集合，同样是<strong>引用类型</strong>，使用前需要通过 <code>make</code> 初始化，否则会报 <code>panic</code> 错误。</p>
+<h3 id="Map-的初始化和插入"><a href="#Map-的初始化和插入" class="headerlink" title="Map 的初始化和插入"></a>Map 的初始化和插入</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> PersonInfo <span class="keyword">struct</span> &#123;</span><br><span class="line">    ID      <span class="type">string</span></span><br><span class="line">    Name    <span class="type">string</span></span><br><span class="line">    Address <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明 + make 初始化</span></span><br><span class="line"><span class="keyword">var</span> personDB <span class="keyword">map</span>[<span class="type">string</span>]PersonInfo</span><br><span class="line">personDB = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">string</span>]PersonInfo)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 插入数据（如果 key 存在则修改 value）</span></span><br><span class="line">personDB[<span class="string">&quot;12345&quot;</span>] = PersonInfo&#123;<span class="string">&quot;12345&quot;</span>, <span class="string">&quot;Tom&quot;</span>, <span class="string">&quot;Room 203&quot;</span>&#125;</span><br><span class="line">personDB[<span class="string">&quot;1&quot;</span>] = PersonInfo&#123;<span class="string">&quot;1&quot;</span>, <span class="string">&quot;Jack&quot;</span>, <span class="string">&quot;Room 102&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Map-的查找"><a href="#Map-的查找" class="headerlink" title="Map 的查找"></a>Map 的查找</h3><p>查找指定 key，返回 value 和一个 <code>bool</code> 值表示是否找到：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">person, ok := personDB[<span class="string">&quot;1234&quot;</span>]</span><br><span class="line"><span class="keyword">if</span> ok &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Found person&quot;</span>, person.Name, <span class="string">&quot;with ID 1234&quot;</span>)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Did not find person with ID 1234&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这是 Go 中常见的”comma ok”模式，用来安全地检查 map 中是否存在某个 key。</p>
+</blockquote>
+<h3 id="Map-的显示初始化"><a href="#Map-的显示初始化" class="headerlink" title="Map 的显示初始化"></a>Map 的显示初始化</h3><p>Map 也可以直接使用字面量初始化，不需要 <code>make</code>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span> = <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span>&#123;</span><br><span class="line">    <span class="string">&quot;bob&quot;</span>:  <span class="number">18</span>,</span><br><span class="line">    <span class="string">&quot;luce&quot;</span>: <span class="number">28</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Map-是引用类型-——-函数内修改会影响外部"><a href="#Map-是引用类型-——-函数内修改会影响外部" class="headerlink" title="Map 是引用类型 —— 函数内修改会影响外部"></a>Map 是引用类型 —— 函数内修改会影响外部</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">modify</span><span class="params">(data <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span>, key <span class="type">string</span>, value <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">    v, res := data[key]</span><br><span class="line">    <span class="keyword">if</span> !res &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;key not find&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(<span class="string">&quot;key is&quot;</span>, key, <span class="string">&quot;value is&quot;</span>, v)</span><br><span class="line">    data[key] = value   <span class="comment">// 修改会影响外部实参</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> data <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span> = <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span>&#123;</span><br><span class="line">        <span class="string">&quot;bob&quot;</span>:  <span class="number">18</span>,</span><br><span class="line">        <span class="string">&quot;luce&quot;</span>: <span class="number">28</span>,</span><br><span class="line">    &#125;</span><br><span class="line">    modify(data, <span class="string">&quot;lilei&quot;</span>, <span class="number">28</span>)   <span class="comment">// 输出: key not find</span></span><br><span class="line">    modify(data, <span class="string">&quot;luce&quot;</span>, <span class="number">22</span>)    <span class="comment">// 输出: key is luce value is 28</span></span><br><span class="line">    fmt.Println(data)            <span class="comment">// map[bob:18 luce:22]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Map-的遍历"><a href="#Map-的遍历" class="headerlink" title="Map 的遍历"></a>Map 的遍历</h3><p>Map 的遍历使用 <code>range</code>，但<strong>Map 是无序的</strong>，每次遍历的顺序可能不同：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// map 的大小</span></span><br><span class="line">fmt.Println(<span class="built_in">len</span>(data))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用前一定要初始化（显示初始化或 make）</span></span><br><span class="line"><span class="keyword">var</span> data2 <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span> = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span>, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当 key 不存在时，则插入</span></span><br><span class="line">data2[<span class="string">&quot;sven&quot;</span>] = <span class="number">19</span></span><br><span class="line"><span class="comment">// 当 key 存在时，则修改</span></span><br><span class="line">data2[<span class="string">&quot;sven&quot;</span>] = <span class="number">299</span></span><br><span class="line">data2[<span class="string">&quot;Arean&quot;</span>] = <span class="number">33</span></span><br><span class="line">data2[<span class="string">&quot;bob&quot;</span>] = <span class="number">178</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// map 遍历（无序）</span></span><br><span class="line"><span class="keyword">for</span> key, value := <span class="keyword">range</span> data2 &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;key:&quot;</span>, key, <span class="string">&quot;value:&quot;</span>, value)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 可能的输出（顺序不确定）：</span></span><br><span class="line"><span class="comment">// key: bob value: 178</span></span><br><span class="line"><span class="comment">// key: sven value: 299</span></span><br><span class="line"><span class="comment">// key: Arean value: 33</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Map-按键排序输出"><a href="#Map-按键排序输出" class="headerlink" title="Map 按键排序输出"></a>Map 按键排序输出</h3><p>如果需要按 key 排序遍历 map，可以先将 key 提取到 slice 中，排序后再按序访问：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;sort&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sortPrintMap</span><span class="params">(data <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span>)</span></span> &#123;</span><br><span class="line">    <span class="comment">// 提取所有 key 到 slice</span></span><br><span class="line">    slice := <span class="built_in">make</span>([]<span class="type">string</span>, <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">for</span> k := <span class="keyword">range</span> data &#123;</span><br><span class="line">        slice = <span class="built_in">append</span>(slice, k)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 对 key 进行排序</span></span><br><span class="line">    sort.Strings(slice)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 按排好序的 key 遍历</span></span><br><span class="line">    <span class="keyword">for</span> _, s := <span class="keyword">range</span> slice &#123;</span><br><span class="line">        d, e := data[s]</span><br><span class="line">        <span class="keyword">if</span> !e &#123;</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        &#125;</span><br><span class="line">        fmt.Println(<span class="string">&quot;key is&quot;</span>, s, <span class="string">&quot;value is&quot;</span>, d)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用</span></span><br><span class="line">sortPrintMap(data2)</span><br><span class="line"><span class="comment">// 输出：</span></span><br><span class="line"><span class="comment">// key is Arean value is 33</span></span><br><span class="line"><span class="comment">// key is bob value is 178</span></span><br><span class="line"><span class="comment">// key is sven value is 299</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="二维-Map"><a href="#二维-Map" class="headerlink" title="二维 Map"></a>二维 Map</h3><p>声明和使用二维 Map 需要注意<strong>每一层都需要 <code>make</code> 初始化</strong>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明二维 map</span></span><br><span class="line"><span class="keyword">var</span> usrdata <span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 第一层初始化</span></span><br><span class="line">usrdata = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二层也需要初始化才能使用</span></span><br><span class="line">usrdata[<span class="string">&quot;sven&quot;</span>] = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span>)</span><br><span class="line">usrdata[<span class="string">&quot;sven&quot;</span>][<span class="string">&quot;age&quot;</span>] = <span class="number">21</span></span><br><span class="line">usrdata[<span class="string">&quot;sven&quot;</span>][<span class="string">&quot;id&quot;</span>] = <span class="number">1024</span></span><br><span class="line"></span><br><span class="line">usrdata[<span class="string">&quot;susan&quot;</span>] = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span>)</span><br><span class="line">usrdata[<span class="string">&quot;susan&quot;</span>][<span class="string">&quot;age&quot;</span>] = <span class="number">19</span></span><br><span class="line">usrdata[<span class="string">&quot;susan&quot;</span>][<span class="string">&quot;id&quot;</span>] = <span class="number">1000</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 二维 map 遍历</span></span><br><span class="line"><span class="keyword">for</span> k, v := <span class="keyword">range</span> usrdata &#123;</span><br><span class="line">    <span class="keyword">for</span> k2, v2 := <span class="keyword">range</span> v &#123;</span><br><span class="line">        fmt.Println(k, <span class="string">&quot; &quot;</span>, k2, <span class="string">&quot; &quot;</span>, v2)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Slice-中存储-Map"><a href="#Slice-中存储-Map" class="headerlink" title="Slice 中存储 Map"></a>Slice 中存储 Map</h3><p>同理，容器中的引用类型元素也需要各自初始化：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建能存放 5 个 map 的 slice</span></span><br><span class="line">slicem := <span class="built_in">make</span>([]<span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span>, <span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 遍历 slice，为每个元素初始化 map</span></span><br><span class="line"><span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(slicem); i++ &#123;</span><br><span class="line">    slicem[i] = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fmt.Println(slicem)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>核心原则</strong>：Go 中所有引用类型（chan、map、slice、interface）在使用前都需要通过 <code>make</code> 初始化。</p>
+</blockquote>
+<h3 id="Map-反转（Key-Value-互换）"><a href="#Map-反转（Key-Value-互换）" class="headerlink" title="Map 反转（Key-Value 互换）"></a>Map 反转（Key-Value 互换）</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 构造一个 key 和 value 互换的新 map</span></span><br><span class="line">rvmap := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">int</span>]<span class="type">string</span>)</span><br><span class="line"><span class="keyword">for</span> k, v := <span class="keyword">range</span> data2 &#123;</span><br><span class="line">    rvmap[v] = k</span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(rvmap)</span><br><span class="line">fmt.Println(data2)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="10-Cobra-命令行参数库"><a href="#10-Cobra-命令行参数库" class="headerlink" title="10. Cobra 命令行参数库"></a>10. Cobra 命令行参数库</h2><p><a target="_blank" rel="noopener" href="https://github.com/spf13/cobra">Cobra</a> 是 Go 语言中最流行的命令行应用框架，被 Kubernetes、Hugo、etcd 等知名项目广泛使用。它可以方便地配置命令、子命令以及命令行参数。</p>
+<h3 id="安装-Cobra"><a href="#安装-Cobra" class="headerlink" title="安装 Cobra"></a>安装 Cobra</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go get -v github.com/spf13/cobra/cobra</span><br><span class="line">go install github.com/spf13/cobra/cobra</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后，在 <code>$GOBIN</code> 下会出现 <code>cobra</code> 可执行程序。</p>
+<blockquote>
+<p><strong>注意</strong>：<code>cobra</code> 程序只能在 <code>GOPATH</code> 下使用，需要先进入 <code>GOPATH</code> 的 <code>src</code> 目录。</p>
+</blockquote>
+<h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="variable">$GOPATH</span>/src</span><br><span class="line">cobra init demo</span><br></pre></td></tr></table></figure>
+
+<p>生成的项目结构如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">demo</span><br><span class="line">├── cmd</span><br><span class="line">│   └── root.go</span><br><span class="line">├── LICENSE</span><br><span class="line">└── main.go</span><br></pre></td></tr></table></figure>
+
+<p>运行项目：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> demo</span><br><span class="line">go run main.go</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果你并不想使用 <code>cobra</code> 可执行命令生成示例代码，只想在项目中引用其库，可以直接 <code>import &quot;github.com/spf13/cobra&quot;</code>，上面的脚手架内容可以忽略。</p>
+</blockquote>
+<h3 id="添加子命令"><a href="#添加子命令" class="headerlink" title="添加子命令"></a>添加子命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cobra add <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+
+<p>完成后项目结构变为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">├── cmd</span><br><span class="line">│   ├── root.go</span><br><span class="line">│   └── test.go</span><br><span class="line">├── LICENSE</span><br><span class="line">└── main.go</span><br></pre></td></tr></table></figure>
+
+<p>在 <code>cmd</code> 目录下生成了一个与命令同名的 Go 文件，与该命令相关的逻辑都在此处实现。</p>
+<p>运行子命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go run main.go <span class="built_in">test</span></span><br><span class="line"><span class="comment"># 输出：test called</span></span><br></pre></td></tr></table></figure>
+
+<p>因为 <code>test.go</code> 的 <code>Run</code> 函数中输出了 <code>&quot;test called&quot;</code>。</p>
+<h3 id="手动添加更深层级的子命令"><a href="#手动添加更深层级的子命令" class="headerlink" title="手动添加更深层级的子命令"></a>手动添加更深层级的子命令</h3><p>添加子命令也可以通过修改对应的 Go 文件来实现。例如，为 <code>test</code> 命令添加 <code>subtest</code> 子命令，只需创建文件并做如下修改：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> subtestCmd = &amp;cobra.Command&#123;</span><br><span class="line">    Use:   <span class="string">&quot;subtest&quot;</span>,</span><br><span class="line">    Short: <span class="string">&quot;A brief description of your command&quot;</span>,</span><br><span class="line">    Long: <span class="string">`A longer description that spans multiple lines and likely contains examples</span></span><br><span class="line"><span class="string">and usage of using your command.`</span>,</span><br><span class="line">    Run: <span class="function"><span class="keyword">func</span><span class="params">(cmd *cobra.Command, args []<span class="type">string</span>)</span></span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;subtest called&quot;</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    testCmd.AddCommand(subtestCmd)  <span class="comment">// 将 subtestCmd 添加为 testCmd 的子命令</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go run main.go <span class="built_in">test</span> subtest</span><br><span class="line"><span class="comment"># 输出：subtest called</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="添加命令行参数"><a href="#添加命令行参数" class="headerlink" title="添加命令行参数"></a>添加命令行参数</h3><p>在 <code>test.go</code> 的 <code>init</code> 函数中添加参数定义：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PersistentFlags：持久化参数，在当前命令及其所有子命令下都可见</span></span><br><span class="line">testCmd.PersistentFlags().String(<span class="string">&quot;foo&quot;</span>, <span class="string">&quot;&quot;</span>, <span class="string">&quot;A help for foo&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Flags：本地参数，仅当前命令可见</span></span><br><span class="line">testCmd.Flags().String(<span class="string">&quot;foolocal&quot;</span>, <span class="string">&quot;&quot;</span>, <span class="string">&quot;A help for foo&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>运行 <code>go run main.go test</code> 可以看到参数说明：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Flags:</span><br><span class="line">      --foo string      A help for foo</span><br><span class="line">  -h, --help            help for test</span><br><span class="line">  -t, --toggle          Help message for toggle</span><br><span class="line"></span><br><span class="line">Global Flags:</span><br><span class="line">      --config string   config file (default is $HOME/.demo.yaml)</span><br></pre></td></tr></table></figure>
+
+<p>对比 <code>go run main.go test subtest -h</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Flags:</span><br><span class="line">  -h, --help            help for subtest</span><br><span class="line"></span><br><span class="line">Global Flags:</span><br><span class="line">      --config string   config file (default is $HOME/.demo.yaml)</span><br><span class="line">      --foo string      A help for foo   ← 持久化参数在子命令中也可见</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>关键区别</strong>：</p>
+<ul>
+<li><code>PersistentFlags()</code> 定义的参数在<strong>所有子命令下都可见</strong>（出现在 Global Flags 中）</li>
+<li><code>Flags()</code> 定义的参数<strong>只在当前命令下可见</strong></li>
+</ul>
+</blockquote>
+<h3 id="获取参数值"><a href="#获取参数值" class="headerlink" title="获取参数值"></a>获取参数值</h3><p>在 <code>Run</code> 函数中通过 <code>cmd.Flags().GetXxx()</code> 方法获取参数值：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Run: <span class="function"><span class="keyword">func</span><span class="params">(cmd *cobra.Command, args []<span class="type">string</span>)</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;test called&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取 String 参数</span></span><br><span class="line">    foo, _ := cmd.Flags().GetString(<span class="string">&quot;foo&quot;</span>)</span><br><span class="line">    fmt.Println(foo)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取 Bool 参数</span></span><br><span class="line">    toggle, _ := cmd.Flags().GetBool(<span class="string">&quot;toggle&quot;</span>)</span><br><span class="line">    fmt.Println(toggle)</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">go run main.go <span class="built_in">test</span> --foo <span class="string">&quot;hello&quot;</span> -t <span class="literal">false</span></span><br><span class="line"><span class="comment"># 输出：</span></span><br><span class="line"><span class="comment"># test called</span></span><br><span class="line"><span class="comment"># hello</span></span><br><span class="line"><span class="comment"># true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Cobra-常用参数类型"><a href="#Cobra-常用参数类型" class="headerlink" title="Cobra 常用参数类型"></a>Cobra 常用参数类型</h3><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Flags().String(name, default, usage)</code></td>
+<td>字符串参数</td>
+</tr>
+<tr>
+<td><code>Flags().Bool(name, default, usage)</code></td>
+<td>布尔参数</td>
+</tr>
+<tr>
+<td><code>Flags().Int(name, default, usage)</code></td>
+<td>整数参数</td>
+</tr>
+<tr>
+<td><code>Flags().Float64(name, default, usage)</code></td>
+<td>浮点数参数</td>
+</tr>
+<tr>
+<td><code>PersistentFlags().String(...)</code></td>
+<td>持久化参数（子命令可见）</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文从零开始介绍了 Go 语言的基础知识，涵盖了：</p>
+<ol>
+<li><strong>基本变量类型</strong>：Go 内置的整型、字符串、数组、切片、结构体、指针、map、函数等类型</li>
+<li><strong>变量声明方式</strong>：<code>var</code>、<code>:=</code> 短声明、批量声明等</li>
+<li><strong>常量和 iota</strong>：常量定义及 iota 枚举器的妙用</li>
+<li><strong>字符串遍历</strong>：byte 遍历 vs rune（Unicode）遍历的重要区别</li>
+<li><strong>值类型与引用类型</strong>：Go 函数传参的本质</li>
+<li><strong>数组</strong>：声明、遍历、值类型特性</li>
+<li><strong>切片</strong>：创建、追加、删除、底层结构、浅拷贝与深拷贝</li>
+<li><strong>Map</strong>：初始化、查找、遍历、排序、二维 map、slice of map、反转</li>
+<li><strong>Cobra</strong>：Go 命令行应用框架的基本使用</li>
+</ol>
+<p>掌握这些基础知识后，你就可以开始用 Go 编写实用的程序了。建议自己动手把文中的代码示例都敲一遍，实践是最好的学习方式。</p>
+<hr>
+<blockquote>
+<p>本文参考了<a target="_blank" rel="noopener" href="https://gitbookcpp.llfc.club/">恋恋风辰的编程笔记</a>中的 Go 语言系列教程，特此感谢！</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Go/" rel="tag"># Go</a>
+              <a href="/tags/Golang/" rel="tag"># Golang</a>
+              <a href="/tags/%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/" rel="tag"># 编程入门</a>
+              <a href="/tags/%E6%95%99%E7%A8%8B/" rel="tag"># 教程</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/30/redis/redis/" rel="prev" title="Redis">
+                  <i class="fa fa-angle-left"></i> Redis
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+
+    
+      <div class="post-back-button">
+        <a href="/categories/go/" class="back-btn" title="返回分类">
+          <i class="fa fa-arrow-left"></i> 返回分类：go
+        </a>
+        <a href="/" class="back-btn" title="返回首页">
+          <i class="fa fa-home"></i> 返回首页
+        </a>
+      </div>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+  <div class="languages">
+    <label class="lang-select-label">
+      <i class="fa fa-language"></i>
+      <span>简体中文</span>
+      <i class="fa fa-angle-up" aria-hidden="true"></i>
+    </label>
+    <select class="lang-select" data-canonical="" aria-label="选择语言">
+      
+        <option value="zh-CN" data-href="/2026/06/10/go/golang-basics/" selected="">
+          简体中文
+        </option>
+      
+        <option value="en" data-href="/en/2026/06/10/go/golang-basics/" selected="">
+          English
+        </option>
+      
+    </select>
+  </div>
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Chen Blog 1.0</span>
+  </div>
+  <div class="powered-by">技术支持: <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+<script>
+  (function () {
+    function loadScript(src) {
+      return new Promise(function (resolve, reject) {
+        var s = document.createElement("script");
+        s.src = src;
+        s.async = true;
+        s.defer = true;
+        s.onload = resolve;
+        s.onerror = reject;
+        document.body.appendChild(s);
+      });
+    }
+
+    function initLive2D() {
+      if (window.innerWidth < 768) return;
+      loadScript("/js/live2d-widget/L2Dwidget.min.js")
+        .then(function () {
+          if (!window.L2Dwidget) return;
+          window.L2Dwidget.init({
+            model: {
+              jsonPath: "https://cdn.jsdelivr.net/npm/live2d-widget-model-koharu@1.0.5/assets/koharu.model.json",
+              scale: 0.9
+            },
+            display: {
+              position: "right",
+              width: 180,
+              height: 320,
+              hOffset: 0,
+              vOffset: 0
+            },
+            mobile: {
+              show: false
+            },
+            react: {
+              opacityDefault: 0.68,
+              opacityOnHover: 0.8
+            }
+          });
+        })
+        .catch(function () {
+          // 静默失败，避免影响页面主流程
+        });
+    }
+
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(initLive2D, { timeout: 2500 });
+    } else {
+      setTimeout(initLive2D, 1200);
+    }
+  })();
+</script>
+<script src="/js/live2d-drag.js" defer></script>
+
+</body>
+</html>
